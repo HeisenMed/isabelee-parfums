@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCart();
   initDarkMode();
   initHeroSparkles();
+  initAmbientSparkles();
 });
 
 function initHeader() {
@@ -96,6 +97,51 @@ function spawnSparkles(hero, x, y) {
     hero.appendChild(el);
     el.addEventListener('animationend', () => el.remove(), { once: true });
   }
+}
+
+/* Destellos ambientales automáticos: visibles en mobile y desktop,
+   independientes del cursor. CSS animations + JS mínimo (sin canvas). */
+function initAmbientSparkles() {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let container = hero.querySelector('.hero-ambient');
+  if (!container) {
+    container = document.createElement('div');
+    container.className = 'hero-ambient';
+    container.setAttribute('aria-hidden', 'true');
+    hero.insertBefore(container, hero.firstChild);
+  }
+
+  const palette = ['#C9A84C', '#e8d48b', '#fff8e1'];
+  const MAX = 20;
+
+  function spawn() {
+    if (document.hidden) return;                       // no acumular en pestaña oculta
+    if (container.childElementCount >= MAX) return;    // no saturar
+    const el = document.createElement('span');
+    const size  = (Math.random() * 3 + 2).toFixed(1);          // 2-5px
+    const glow  = Math.random() < 0.35;                        // ~1/3 con brillo
+    const color = palette[Math.floor(Math.random() * palette.length)];
+    const dur   = (Math.random() * 2 + 2).toFixed(2);          // 2-4s
+    const drift = (Math.random() * 30 - 15).toFixed(0) + 'px'; // deriva horizontal sutil
+    el.className = 'ambient-sparkle' + (glow ? ' ambient-sparkle--glow' : '');
+    el.style.cssText = [
+      `left:${(Math.random() * 100).toFixed(2)}%`,
+      `top:${(Math.random() * 100).toFixed(2)}%`,
+      `width:${size}px`,
+      `height:${size}px`,
+      `--spark-color:${color}`,
+      `--drift:${drift}`,
+      `animation-duration:${dur}s,${dur}s`
+    ].join(';');
+    container.appendChild(el);
+    el.addEventListener('animationend', () => el.remove(), { once: true });
+  }
+
+  for (let i = 0; i < 14; i++) spawn();   // relleno inicial
+  setInterval(spawn, 190);                 // ~17 partículas en régimen estable
 }
 
 function toggleDark() {

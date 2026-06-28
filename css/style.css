@@ -1430,3 +1430,48 @@ footer {
     25%  { opacity: 1;   transform: scale(1)   rotate(50deg) }
     100% { opacity: 0;   transform: scale(0.2) rotate(100deg) translateY(-32px) }
 }
+
+/* ── HERO AMBIENT SPARKLES (auto, mobile + desktop) ── */
+.hero-ambient {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1; /* detrás del .hero-body (z-index:2), encima del canvas */
+}
+
+.ambient-sparkle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--spark-color, #C9A84C);
+    box-shadow: 0 0 6px var(--spark-color, #C9A84C);
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+    animation-name: sparkle-float, sparkle-fade;
+    animation-timing-function: ease-in-out, ease-in-out;
+    animation-iteration-count: 1, 1;
+    animation-fill-mode: forwards, forwards
+}
+
+/* algunas partículas con brillo extra */
+.ambient-sparkle--glow {
+    box-shadow: 0 0 10px var(--spark-color, #C9A84C), 0 0 20px var(--spark-color, #C9A84C)
+}
+
+@keyframes sparkle-float {
+    0%   { transform: translate(0, 0) scale(0.5) }
+    50%  { transform: translate(calc(var(--drift, 0px) * 0.5), -34px) scale(1) }
+    100% { transform: translate(var(--drift, 0px), -74px) scale(0.35) }
+}
+
+@keyframes sparkle-fade {
+    0%   { opacity: 0 }
+    20%  { opacity: 0.8 }
+    75%  { opacity: 0.55 }
+    100% { opacity: 0 }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-ambient { display: none }
+}
