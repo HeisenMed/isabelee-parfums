@@ -1,0 +1,45 @@
+/* Dark mode — toggled via data-theme="dark" on <html> */
+[data-theme="dark"] {
+  --black: #f0ede8;
+  --white: #0f0e0c;
+  --gray-50: #1a1917;
+  --gray-100: #242220;
+  --gray-200: #333027;
+  --gray-300: #4a4640;
+  --gray-400: #6b6460;
+  --gray-500: #9a9087;
+  --gray-700: #ccc5bc;
+  --beige: #1a1714;
+}
+
+[data-theme="dark"] header {
+  background: rgba(15, 14, 12, .97);
+  border-bottom-color: var(--gray-200);
+}
+
+[data-theme="dark"] .hero {
+  background: #04040a;
+}
+
+[data-theme="dark"] footer {
+  background: #0a0908;
+}
+
+[data-theme="dark"] .cart-drawer,
+[data-theme="dark"] .mob-menu {
+  background: var(--white);
+}
+
+[data-theme="dark"] .prod-card {
+  background: var(--gray-100);
+}
+
+[data-theme="dark"] .sidebar {
+  background: var(--white);
+}
+
+/* Dark toggle icon swap */
+[data-theme="dark"] #darkToggle .icon-sun { display: block; }
+[data-theme="dark"] #darkToggle .icon-moon { display: none; }
+#darkToggle .icon-sun { display: none; }
+#darkToggle .icon-moon { display: block; }

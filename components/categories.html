@@ -1,0 +1,84 @@
+<!-- ============================================================
+     CATEGORIES COMPONENT
+     ============================================================ -->
+<section class="section" id="categorias" aria-labelledby="cat-title">
+  <div class="wrap">
+
+    <header class="sec-head reveal">
+      <span class="sec-eyebrow">Nuestras Categorías</span>
+      <h2 class="sec-title" id="cat-title">Fragancias para Cada Momento</h2>
+      <div class="sec-rule"></div>
+    </header>
+
+    <div class="categories__grid">
+
+      <!-- HOMBRE -->
+      <a href="#hombre" class="cat-card cat-card--hombre reveal" id="hombre">
+        <!-- Background & illustration -->
+        <div class="cat-card__bg"></div>
+        <div class="cat-card__illustration" aria-hidden="true">
+          <svg width="220" height="340" viewBox="0 0 100 160" fill="none">
+            <rect x="38" y="0"  width="24" height="20" rx="5" fill="white"/>
+            <rect x="43" y="20" width="14" height="12" rx="2" fill="white"/>
+            <rect x="8"  y="32" width="84" height="120" rx="8" fill="white"/>
+            <rect x="18" y="90" width="64" height="45" rx="4" fill="rgba(0,0,0,.25)"/>
+            <rect x="14" y="36" width="10" height="70" rx="5" fill="rgba(255,255,255,.3)"/>
+          </svg>
+        </div>
+        <!-- Grid texture -->
+        <div aria-hidden="true" style="
+          position:absolute;inset:0;
+          background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(255,255,255,.018) 40px,rgba(255,255,255,.018) 41px),
+                           repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(255,255,255,.018) 40px,rgba(255,255,255,.018) 41px);
+        "></div>
+
+        <div class="cat-card__overlay"></div>
+
+        <div class="cat-card__body">
+          <span class="cat-card__tag">Para Él</span>
+          <h3 class="cat-card__name">Perfumes<br>de Hombre</h3>
+          <span class="cat-card__cta">
+            Descubrir
+            <svg viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- MUJER -->
+      <a href="#mujer" class="cat-card cat-card--mujer reveal" id="mujer">
+        <div class="cat-card__bg"></div>
+        <div class="cat-card__illustration" aria-hidden="true">
+          <svg width="190" height="300" viewBox="0 0 90 150" fill="none">
+            <rect x="32" y="0"  width="26" height="18" rx="10" fill="white"/>
+            <rect x="38" y="18" width="14" height="13" rx="2" fill="white"/>
+            <rect x="5"  y="31" width="80" height="112" rx="7" fill="white"/>
+            <rect x="13" y="80" width="64" height="44" rx="3" fill="rgba(0,0,0,.22)"/>
+            <rect x="10" y="34" width="10" height="65" rx="5" fill="rgba(255,255,255,.28)"/>
+          </svg>
+        </div>
+        <div aria-hidden="true" style="
+          position:absolute;inset:0;
+          background:radial-gradient(ellipse at 70% 30%,rgba(255,180,200,.06) 0%,transparent 60%);
+        "></div>
+
+        <div class="cat-card__overlay" style="
+          background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.18) 55%,transparent 100%);
+        "></div>
+
+        <div class="cat-card__body">
+          <span class="cat-card__tag">Para Ella</span>
+          <h3 class="cat-card__name">Perfumes<br>de Mujer</h3>
+          <span class="cat-card__cta">
+            Descubrir
+            <svg viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>

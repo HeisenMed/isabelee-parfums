@@ -1,0 +1,547 @@
+/* producto.css — product detail page */
+
+/* ── Layout ───────────────────────────────────────────────────────────────── */
+.pdp-main {
+  padding-top: calc(var(--header-h) + 32px);
+  padding-bottom: 0;
+  min-height: 60vh;
+  background: var(--white);
+}
+
+.pdp-wrap {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Back link ────────────────────────────────────────────────────────────── */
+.pdp-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  text-decoration: none;
+  margin-bottom: 36px;
+  transition: color .2s var(--ease);
+}
+.pdp-back svg {
+  width: 16px; height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+.pdp-back:hover { color: var(--black); }
+
+/* ── Product grid ─────────────────────────────────────────────────────────── */
+.pdp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+  margin-bottom: 72px;
+}
+
+/* ── Image ────────────────────────────────────────────────────────────────── */
+.pdp-img-wrap {
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+  background: var(--gray-50);
+  border-radius: 4px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pdp-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 32px;
+}
+
+/* ── Info column ──────────────────────────────────────────────────────────── */
+.pdp-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pdp-brand {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 10px;
+}
+
+.pdp-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.12;
+  color: var(--black);
+  margin: 0 0 12px;
+}
+
+.pdp-type {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: .06em;
+  color: var(--gray-500);
+  margin: 0 0 28px;
+}
+
+.pdp-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 0 28px;
+}
+
+.pdp-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--black);
+  margin: 0 0 32px;
+}
+
+/* ── Quantity row ─────────────────────────────────────────────────────────── */
+.pdp-qty-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.pdp-qty {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--gray-200);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.qty-btn {
+  width: 44px;
+  height: 44px;
+  background: var(--white);
+  border: none;
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--black);
+  cursor: pointer;
+  transition: background .18s var(--ease);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.qty-btn:hover { background: var(--gray-100); }
+
+.qty-num {
+  width: 52px;
+  text-align: center;
+  font-family: 'Jost', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--black);
+  border-left: 1px solid var(--gray-200);
+  border-right: 1px solid var(--gray-200);
+  line-height: 44px;
+}
+
+/* ── Wish button ──────────────────────────────────────────────────────────── */
+.pdp-wish-btn {
+  width: 44px;
+  height: 44px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .18s var(--ease), border-color .18s var(--ease);
+  flex-shrink: 0;
+}
+.pdp-wish-btn svg {
+  width: 20px; height: 20px;
+  stroke: var(--gray-500);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke .18s, fill .18s;
+}
+.pdp-wish-btn:hover { border-color: var(--black); }
+.pdp-wish-btn:hover svg { stroke: var(--black); }
+.pdp-wish-btn.on svg { fill: var(--red-dark); stroke: var(--red-dark); }
+
+/* ── Buy button ───────────────────────────────────────────────────────────── */
+.pdp-buy-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 16px 24px;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  border-radius: 2px;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .22s var(--ease), transform .18s var(--ease);
+  margin-bottom: 32px;
+}
+.pdp-buy-btn svg {
+  width: 18px; height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pdp-buy-btn:hover {
+  background: #1e1e1e;
+  transform: translateY(-1px);
+}
+
+/* ── Extra sections (desc / atm / reviews) ───────────────────────────────── */
+.pdp-extra {
+  background: var(--gray-50);
+  border-top: 1px solid var(--gray-200);
+}
+
+.pdp-section {
+  padding: 56px 0;
+}
+.pdp-section + .pdp-section {
+  border-top: 1px solid var(--gray-200);
+}
+
+.pdp-section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--black);
+  margin: 0 0 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+/* ── Description ──────────────────────────────────────────────────────────── */
+.pdp-desc-text {
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--gray-700);
+  max-width: 680px;
+}
+
+/* ── Atmósfera ────────────────────────────────────────────────────────────── */
+.atm-familia {
+  display: inline-block;
+  padding: 5px 14px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  margin-bottom: 28px;
+}
+
+.atm-notes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.atm-note {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 2px;
+}
+
+.atm-note-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.atm-note-val {
+  font-family: 'Jost', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--gray-700);
+  line-height: 1.6;
+}
+
+/* ── Reviews ──────────────────────────────────────────────────────────────── */
+.rev-summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 36px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.rev-avg {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--black);
+}
+
+.rev-stars {
+  display: flex;
+  gap: 3px;
+}
+
+.star {
+  width: 18px; height: 18px;
+  stroke: var(--gray-300);
+  fill: var(--gray-200);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.star.on {
+  fill: var(--gold);
+  stroke: var(--gold);
+}
+
+.rev-count {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gray-500);
+  margin-left: 4px;
+}
+
+.rev-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.rev-item {
+  padding: 24px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 2px;
+}
+
+.rev-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.rev-name {
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--black);
+}
+
+.rev-date {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--gray-400);
+  margin-left: auto;
+}
+
+.rev-comment {
+  font-family: 'Jost', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--gray-700);
+  margin: 0;
+}
+
+.rev-empty {
+  font-family: 'Jost', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--gray-500);
+  margin-bottom: 32px;
+}
+
+/* ── Review form ──────────────────────────────────────────────────────────── */
+.rev-form {
+  border-top: 1px solid var(--gray-200);
+  padding-top: 36px;
+  max-width: 560px;
+}
+
+.rev-form-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--black);
+  margin: 0 0 20px;
+}
+
+.rev-form-row {
+  margin-bottom: 16px;
+}
+
+.rev-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--gray-200);
+  border-radius: 2px;
+  background: var(--white);
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--black);
+  box-sizing: border-box;
+  transition: border-color .18s var(--ease);
+  outline: none;
+}
+.rev-input:focus { border-color: var(--gold); }
+.rev-input::placeholder { color: var(--gray-400); }
+
+.rev-textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.rev-star-pick {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.rev-star-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 0;
+  transition: transform .15s var(--ease);
+}
+.rev-star-btn svg {
+  width: 28px; height: 28px;
+  fill: var(--gray-200);
+  stroke: var(--gray-300);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: fill .15s, stroke .15s;
+}
+.rev-star-btn.on svg,
+.rev-star-btn:hover svg {
+  fill: var(--gold);
+  stroke: var(--gold);
+}
+.rev-star-btn:hover { transform: scale(1.15); }
+
+.rev-submit {
+  margin-bottom: 0;
+}
+
+/* ── Not-found state ──────────────────────────────────────────────────────── */
+.pdp-not-found {
+  text-align: center;
+  padding: 80px 0;
+}
+.pdp-not-found p {
+  font-family: 'Jost', sans-serif;
+  font-size: 18px;
+  color: var(--gray-500);
+  margin-bottom: 24px;
+}
+
+/* ── Dark mode ────────────────────────────────────────────────────────────── */
+[data-theme="dark"] .pdp-main,
+[data-theme="dark"] .pdp-extra {
+  background: #111;
+}
+[data-theme="dark"] .pdp-img-wrap { background: #1a1a1a; }
+[data-theme="dark"] .pdp-name,
+[data-theme="dark"] .pdp-price,
+[data-theme="dark"] .rev-avg { color: var(--white); }
+[data-theme="dark"] .pdp-extra { border-color: #2a2a2a; }
+[data-theme="dark"] .pdp-section { border-color: #2a2a2a; }
+[data-theme="dark"] .pdp-section-title { color: var(--white); border-color: #2a2a2a; }
+[data-theme="dark"] .pdp-desc-text { color: var(--gray-400); }
+[data-theme="dark"] .rev-item,
+[data-theme="dark"] .atm-note { background: #1a1a1a; border-color: #2a2a2a; }
+[data-theme="dark"] .rev-input { background: #1a1a1a; border-color: #2a2a2a; color: var(--white); }
+[data-theme="dark"] .qty-btn,
+[data-theme="dark"] .pdp-qty,
+[data-theme="dark"] .pdp-wish-btn { background: #1a1a1a; border-color: #2a2a2a; }
+[data-theme="dark"] .qty-num { color: var(--white); border-color: #2a2a2a; }
+[data-theme="dark"] .qty-btn:hover { background: #222; }
+[data-theme="dark"] .pdp-buy-btn { background: var(--gold); color: var(--black); }
+[data-theme="dark"] .pdp-buy-btn:hover { background: #b8965e; }
+
+/* ── Card cursor hint (catalog) ───────────────────────────────────────────── */
+.prod-card { cursor: pointer; }
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .pdp-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+  .pdp-img-wrap {
+    position: static;
+    max-width: 420px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .atm-notes { grid-template-columns: 1fr; }
+  .rev-date { margin-left: 0; }
+  .rev-header { gap: 8px; }
+}
+
+@media (max-width: 480px) {
+  .pdp-main { padding-top: calc(var(--header-h) + 16px); }
+  .pdp-wrap { padding: 0 16px; }
+  .pdp-name { font-size: 28px; }
+  .pdp-section { padding: 36px 0; }
+  .atm-notes { gap: 12px; }
+}
