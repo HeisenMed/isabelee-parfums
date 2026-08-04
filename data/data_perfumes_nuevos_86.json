@@ -1,0 +1,2778 @@
+[
+  {
+    "id": 35,
+    "brand": "Dior",
+    "name": "Sauvage Elixir",
+    "category": "hombre",
+    "volume": "60ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Amaderada Especiada",
+    "notas_salida": "Nuez moscada, canela, cardamomo, toronja",
+    "notas_corazon": "Lavanda",
+    "notas_fondo": "Regaliz, sándalo, ámbar, pachulí, vetiver de Haití",
+    "descripcion_olfativa": "Una relectura concentrada y licorosa del Sauvage, con lavanda especiada envuelta en regaliz y maderas dulces.",
+    "description": "La evolución más intensa del ícono masculino de Dior: pocas atomizaciones bastan para dejar una estela magnética que dura toda la noche.",
+    "ocasion": "Noche, Invierno, Ocasiones especiales",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Felipe G.",
+        "estrellas": 3,
+        "fecha": "19 Abr 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      },
+      {
+        "nombre": "Andrés R.",
+        "estrellas": 5,
+        "fecha": "15 Nov 2025",
+        "comentario": "Perfecto para la ocasión que buscaba."
+      },
+      {
+        "nombre": "Camilo H.",
+        "estrellas": 5,
+        "fecha": "5 Mar 2025",
+        "comentario": "Cada vez que lo uso me hacen un cumplido."
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "brand": "Chanel",
+    "name": "Bleu de Chanel EDP",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Amaderada Aromática",
+    "notas_salida": "Toronja, limón, menta, pimienta rosa, bergamota",
+    "notas_corazon": "Jengibre, nuez moscada, jazmín, Iso E Super",
+    "notas_fondo": "Incienso, ámbar, sándalo, pachulí, cedro",
+    "descripcion_olfativa": "Fresco-amaderado con un fondo de incienso que le da profundidad sofisticada.",
+    "description": "El estándar de la elegancia masculina moderna: versátil, limpio y siempre correcto, del día a la noche.",
+    "ocasion": "Diario, Oficina, Noche",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Julián P.",
+        "estrellas": 4,
+        "fecha": "2 Abr 2025",
+        "comentario": "Ideal para regalar, el frasco también es precioso."
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "brand": "Versace",
+    "name": "Eros EDT",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Aromática Fougère",
+    "notas_salida": "Menta, manzana verde, limón",
+    "notas_corazon": "Haba tonka, ambroxan, geranio",
+    "notas_fondo": "Vainilla de Madagascar, vetiver, musgo de roble, cedro",
+    "descripcion_olfativa": "Menta fresca y brillante que se derrite en una base de vainilla adictiva.",
+    "description": "Seductor, potente y juvenil, uno de los grandes imanes de cumplidos en la noche colombiana.",
+    "ocasion": "Noche, Fiesta",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Miguel Á.",
+        "estrellas": 5,
+        "fecha": "2 Abr 2025",
+        "comentario": "Repetiría la compra sin dudar."
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "brand": "Yves Saint Laurent",
+    "name": "Y EDP",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Amaderada Aromática",
+    "notas_salida": "Manzana, jengibre, bergamota",
+    "notas_corazon": "Salvia, bayas de enebro, geranio",
+    "notas_fondo": "Amberwood, haba tonka, cedro, vetiver, olíbano",
+    "descripcion_olfativa": "Fresco-amaderado con contraste de manzana crujiente y salvia limpia.",
+    "description": "El perfume del hombre determinado: moderno, pulcro y de gran alcance para la oficina y más allá.",
+    "ocasion": "Diario, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Camilo H.",
+        "estrellas": 5,
+        "fecha": "2 Ago 2025",
+        "comentario": "Huele carísimo, nadie diría el precio que tiene."
+      },
+      {
+        "nombre": "Andrés R.",
+        "estrellas": 5,
+        "fecha": "11 Jun 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      },
+      {
+        "nombre": "Mateo V.",
+        "estrellas": 5,
+        "fecha": "7 May 2025",
+        "comentario": "La salida es intensa y el fondo se siente lujoso."
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "brand": "Paco Rabanne",
+    "name": "Invictus",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Acuática Amaderada",
+    "notas_salida": "Toronja, notas marinas, mandarina",
+    "notas_corazon": "Hoja de laurel, jazmín",
+    "notas_fondo": "Madera de gaïac, musgo de roble, ámbar gris, pachulí",
+    "descripcion_olfativa": "Frescura marina y cítrica sobre un fondo limpio y amaderado.",
+    "description": "Energía deportiva y triunfadora en un frasco-trofeo; ideal para el clima cálido colombiano.",
+    "ocasion": "Diario, Verano, Gym",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Iván Q.",
+        "estrellas": 5,
+        "fecha": "28 Ene 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      },
+      {
+        "nombre": "Camilo H.",
+        "estrellas": 4,
+        "fecha": "20 Ago 2025",
+        "comentario": "Muy recomendado, superó mis expectativas."
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "brand": "Hugo Boss",
+    "name": "Boss Bottled",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Amaderada Especiada",
+    "notas_salida": "Manzana, bergamota, limón",
+    "notas_corazon": "Canela, caoba, clavel",
+    "notas_fondo": "Vainilla, sándalo, cedro, vetiver",
+    "descripcion_olfativa": "Manzana especiada y maderas cálidas, un clásico ejecutivo.",
+    "description": "El aroma del hombre exitoso: elegante, confiable y perfecto para el entorno laboral.",
+    "ocasion": "Oficina, Diario",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Iván Q.",
+        "estrellas": 5,
+        "fecha": "9 Feb 2025",
+        "comentario": "Se ha vuelto mi diario, muy versátil."
+      },
+      {
+        "nombre": "Juan D.",
+        "estrellas": 5,
+        "fecha": "28 Ene 2025",
+        "comentario": "La proyección es impresionante, recibo cumplidos seguido."
+      },
+      {
+        "nombre": "Daniel O.",
+        "estrellas": 5,
+        "fecha": "19 Abr 2025",
+        "comentario": "Repetiría la compra sin dudar."
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "brand": "Carolina Herrera",
+    "name": "212 VIP Black",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Ámbar Fougère Aromática",
+    "notas_salida": "Absenta, anís, lavanda",
+    "notas_corazon": "Vainilla negra",
+    "notas_fondo": "Cuero, almizcle",
+    "descripcion_olfativa": "Dulce, boozy y magnético, con lavanda y vainilla oscura.",
+    "description": "El pase VIP a la mejor fiesta: intenso, adictivo y hecho para la noche.",
+    "ocasion": "Noche, Fiesta",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Juan D.",
+        "estrellas": 5,
+        "fecha": "30 Jun 2025",
+        "comentario": "Justo lo que esperaba, calidad muy buena."
+      },
+      {
+        "nombre": "Mateo V.",
+        "estrellas": 4,
+        "fecha": "2 Abr 2025",
+        "comentario": "Se ha vuelto mi diario, muy versátil."
+      },
+      {
+        "nombre": "Iván Q.",
+        "estrellas": 5,
+        "fecha": "7 May 2025",
+        "comentario": "Perfecto para la ocasión que buscaba."
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "brand": "Valentino",
+    "name": "Uomo Born in Roma",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Amaderada Especiada",
+    "notas_salida": "Sal, hojas de violeta, notas minerales",
+    "notas_corazon": "Salvia, jengibre",
+    "notas_fondo": "Vetiver ahumado, cedro",
+    "descripcion_olfativa": "Amaderado contemporáneo con un toque salino-mineral original.",
+    "description": "Uno de los diseñador más buscados del país; sofisticado y funcional todo el año.",
+    "ocasion": "Diario, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Camilo H.",
+        "estrellas": 4,
+        "fecha": "19 Abr 2025",
+        "comentario": "La proyección es impresionante, recibo cumplidos seguido."
+      },
+      {
+        "nombre": "Miguel Á.",
+        "estrellas": 4,
+        "fecha": "11 Jun 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "brand": "Jean Paul Gaultier",
+    "name": "Le Male EDT",
+    "category": "hombre",
+    "volume": "125ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Aromática Fougère",
+    "notas_salida": "Menta, lavanda, cardamomo, bergamota",
+    "notas_corazon": "Canela, comino, flor de azahar",
+    "notas_fondo": "Vainilla, haba tonka, sándalo, ámbar",
+    "descripcion_olfativa": "Lavanda fresca y menta sobre una vainilla cremosa inconfundible.",
+    "description": "El clásico del torso marinero, un icono de seducción que nunca pasa de moda.",
+    "ocasion": "Noche, Diario",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Camilo H.",
+        "estrellas": 4,
+        "fecha": "2 Abr 2025",
+        "comentario": "Perfecto para la ocasión que buscaba."
+      },
+      {
+        "nombre": "Julián P.",
+        "estrellas": 5,
+        "fecha": "29 Oct 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "brand": "Jean Paul Gaultier",
+    "name": "Ultra Male",
+    "category": "hombre",
+    "volume": "125ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Aromática Fougère",
+    "notas_salida": "Pera, lavanda, menta",
+    "notas_corazon": "Canela, flor de azahar, salvia",
+    "notas_fondo": "Vainilla, haba tonka, cedro, pachulí",
+    "descripcion_olfativa": "Versión dulce, potente y juvenil de Le Male, con pera jugosa.",
+    "description": "Llamativo, de gran duración y un imán juvenil para la noche.",
+    "ocasion": "Noche, Fiesta",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Ricardo N.",
+        "estrellas": 5,
+        "fecha": "5 Mar 2025",
+        "comentario": "Sorprendido con la duración, más de 8 horas fácil."
+      },
+      {
+        "nombre": "Santiago L.",
+        "estrellas": 4,
+        "fecha": "19 Abr 2025",
+        "comentario": "Cada vez que lo uso me hacen un cumplido."
+      },
+      {
+        "nombre": "Camilo H.",
+        "estrellas": 5,
+        "fecha": "10 Oct 2025",
+        "comentario": "Se ha vuelto mi diario, muy versátil."
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "brand": "Paco Rabanne",
+    "name": "Phantom",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Aromática",
+    "notas_salida": "Limón, lavanda",
+    "notas_corazon": "Manzana, lavanda",
+    "notas_fondo": "Vainilla, pachulí, vetiver",
+    "descripcion_olfativa": "Fresco-cítrico con fondo dulce; limpio y tecnológico.",
+    "description": "El robot-perfume que combina frescura futurista con dulzor moderno.",
+    "ocasion": "Diario, Fiesta",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Pablo E.",
+        "estrellas": 4,
+        "fecha": "8 Sep 2025",
+        "comentario": "Justo lo que esperaba, calidad muy buena."
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "brand": "Giorgio Armani",
+    "name": "Acqua di Giò Profumo",
+    "category": "hombre",
+    "volume": "75ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Aromática Acuática",
+    "notas_salida": "Bergamota, notas marinas",
+    "notas_corazon": "Geranio, salvia, romero",
+    "notas_fondo": "Incienso, pachulí",
+    "descripcion_olfativa": "El acuático mediterráneo en su versión más oscura y elegante, con incienso.",
+    "description": "El agua de mar convertida en lujo nocturno; sofisticación absoluta.",
+    "ocasion": "Noche, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Santiago L.",
+        "estrellas": 4,
+        "fecha": "18 Mar 2025",
+        "comentario": "Repetiría la compra sin dudar."
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "brand": "Dolce & Gabbana",
+    "name": "The One for Men",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Amaderada Especiada",
+    "notas_salida": "Toronja, cilantro, albahaca",
+    "notas_corazon": "Cardamomo, jengibre, flor de azahar",
+    "notas_fondo": "Tabaco, cedro, ámbar",
+    "descripcion_olfativa": "Oriental-especiado cálido con tabaco suave.",
+    "description": "Elegancia italiana pura, ideal para el hombre que proyecta madurez y estilo.",
+    "ocasion": "Noche, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Tomás R.",
+        "estrellas": 4,
+        "fecha": "25 Sep 2025",
+        "comentario": "Excelente fijación, dura toda la jornada."
+      },
+      {
+        "nombre": "Ricardo N.",
+        "estrellas": 4,
+        "fecha": "7 May 2025",
+        "comentario": "Perfecto para la ocasión que buscaba."
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "brand": "Versace",
+    "name": "Dylan Blue",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Aromática Fougère Acuática",
+    "notas_salida": "Bergamota de Calabria, toronja, notas acuáticas",
+    "notas_corazon": "Papiro, ambrox, pimienta negra, hoja de violeta",
+    "notas_fondo": "Almizcle mineral, incienso, haba tonka, sándalo",
+    "descripcion_olfativa": "Fresco-acuático con un corazón especiado y amaderado.",
+    "description": "Frescura versátil con carácter; funciona de la oficina a la playa.",
+    "ocasion": "Diario, Verano",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Camilo H.",
+        "estrellas": 4,
+        "fecha": "23 May 2025",
+        "comentario": "Muy recomendado, superó mis expectativas."
+      },
+      {
+        "nombre": "Nicolás T.",
+        "estrellas": 5,
+        "fecha": "2 Ago 2025",
+        "comentario": "Excelente fijación, dura toda la jornada."
+      },
+      {
+        "nombre": "Felipe G.",
+        "estrellas": 4,
+        "fecha": "18 Mar 2025",
+        "comentario": "Cada vez que lo uso me hacen un cumplido."
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "brand": "Chanel",
+    "name": "Allure Homme Sport",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Amaderada Aromática",
+    "notas_salida": "Naranja, mandarina, aldehídos, notas marinas",
+    "notas_corazon": "Pimienta, neroli, cedro",
+    "notas_fondo": "Haba tonka, almizcle blanco, vetiver, sándalo",
+    "descripcion_olfativa": "Cítrico-amaderado luminoso y limpio.",
+    "description": "La frescura deportiva con firma Chanel: discreta, elegante y de uso diario impecable.",
+    "ocasion": "Diario, Verano, Gym",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Pablo E.",
+        "estrellas": 4,
+        "fecha": "21 Feb 2025",
+        "comentario": "Se ha vuelto mi diario, muy versátil."
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "brand": "Prada",
+    "name": "Luna Rossa Carbon",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Aromática",
+    "notas_salida": "Bergamota, lavanda",
+    "notas_corazon": "Pimienta, salvia",
+    "notas_fondo": "Ambroxan, notas metálicas, pachulí",
+    "descripcion_olfativa": "Lavanda metálica y ambroxan; moderno y magnético.",
+    "description": "Tecnología olfativa italiana: limpio, versátil y con una estela adictiva.",
+    "ocasion": "Diario, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Iván Q.",
+        "estrellas": 5,
+        "fecha": "30 Jun 2025",
+        "comentario": "Excelente fijación, dura toda la jornada."
+      },
+      {
+        "nombre": "Daniel O.",
+        "estrellas": 5,
+        "fecha": "18 Mar 2025",
+        "comentario": "Se ha vuelto mi diario, muy versátil."
+      },
+      {
+        "nombre": "Santiago L.",
+        "estrellas": 5,
+        "fecha": "10 Oct 2025",
+        "comentario": "Muy buena relación calidad-precio."
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "brand": "Azzaro",
+    "name": "The Most Wanted Parfum",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Amaderada Especiada",
+    "notas_salida": "Cardamomo, jengibre, limón",
+    "notas_corazon": "Vetiver de Haití",
+    "notas_fondo": "Cuero de azafrán, madera de teca, ámbar",
+    "descripcion_olfativa": "Especiado-amaderado intenso con cuero cálido.",
+    "description": "Audaz y seductor, hecho para dejar huella en la noche.",
+    "ocasion": "Noche",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Sebastián C.",
+        "estrellas": 4,
+        "fecha": "19 Abr 2025",
+        "comentario": "Justo lo que esperaba, calidad muy buena."
+      },
+      {
+        "nombre": "Carlos M.",
+        "estrellas": 4,
+        "fecha": "29 Oct 2025",
+        "comentario": "La proyección es impresionante, recibo cumplidos seguido."
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "brand": "Armaf",
+    "name": "Club de Nuit Intense Man",
+    "category": "hombre",
+    "volume": "105ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Amaderada Especiada",
+    "notas_salida": "Limón, piña, bergamota, grosellas negras, manzana",
+    "notas_corazon": "Abedul, jazmín, rosa",
+    "notas_fondo": "Almizcle, ámbar gris, pachulí, vainilla",
+    "descripcion_olfativa": "Frutal-ahumado, inspirado en el estilo de Creed Aventus, con un potente estallido de limón, piña y notas ahumadas.",
+    "description": "La leyenda del árabe: calidad de casa de lujo a una fracción del precio. Rotación garantizada.",
+    "ocasion": "Diario, Oficina, Todo el año",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Santiago L.",
+        "estrellas": 4,
+        "fecha": "10 Oct 2025",
+        "comentario": "Repetiría la compra sin dudar."
+      },
+      {
+        "nombre": "Iván Q.",
+        "estrellas": 4,
+        "fecha": "18 Mar 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      },
+      {
+        "nombre": "Diego F.",
+        "estrellas": 4,
+        "fecha": "7 May 2025",
+        "comentario": "Sorprendido con la duración, más de 8 horas fácil."
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "brand": "Rasasi",
+    "name": "Hawas For Him",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Aromática Acuática",
+    "notas_salida": "Manzana, bergamota, limón, canela",
+    "notas_corazon": "Notas acuáticas, ciruela, flor de azahar, cardamomo",
+    "notas_fondo": "Ámbar gris, almizcle, pachulí, madera de deriva",
+    "descripcion_olfativa": "Fresco-frutal acuático con un toque especiado único (canela y cardamomo).",
+    "description": "El best-seller viral de Rasasi: frescura masculina de gran proyección, ideal para el calor.",
+    "ocasion": "Diario, Verano, Gym",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Juan D.",
+        "estrellas": 5,
+        "fecha": "25 Sep 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      },
+      {
+        "nombre": "Ricardo N.",
+        "estrellas": 5,
+        "fecha": "20 Ago 2025",
+        "comentario": "Un aroma distinto a todo lo que tenía."
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "brand": "Afnan",
+    "name": "9PM",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Ámbar Vainilla",
+    "notas_salida": "Manzana, canela, lavanda silvestre, bergamota",
+    "notas_corazon": "Flor de azahar, muguete",
+    "notas_fondo": "Vainilla, haba tonka, ámbar, pachulí",
+    "descripcion_olfativa": "Dulce y adictivo, con manzana-canela achocolatada.",
+    "description": "Uno de los árabes más vendidos de forma consistente; longevidad de 8-10 horas y precio imbatible.",
+    "ocasion": "Noche, Invierno",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Miguel Á.",
+        "estrellas": 4,
+        "fecha": "12 Ene 2025",
+        "comentario": "Ideal para regalar, el frasco también es precioso."
+      },
+      {
+        "nombre": "Sebastián C.",
+        "estrellas": 5,
+        "fecha": "9 Feb 2025",
+        "comentario": "La proyección es impresionante, recibo cumplidos seguido."
+      },
+      {
+        "nombre": "Óscar B.",
+        "estrellas": 5,
+        "fecha": "28 Ene 2025",
+        "comentario": "Excelente fijación, dura toda la jornada."
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "brand": "Lattafa",
+    "name": "Asad",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Ámbar / Oriental Especiada",
+    "notas_salida": "Pimienta negra, piña, tabaco",
+    "notas_corazon": "Pachulí, café, iris",
+    "notas_fondo": "Vainilla, ámbar, maderas secas, benjuí",
+    "descripcion_olfativa": "Amaderado-especiado intenso con café y tabaco; guiño al Dior Sauvage Elixir.",
+    "description": "Quienes lo prueban casi siempre compran la botella. Masculino, potente y de altísima rotación.",
+    "ocasion": "Noche, Diario",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Diego F.",
+        "estrellas": 4,
+        "fecha": "5 Mar 2025",
+        "comentario": "Ideal para regalar, el frasco también es precioso."
+      },
+      {
+        "nombre": "Daniel O.",
+        "estrellas": 5,
+        "fecha": "29 Oct 2025",
+        "comentario": "La salida es intensa y el fondo se siente lujoso."
+      },
+      {
+        "nombre": "Miguel Á.",
+        "estrellas": 5,
+        "fecha": "8 Sep 2025",
+        "comentario": "Un aroma distinto a todo lo que tenía."
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "brand": "Lattafa",
+    "name": "Fakhar Black",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Aromática Fougère",
+    "notas_salida": "Manzana, bergamota, jengibre",
+    "notas_corazon": "Lavanda, salvia, bayas de enebro, geranio",
+    "notas_fondo": "Haba tonka, cedro, amberwood, vetiver",
+    "descripcion_olfativa": "Clon fiel de YSL Y: fresco-amaderado limpio y elegante.",
+    "description": "La sofisticación del hombre moderno a precio árabe; oficina y diario sin esfuerzo.",
+    "ocasion": "Diario, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Juan D.",
+        "estrellas": 4,
+        "fecha": "2 Ago 2025",
+        "comentario": "La proyección es impresionante, recibo cumplidos seguido."
+      },
+      {
+        "nombre": "Alejandro S.",
+        "estrellas": 4,
+        "fecha": "20 Ago 2025",
+        "comentario": "Perfecto para la ocasión que buscaba."
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "brand": "Armaf",
+    "name": "Odyssey Mandarin Sky",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Frutal Dulce Amaderada",
+    "notas_salida": "Mandarina, naranja, azafrán, salvia",
+    "notas_corazon": "Caramelo, haba tonka, tagetes",
+    "notas_fondo": "Ambroxan, cedro, vetiver",
+    "descripcion_olfativa": "Apertura frutal de mandarina que se vuelve un corazón de caramelo adictivo.",
+    "description": "El fenómeno árabe de 2025 en Colombia. Llamativo desde la primera atomización.",
+    "ocasion": "Diario, Noche",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Tomás R.",
+        "estrellas": 5,
+        "fecha": "11 Jun 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "brand": "Bharara",
+    "name": "King",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Aromática",
+    "notas_salida": "Naranja, bergamota, limón",
+    "notas_corazon": "Notas frutales",
+    "notas_fondo": "Vainilla, almizcle blanco, ámbar",
+    "descripcion_olfativa": "Cítrico-dulce de gran proyección y longevidad.",
+    "description": "El árabe rey de la relación precio-calidad; una estela que genera preguntas por doquier.",
+    "ocasion": "Noche, Diario",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Miguel Á.",
+        "estrellas": 5,
+        "fecha": "20 Ago 2025",
+        "comentario": "Huele carísimo, nadie diría el precio que tiene."
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "brand": "Rasasi",
+    "name": "Hawas Ice For Him",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Aromática Acuática",
+    "notas_salida": "Manzana, bergamota siciliana, limón italiano, anís estrellado",
+    "notas_corazon": "Ciruela, flor de azahar, cardamomo",
+    "notas_fondo": "Musgo, almizcle, madera de deriva, ámbar",
+    "descripcion_olfativa": "La versión más fresca y helada del Hawas original.",
+    "description": "Frescura acuática premium para el clima tropical; alta rotación en tiendas árabes colombianas.",
+    "ocasion": "Verano, Diario",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Ricardo N.",
+        "estrellas": 4,
+        "fecha": "9 Feb 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      },
+      {
+        "nombre": "Sebastián C.",
+        "estrellas": 4,
+        "fecha": "20 Ago 2025",
+        "comentario": "Excelente fijación, dura toda la jornada."
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "brand": "Armaf",
+    "name": "Club de Nuit Sillage",
+    "category": "hombre",
+    "volume": "105ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Amaderada Aromática",
+    "notas_salida": "Bergamota, cardamomo, azafrán, pimienta",
+    "notas_corazon": "Rosa, jazmín",
+    "notas_fondo": "Ámbar, cedro, sándalo, almizcle",
+    "descripcion_olfativa": "Amaderado-aromático refinado con azafrán; guiño a Silver Mountain Water.",
+    "description": "Elegancia versátil de la línea Club de Nuit, ideal para uso diario con presencia.",
+    "ocasion": "Diario, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Julián P.",
+        "estrellas": 5,
+        "fecha": "19 Abr 2025",
+        "comentario": "Muy buena relación calidad-precio."
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "brand": "Maison Alhambra",
+    "name": "Jean Lowe Immortel",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Amaderada Especiada",
+    "notas_salida": "Bergamota, canela",
+    "notas_corazon": "Cuero, iris",
+    "notas_fondo": "Ámbar, maderas, vainilla",
+    "descripcion_olfativa": "Cuero-iris atalcado y elegante; inspirado en LV L'Immensité.",
+    "description": "Lujo europeo reinterpretado a precio accesible; el dupe premium por excelencia.",
+    "ocasion": "Diario, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Daniel O.",
+        "estrellas": 3,
+        "fecha": "28 Ene 2025",
+        "comentario": "La salida es intensa y el fondo se siente lujoso."
+      },
+      {
+        "nombre": "Tomás R.",
+        "estrellas": 5,
+        "fecha": "18 Mar 2025",
+        "comentario": "Excelente fijación, dura toda la jornada."
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "brand": "Lattafa",
+    "name": "Ameer Al Oudh Intense Oud",
+    "category": "hombre",
+    "volume": "30ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Oriental Amaderada",
+    "notas_salida": "Azafrán, notas ahumadas",
+    "notas_corazon": "Oud, rosa",
+    "notas_fondo": "Ámbar, sándalo, pachulí",
+    "descripcion_olfativa": "Oud intenso y resinoso con rosa y azafrán.",
+    "description": "El oriente en estado puro: intenso, misterioso y de larguísima duración.",
+    "ocasion": "Noche, Invierno",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Esteban A.",
+        "estrellas": 5,
+        "fecha": "10 Oct 2025",
+        "comentario": "Huele carísimo, nadie diría el precio que tiene."
+      },
+      {
+        "nombre": "Alejandro S.",
+        "estrellas": 3,
+        "fecha": "8 Sep 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "brand": "Afnan",
+    "name": "Supremacy Not Only Intense",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Amaderada Especiada",
+    "notas_salida": "Canela, manzana, cuero",
+    "notas_corazon": "Incienso, notas metálicas",
+    "notas_fondo": "Ámbar, pachulí, madera de agar",
+    "descripcion_olfativa": "Amaderado-especiado oscuro con cuero e incienso.",
+    "description": "Poder y opulencia oriental; la línea Supremacy que recuerda a fragancias mucho más costosas.",
+    "ocasion": "Noche, Invierno",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Miguel Á.",
+        "estrellas": 5,
+        "fecha": "28 Ene 2025",
+        "comentario": "Muy buena relación calidad-precio."
+      },
+      {
+        "nombre": "Carlos M.",
+        "estrellas": 5,
+        "fecha": "15 Nov 2025",
+        "comentario": "Excelente fijación, dura toda la jornada."
+      },
+      {
+        "nombre": "Nicolás T.",
+        "estrellas": 4,
+        "fecha": "8 Sep 2025",
+        "comentario": "Sorprendido con la duración, más de 8 horas fácil."
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "brand": "Lattafa",
+    "name": "Bade'e Al Oud Oud for Glory",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Oriental Amaderada",
+    "notas_salida": "Azafrán, nuez moscada",
+    "notas_corazon": "Madera de agar, pachulí",
+    "notas_fondo": "Ámbar, notas dulces",
+    "descripcion_olfativa": "Oud dulce y especiado; dupe del Initio Oud for Greatness.",
+    "description": "La grandeza del oud a precio inteligente; una estela que impone respeto.",
+    "ocasion": "Noche, Invierno",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Sebastián C.",
+        "estrellas": 4,
+        "fecha": "29 Oct 2025",
+        "comentario": "Justo lo que esperaba, calidad muy buena."
+      },
+      {
+        "nombre": "Tomás R.",
+        "estrellas": 4,
+        "fecha": "19 Abr 2025",
+        "comentario": "El secado es delicioso, mejora con las horas."
+      },
+      {
+        "nombre": "Felipe G.",
+        "estrellas": 3,
+        "fecha": "28 Ene 2025",
+        "comentario": "Perfecto para la ocasión que buscaba."
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "brand": "Parfums de Marly",
+    "name": "Layton",
+    "category": "hombre",
+    "volume": "125ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Ámbar Especiada",
+    "notas_salida": "Manzana, bergamota, mandarina, lavanda",
+    "notas_corazon": "Geranio, violeta, jazmín, rosa",
+    "notas_fondo": "Vainilla, cardamomo, sándalo, pimienta, gaïac",
+    "descripcion_olfativa": "Manzana especiada y cremosa que evoluciona hacia una vainilla envolvente.",
+    "description": "El buque insignia de Parfums de Marly: lujoso, versátil y con firma inconfundible que funciona todo el año.",
+    "ocasion": "Noche, Invierno, Todo el año",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Nicolás T.",
+        "estrellas": 5,
+        "fecha": "19 Abr 2025",
+        "comentario": "Sorprendido con la duración, más de 8 horas fácil."
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "brand": "Parfums de Marly",
+    "name": "Pegasus",
+    "category": "hombre",
+    "volume": "125ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Ámbar Fougère",
+    "notas_salida": "Almendra amarga, bergamota",
+    "notas_corazon": "Heliotropo, jazmín sambac, comino",
+    "notas_fondo": "Vainilla, sándalo, almizcle, amberwood",
+    "descripcion_olfativa": "Almendra cremosa y heliotropo sobre maderas suaves.",
+    "description": "Elegancia gourmand-amaderada de haute parfumerie; sofisticación que no grita.",
+    "ocasion": "Diario, Noche",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Esteban A.",
+        "estrellas": 5,
+        "fecha": "9 Feb 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      },
+      {
+        "nombre": "Ricardo N.",
+        "estrellas": 5,
+        "fecha": "12 Ene 2025",
+        "comentario": "La proyección es impresionante, recibo cumplidos seguido."
+      },
+      {
+        "nombre": "Nicolás T.",
+        "estrellas": 3,
+        "fecha": "20 Ago 2025",
+        "comentario": "Sorprendido con la duración, más de 8 horas fácil."
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "brand": "Parfums de Marly",
+    "name": "Herod",
+    "category": "hombre",
+    "volume": "125ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Oriental Especiada",
+    "notas_salida": "Canela, pimienta",
+    "notas_corazon": "Hoja de tabaco, osmanto, ládano",
+    "notas_fondo": "Vainilla, vetiver, incienso, cedro",
+    "descripcion_olfativa": "Tabaco dulce y especiado, cálido y masculino.",
+    "description": "El invierno hecho perfume: opulento, especiado y perfecto para la noche.",
+    "ocasion": "Noche, Invierno",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Sebastián C.",
+        "estrellas": 5,
+        "fecha": "30 Jun 2025",
+        "comentario": "Se ha vuelto mi diario, muy versátil."
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "brand": "Initio",
+    "name": "Oud for Greatness",
+    "category": "hombre",
+    "volume": "90ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Oriental Amaderada",
+    "notas_salida": "Azafrán, nuez moscada, lavanda",
+    "notas_corazon": "Madera de agar (oud)",
+    "notas_fondo": "Pachulí, almizcle",
+    "descripcion_olfativa": "Oud potente y refinado con azafrán y lavanda.",
+    "description": "Nicho talismánico de proyección descomunal; para quien busca imponer presencia.",
+    "ocasion": "Noche, Invierno",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Esteban A.",
+        "estrellas": 3,
+        "fecha": "10 Oct 2025",
+        "comentario": "Huele carísimo, nadie diría el precio que tiene."
+      },
+      {
+        "nombre": "Pablo E.",
+        "estrellas": 4,
+        "fecha": "23 May 2025",
+        "comentario": "Un aroma distinto a todo lo que tenía."
+      },
+      {
+        "nombre": "Andrés R.",
+        "estrellas": 5,
+        "fecha": "21 Feb 2025",
+        "comentario": "La proyección es impresionante, recibo cumplidos seguido."
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "brand": "Nishane",
+    "name": "Hacivat",
+    "category": "hombre",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Chipre Frutal",
+    "notas_salida": "Piña, toronja, bergamota",
+    "notas_corazon": "Cedro, pachulí, jazmín",
+    "notas_fondo": "Musgo de roble, notas amaderadas",
+    "descripcion_olfativa": "Piña fresca sobre un chipre amaderado sofisticado.",
+    "description": "El nicho turco que conquistó al mundo: elegante, frutal y adictivamente distinto.",
+    "ocasion": "Diario, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Iván Q.",
+        "estrellas": 5,
+        "fecha": "11 Jun 2025",
+        "comentario": "Sorprendido con la duración, más de 8 horas fácil."
+      },
+      {
+        "nombre": "Daniel O.",
+        "estrellas": 3,
+        "fecha": "2 Abr 2025",
+        "comentario": "Un aroma distinto a todo lo que tenía."
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "brand": "Chanel",
+    "name": "Coco Mademoiselle EDP",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Chipre Floral",
+    "notas_salida": "Naranja, mandarina, bergamota, azahar",
+    "notas_corazon": "Rosa turca, jazmín, mimosa, ylang-ylang",
+    "notas_fondo": "Pachulí, vetiver, almizcle blanco, vainilla",
+    "descripcion_olfativa": "Cítrico-floral chispeante sobre un pachulí elegante y atemporal.",
+    "description": "El emblema de la feminidad segura y sofisticada; un clásico que nunca falla.",
+    "ocasion": "Diario, Oficina, Noche",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Laura M.",
+        "estrellas": 5,
+        "fecha": "2 Ago 2025",
+        "comentario": "Sorprendido con la duración, más de 8 horas fácil."
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "brand": "Chanel",
+    "name": "Chance Eau Tendre",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Frutal",
+    "notas_salida": "Toronja, membrillo",
+    "notas_corazon": "Jacinto, jazmín",
+    "notas_fondo": "Almizcle, cedro, ámbar",
+    "descripcion_olfativa": "Floral-frutal suave, luminoso y delicado.",
+    "description": "Ternura y frescura en frasco Chanel; ideal para la mujer romántica y moderna.",
+    "ocasion": "Diario, Verano",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Sofía P.",
+        "estrellas": 5,
+        "fecha": "18 Mar 2025",
+        "comentario": "Repetiría la compra sin dudar."
+      },
+      {
+        "nombre": "Paula H.",
+        "estrellas": 5,
+        "fecha": "20 Ago 2025",
+        "comentario": "Sorprendido con la duración, más de 8 horas fácil."
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "brand": "Lancôme",
+    "name": "La Vie Est Belle",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Frutal Gourmand",
+    "notas_salida": "Grosella negra, pera",
+    "notas_corazon": "Iris, jazmín, azahar",
+    "notas_fondo": "Praliné, vainilla, pachulí, haba tonka",
+    "descripcion_olfativa": "Iris dulce y praliné gourmand, cálido y feliz.",
+    "description": "La felicidad hecha perfume: uno de los femeninos más vendidos del mundo y de Colombia.",
+    "ocasion": "Diario, Noche",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Sofía P.",
+        "estrellas": 5,
+        "fecha": "30 Jun 2025",
+        "comentario": "Huele carísimo, nadie diría el precio que tiene."
+      },
+      {
+        "nombre": "Vanessa K.",
+        "estrellas": 5,
+        "fecha": "29 Oct 2025",
+        "comentario": "El secado es delicioso, mejora con las horas."
+      },
+      {
+        "nombre": "Valentina G.",
+        "estrellas": 3,
+        "fecha": "10 Oct 2025",
+        "comentario": "Justo lo que esperaba, calidad muy buena."
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "brand": "Giorgio Armani",
+    "name": "Sì",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Chipre Frutal",
+    "notas_salida": "Cassis, mandarina",
+    "notas_corazon": "Rosa de mayo, fresia, neroli",
+    "notas_fondo": "Pachulí, vainilla, ambroxan, almizcle",
+    "descripcion_olfativa": "Cassis afrutado sobre un chipre moderno y cremoso.",
+    "description": "Elegancia italiana contemporánea; sofisticación para la mujer que dice sí a todo.",
+    "ocasion": "Noche, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Gabriela A.",
+        "estrellas": 4,
+        "fecha": "2 Abr 2025",
+        "comentario": "Ideal para regalar, el frasco también es precioso."
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "brand": "Viktor & Rolf",
+    "name": "Flowerbomb",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral",
+    "notas_salida": "Té, bergamota, osmanto",
+    "notas_corazon": "Jazmín, orquídea, fresia, rosa",
+    "notas_fondo": "Pachulí, almizcle, vainilla",
+    "descripcion_olfativa": "Explosión floral opulenta y dulce.",
+    "description": "Una bomba de flores que envuelve y seduce; glamour puro para ocasiones especiales.",
+    "ocasion": "Noche, Ocasiones especiales",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Vanessa K.",
+        "estrellas": 5,
+        "fecha": "15 Nov 2025",
+        "comentario": "Ideal para regalar, el frasco también es precioso."
+      },
+      {
+        "nombre": "Mariana D.",
+        "estrellas": 4,
+        "fecha": "5 Mar 2025",
+        "comentario": "Repetiría la compra sin dudar."
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "brand": "Dolce & Gabbana",
+    "name": "Light Blue",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Frutal",
+    "notas_salida": "Limón siciliano, manzana, cedro, campanilla",
+    "notas_corazon": "Bambú, jazmín, rosa blanca",
+    "notas_fondo": "Cedro, ámbar, almizcle",
+    "descripcion_olfativa": "Manzana y limón mediterráneos, fresco y solar.",
+    "description": "El verano italiano en una botella; frescura eterna para el clima colombiano.",
+    "ocasion": "Verano, Diario",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Mariana D.",
+        "estrellas": 4,
+        "fecha": "12 Ene 2025",
+        "comentario": "Muy buena relación calidad-precio."
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "brand": "Carolina Herrera",
+    "name": "Very Good Girl",
+    "category": "mujer",
+    "volume": "80ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Frutal",
+    "notas_salida": "Lichi, grosellas rojas",
+    "notas_corazon": "Rosa",
+    "notas_fondo": "Vainilla, notas amaderadas",
+    "descripcion_olfativa": "Frutal-floral juguetón con rosa cremosa.",
+    "description": "La versión diurna y empoderada del icónico tacón rojo; irresistible y elegante.",
+    "ocasion": "Noche, Diario",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Mariana D.",
+        "estrellas": 4,
+        "fecha": "7 May 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      },
+      {
+        "nombre": "Andrea L.",
+        "estrellas": 4,
+        "fecha": "18 Mar 2025",
+        "comentario": "El secado es delicioso, mejora con las horas."
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "brand": "Carolina Herrera",
+    "name": "212 VIP Rosé",
+    "category": "mujer",
+    "volume": "80ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Amaderada",
+    "notas_salida": "Frutos rojos, champán rosé",
+    "notas_corazon": "Peonía",
+    "notas_fondo": "Pachulí, maderas (Queenwood)",
+    "descripcion_olfativa": "Champán rosado y peonía, festivo y chic.",
+    "description": "La invitación VIP a la mejor fiesta; glamour neoyorquino en cada gota.",
+    "ocasion": "Fiesta, Noche",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Isabela T.",
+        "estrellas": 5,
+        "fecha": "20 Ago 2025",
+        "comentario": "Cada vez que lo uso me hacen un cumplido."
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "brand": "Yves Saint Laurent",
+    "name": "Libre",
+    "category": "mujer",
+    "volume": "90ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Aromática",
+    "notas_salida": "Mandarina, grosella negra, lavanda",
+    "notas_corazon": "Lavanda, azahar, jazmín",
+    "notas_fondo": "Vainilla, almizcle, cedro, ámbar gris",
+    "descripcion_olfativa": "Lavanda francesa y azahar, con un giro andrógino ultrafemenino.",
+    "description": "El aroma de la libertad: audaz, sensual y de altísima demanda.",
+    "ocasion": "Noche, Diario",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Andrea L.",
+        "estrellas": 5,
+        "fecha": "12 Ene 2025",
+        "comentario": "El secado es delicioso, mejora con las horas."
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "brand": "Yves Saint Laurent",
+    "name": "Mon Paris",
+    "category": "mujer",
+    "volume": "90ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Frutal Chipre",
+    "notas_salida": "Fresa, frambuesa, mandarina, pera",
+    "notas_corazon": "Peonía, jazmín, datura",
+    "notas_fondo": "Pachulí, almizcle blanco, ámbar",
+    "descripcion_olfativa": "Frutos rojos jugosos sobre un pachulí sensual.",
+    "description": "Una historia de amor parisina; frutal, coqueto y magnético para la noche.",
+    "ocasion": "Noche, Fiesta",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Laura M.",
+        "estrellas": 3,
+        "fecha": "30 Jun 2025",
+        "comentario": "La salida es intensa y el fondo se siente lujoso."
+      },
+      {
+        "nombre": "Paula H.",
+        "estrellas": 4,
+        "fecha": "25 Sep 2025",
+        "comentario": "Perfecto para la ocasión que buscaba."
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "brand": "Paco Rabanne",
+    "name": "Lady Million",
+    "category": "mujer",
+    "volume": "80ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Amaderada",
+    "notas_salida": "Frambuesa, neroli, limón",
+    "notas_corazon": "Azahar, jazmín, gardenia",
+    "notas_fondo": "Miel, pachulí, ámbar",
+    "descripcion_olfativa": "Floral-blanco con miel dorada, opulento.",
+    "description": "Lujo dorado y femenino; la fragancia de la mujer que lo tiene todo.",
+    "ocasion": "Noche, Fiesta",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Daniela R.",
+        "estrellas": 4,
+        "fecha": "7 May 2025",
+        "comentario": "Muy buena relación calidad-precio."
+      }
+    ]
+  },
+  {
+    "id": 81,
+    "brand": "Valentino",
+    "name": "Donna Born in Roma",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Amaderada",
+    "notas_salida": "Grosella negra",
+    "notas_corazon": "Jazmín sambac, flor de guaba",
+    "notas_fondo": "Vainilla bourbon, cedro, notas amaderadas",
+    "descripcion_olfativa": "Jazmín contemporáneo sobre vainilla cremosa.",
+    "description": "El femenino diseñador más buscado del país; moderno y adictivo.",
+    "ocasion": "Noche, Diario",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Valentina G.",
+        "estrellas": 4,
+        "fecha": "15 Nov 2025",
+        "comentario": "Cada vez que lo uso me hacen un cumplido."
+      },
+      {
+        "nombre": "Daniela R.",
+        "estrellas": 5,
+        "fecha": "2 Ago 2025",
+        "comentario": "Un aroma distinto a todo lo que tenía."
+      }
+    ]
+  },
+  {
+    "id": 82,
+    "brand": "Dior",
+    "name": "Miss Dior Blooming Bouquet",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral",
+    "notas_salida": "Mandarina de Sicilia",
+    "notas_corazon": "Peonía, rosa de Damasco, albaricoque",
+    "notas_fondo": "Almizcle blanco",
+    "descripcion_olfativa": "Peonía fresca y luminosa, delicada y romántica.",
+    "description": "Un ramo de primavera de la maison Dior; feminidad limpia y luminosa.",
+    "ocasion": "Diario, Verano",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Daniela R.",
+        "estrellas": 4,
+        "fecha": "7 May 2025",
+        "comentario": "Excelente fijación, dura toda la jornada."
+      },
+      {
+        "nombre": "Luisa F.",
+        "estrellas": 4,
+        "fecha": "28 Ene 2025",
+        "comentario": "Sorprendido con la duración, más de 8 horas fácil."
+      },
+      {
+        "nombre": "Isabela T.",
+        "estrellas": 4,
+        "fecha": "2 Ago 2025",
+        "comentario": "La salida es intensa y el fondo se siente lujoso."
+      }
+    ]
+  },
+  {
+    "id": 83,
+    "brand": "Marc Jacobs",
+    "name": "Daisy",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Frutal",
+    "notas_salida": "Fresas silvestres, hoja de violeta, toronja",
+    "notas_corazon": "Gardenia, violeta, jazmín",
+    "notas_fondo": "Almizcle, vainilla, maderas",
+    "descripcion_olfativa": "Floral-fresco juvenil con fresas silvestres.",
+    "description": "Frescura alegre y despreocupada; el clásico juvenil de las margaritas.",
+    "ocasion": "Diario, Verano",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Isabela T.",
+        "estrellas": 4,
+        "fecha": "9 Feb 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      },
+      {
+        "nombre": "Gabriela A.",
+        "estrellas": 4,
+        "fecha": "11 Jun 2025",
+        "comentario": "Cada vez que lo uso me hacen un cumplido."
+      },
+      {
+        "nombre": "Mariana D.",
+        "estrellas": 5,
+        "fecha": "29 Oct 2025",
+        "comentario": "Huele carísimo, nadie diría el precio que tiene."
+      }
+    ]
+  },
+  {
+    "id": 84,
+    "brand": "Gucci",
+    "name": "Bloom",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Blanco",
+    "notas_salida": "Notas verdes",
+    "notas_corazon": "Nardo, jazmín sambac",
+    "notas_fondo": "Raíz de lirio, enredadera Rangoon",
+    "descripcion_olfativa": "Flores blancas exuberantes y verdes, un jardín en flor.",
+    "description": "La feminidad auténtica y natural de Gucci; floral intenso y sofisticado.",
+    "ocasion": "Diario, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Natalia O.",
+        "estrellas": 5,
+        "fecha": "2 Abr 2025",
+        "comentario": "Muy buena relación calidad-precio."
+      },
+      {
+        "nombre": "Vanessa K.",
+        "estrellas": 4,
+        "fecha": "2 Ago 2025",
+        "comentario": "Se ha vuelto mi diario, muy versátil."
+      },
+      {
+        "nombre": "Sofía P.",
+        "estrellas": 5,
+        "fecha": "14 Jul 2025",
+        "comentario": "Muy recomendado, superó mis expectativas."
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "brand": "Narciso Rodriguez",
+    "name": "For Her EDP",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Amaderada Almizclada",
+    "notas_salida": "Flor de naranjo, osmanto",
+    "notas_corazon": "Almizcle, ámbar",
+    "notas_fondo": "Pachulí, vainilla, maderas",
+    "descripcion_olfativa": "Almizcle sensual y aterciopelado, el icono del musk.",
+    "description": "Sensualidad en estado puro; una segunda piel elegante e inolvidable.",
+    "ocasion": "Noche, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Isabela T.",
+        "estrellas": 5,
+        "fecha": "29 Oct 2025",
+        "comentario": "Muy recomendado, superó mis expectativas."
+      },
+      {
+        "nombre": "Mariana D.",
+        "estrellas": 5,
+        "fecha": "11 Jun 2025",
+        "comentario": "Ideal para regalar, el frasco también es precioso."
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "brand": "Chloé",
+    "name": "Signature EDP",
+    "category": "mujer",
+    "volume": "75ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral",
+    "notas_salida": "Peonía, lichi, fresia",
+    "notas_corazon": "Rosa",
+    "notas_fondo": "Cedro de Virginia, ámbar, miel",
+    "descripcion_olfativa": "Rosa fresca y atalcada, chic y natural.",
+    "description": "La elegancia parisina sin esfuerzo; una rosa moderna y luminosa.",
+    "ocasion": "Diario, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Carolina V.",
+        "estrellas": 4,
+        "fecha": "23 May 2025",
+        "comentario": "Perfecto para la ocasión que buscaba."
+      },
+      {
+        "nombre": "Laura M.",
+        "estrellas": 4,
+        "fecha": "25 Sep 2025",
+        "comentario": "La proyección es impresionante, recibo cumplidos seguido."
+      }
+    ]
+  },
+  {
+    "id": 87,
+    "brand": "Jean Paul Gaultier",
+    "name": "La Belle",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Ámbar Vainilla",
+    "notas_salida": "Pera",
+    "notas_corazon": "Notas florales",
+    "notas_fondo": "Vainilla, ámbar",
+    "descripcion_olfativa": "Pera jugosa y vainilla adictiva, dulce y magnética.",
+    "description": "La contraparte femenina de Le Beau; seducción gourmand de gran duración.",
+    "ocasion": "Noche, Fiesta",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Natalia O.",
+        "estrellas": 4,
+        "fecha": "5 Mar 2025",
+        "comentario": "Ideal para regalar, el frasco también es precioso."
+      },
+      {
+        "nombre": "Andrea L.",
+        "estrellas": 5,
+        "fecha": "12 Ene 2025",
+        "comentario": "Un aroma distinto a todo lo que tenía."
+      },
+      {
+        "nombre": "Isabela T.",
+        "estrellas": 5,
+        "fecha": "28 Ene 2025",
+        "comentario": "Se ha vuelto mi diario, muy versátil."
+      }
+    ]
+  },
+  {
+    "id": 88,
+    "brand": "Burberry",
+    "name": "Her EDP",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Frutal Gourmand",
+    "notas_salida": "Frutos rojos, grosella negra",
+    "notas_corazon": "Jazmín, violeta",
+    "notas_fondo": "Almizcle, ámbar, madera seca",
+    "descripcion_olfativa": "Frutos rojos golosos sobre un fondo cálido.",
+    "description": "Londres en clave gourmand; frutal, coqueto y contemporáneo.",
+    "ocasion": "Diario, Noche",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Melissa T.",
+        "estrellas": 5,
+        "fecha": "8 Sep 2025",
+        "comentario": "Huele carísimo, nadie diría el precio que tiene."
+      },
+      {
+        "nombre": "Isabela T.",
+        "estrellas": 4,
+        "fecha": "14 Jul 2025",
+        "comentario": "Perfecto para la ocasión que buscaba."
+      },
+      {
+        "nombre": "Luisa F.",
+        "estrellas": 4,
+        "fecha": "19 Abr 2025",
+        "comentario": "Cada vez que lo uso me hacen un cumplido."
+      }
+    ]
+  },
+  {
+    "id": 89,
+    "brand": "Giorgio Armani",
+    "name": "My Way",
+    "category": "mujer",
+    "volume": "90ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral",
+    "notas_salida": "Bergamota, azahar",
+    "notas_corazon": "Nardo, jazmín de la India",
+    "notas_fondo": "Almizcle blanco, vainilla, cedro",
+    "descripcion_olfativa": "Azahar y nardo luminosos sobre almizcle suave.",
+    "description": "El viaje de la mujer moderna; floral fresco, elegante y versátil.",
+    "ocasion": "Diario, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Mariana D.",
+        "estrellas": 4,
+        "fecha": "19 Abr 2025",
+        "comentario": "Muy buena relación calidad-precio."
+      }
+    ]
+  },
+  {
+    "id": 90,
+    "brand": "Lattafa",
+    "name": "Yara",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Ámbar Vainilla",
+    "notas_salida": "Orquídea, heliotropo, mandarina",
+    "notas_corazon": "Acorde gourmand, frutas tropicales",
+    "notas_fondo": "Vainilla, almizcle, sándalo",
+    "descripcion_olfativa": "Gourmand dulce, cremoso y afrutado, con vainilla envolvente.",
+    "description": "El femenino árabe más popular de Colombia: dulce, frutal y con más de 8 horas de duración.",
+    "ocasion": "Diario, Noche",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Juliana B.",
+        "estrellas": 5,
+        "fecha": "10 Oct 2025",
+        "comentario": "Muy recomendado, superó mis expectativas."
+      },
+      {
+        "nombre": "Camila Z.",
+        "estrellas": 4,
+        "fecha": "19 Abr 2025",
+        "comentario": "Justo lo que esperaba, calidad muy buena."
+      },
+      {
+        "nombre": "Valentina G.",
+        "estrellas": 4,
+        "fecha": "21 Feb 2025",
+        "comentario": "La salida es intensa y el fondo se siente lujoso."
+      }
+    ]
+  },
+  {
+    "id": 91,
+    "brand": "Lattafa",
+    "name": "Yara Moi",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Frutal",
+    "notas_salida": "Jazmín, durazno",
+    "notas_corazon": "Caramelo, ámbar",
+    "notas_fondo": "Pachulí, sándalo",
+    "descripcion_olfativa": "Durazno y caramelo sobre pachulí; dulce y coqueto.",
+    "description": "La versión más frutal y golosa de la familia Yara; irresistible para el día a día.",
+    "ocasion": "Diario, Noche",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Camila Z.",
+        "estrellas": 5,
+        "fecha": "2 Ago 2025",
+        "comentario": "Muy recomendado, superó mis expectativas."
+      },
+      {
+        "nombre": "Juliana B.",
+        "estrellas": 4,
+        "fecha": "10 Oct 2025",
+        "comentario": "Un aroma distinto a todo lo que tenía."
+      }
+    ]
+  },
+  {
+    "id": 92,
+    "brand": "Lattafa",
+    "name": "Yara Tous",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Frutal",
+    "notas_salida": "Mango, coco, maracuyá",
+    "notas_corazon": "Jazmín, heliotropo, azahar",
+    "notas_fondo": "Vainilla, almizcle, cachemira",
+    "descripcion_olfativa": "Mango cremoso y coco tropical; dupe de Fame de Paco Rabanne.",
+    "description": "El trópico en un frasco; jugoso, veraniego y de gran proyección.",
+    "ocasion": "Verano, Diario",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Paula H.",
+        "estrellas": 5,
+        "fecha": "7 May 2025",
+        "comentario": "Un aroma distinto a todo lo que tenía."
+      },
+      {
+        "nombre": "Andrea L.",
+        "estrellas": 5,
+        "fecha": "25 Sep 2025",
+        "comentario": "Perfecto para la ocasión que buscaba."
+      }
+    ]
+  },
+  {
+    "id": 93,
+    "brand": "Lattafa",
+    "name": "Yara Candy",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Frutal Gourmand",
+    "notas_salida": "Grosella negra, mandarina verde",
+    "notas_corazon": "Fresa fizz, gardenia",
+    "notas_fondo": "Vainilla, almizcle, ámbar, sándalo",
+    "descripcion_olfativa": "Dulce de fresa y vainilla, juvenil y divertido.",
+    "description": "Un caramelo de fresa envuelto en vainilla; el gourmand juguetón de la línea Yara.",
+    "ocasion": "Diario",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Natalia O.",
+        "estrellas": 5,
+        "fecha": "11 Jun 2025",
+        "comentario": "Justo lo que esperaba, calidad muy buena."
+      },
+      {
+        "nombre": "Andrea L.",
+        "estrellas": 4,
+        "fecha": "15 Nov 2025",
+        "comentario": "Un aroma distinto a todo lo que tenía."
+      },
+      {
+        "nombre": "Paula H.",
+        "estrellas": 4,
+        "fecha": "10 Oct 2025",
+        "comentario": "Muy recomendado, superó mis expectativas."
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "brand": "Lattafa",
+    "name": "Ameerat Al Arab",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Frutal",
+    "notas_salida": "Frutos rojos, azafrán",
+    "notas_corazon": "Rosa, jazmín",
+    "notas_fondo": "Vainilla, ámbar, pachulí",
+    "descripcion_olfativa": "Rosa-azafrán opulenta con frutos rojos.",
+    "description": "La princesa de Arabia: floral, especiada y de lujo oriental a precio accesible.",
+    "ocasion": "Noche, Invierno",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Mariana D.",
+        "estrellas": 4,
+        "fecha": "2 Ago 2025",
+        "comentario": "Perfecto para la ocasión que buscaba."
+      }
+    ]
+  },
+  {
+    "id": 95,
+    "brand": "Lattafa",
+    "name": "Mayar",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Frutal",
+    "notas_salida": "Frutas, bergamota",
+    "notas_corazon": "Flores blancas, jazmín",
+    "notas_fondo": "Almizcle, ámbar, maderas",
+    "descripcion_olfativa": "Floral-frutal fresco y luminoso.",
+    "description": "Delicadeza árabe versátil; elegante, ligera y perfecta para el día.",
+    "ocasion": "Diario, Verano",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Valentina G.",
+        "estrellas": 3,
+        "fecha": "2 Ago 2025",
+        "comentario": "Excelente fijación, dura toda la jornada."
+      },
+      {
+        "nombre": "Isabela T.",
+        "estrellas": 4,
+        "fecha": "14 Jul 2025",
+        "comentario": "Repetiría la compra sin dudar."
+      }
+    ]
+  },
+  {
+    "id": 96,
+    "brand": "Maison Alhambra",
+    "name": "Delilah",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Frutal",
+    "notas_salida": "Lichi, ruibarbo, bergamota",
+    "notas_corazon": "Rosa turca, peonía, muguete",
+    "notas_fondo": "Vainilla, cachemira, almizcle",
+    "descripcion_olfativa": "Rosa-lichí elegante; dupe fiel del Delina de Parfums de Marly.",
+    "description": "El lujo de una rosa francesa a precio inteligente; feminidad sofisticada.",
+    "ocasion": "Noche, Ocasiones especiales",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "María C.",
+        "estrellas": 4,
+        "fecha": "23 May 2025",
+        "comentario": "Repetiría la compra sin dudar."
+      },
+      {
+        "nombre": "Gabriela A.",
+        "estrellas": 4,
+        "fecha": "14 Jul 2025",
+        "comentario": "Sorprendido con la duración, más de 8 horas fácil."
+      }
+    ]
+  },
+  {
+    "id": 97,
+    "brand": "Afnan",
+    "name": "9PM Pour Femme",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Frutal",
+    "notas_salida": "Frambuesa, manzana, naranja, violeta",
+    "notas_corazon": "Rosa, iris, peonía, jazmín",
+    "notas_fondo": "Ciprés, cedro, pino, ámbar",
+    "descripcion_olfativa": "Frutal-floral con un fondo amaderado fresco.",
+    "description": "La contraparte femenina del exitoso 9PM; dulce, elegante y de gran fijación.",
+    "ocasion": "Noche, Diario",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Andrea L.",
+        "estrellas": 4,
+        "fecha": "7 May 2025",
+        "comentario": "Excelente fijación, dura toda la jornada."
+      },
+      {
+        "nombre": "Alejandra Q.",
+        "estrellas": 4,
+        "fecha": "2 Ago 2025",
+        "comentario": "El secado es delicioso, mejora con las horas."
+      },
+      {
+        "nombre": "Catalina W.",
+        "estrellas": 4,
+        "fecha": "8 Sep 2025",
+        "comentario": "Muy buena relación calidad-precio."
+      }
+    ]
+  },
+  {
+    "id": 98,
+    "brand": "Orientica",
+    "name": "Velvet Gold",
+    "category": "mujer",
+    "volume": "80ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Gourmand Atalcado",
+    "notas_salida": "Bergamota",
+    "notas_corazon": "Rosa, caramelo",
+    "notas_fondo": "Vainilla, almizcle",
+    "descripcion_olfativa": "Rosa-caramelo atalcada y dorada, cálida y sensual.",
+    "description": "Lujo aterciopelado de Orientica; un gourmand floral elegante para la noche.",
+    "ocasion": "Noche, Invierno",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Sofía P.",
+        "estrellas": 4,
+        "fecha": "12 Ene 2025",
+        "comentario": "Excelente fijación, dura toda la jornada."
+      },
+      {
+        "nombre": "Vanessa K.",
+        "estrellas": 5,
+        "fecha": "14 Jul 2025",
+        "comentario": "La proyección es impresionante, recibo cumplidos seguido."
+      }
+    ]
+  },
+  {
+    "id": 99,
+    "brand": "Lattafa",
+    "name": "Ana Abiyedh Rouge",
+    "category": "mujer",
+    "volume": "60ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Amaderada",
+    "notas_salida": "Pimienta rosa, bergamota",
+    "notas_corazon": "Rosa, jazmín",
+    "notas_fondo": "Almizcle, sándalo, ámbar",
+    "descripcion_olfativa": "Rosa fresca y limpia sobre maderas suaves.",
+    "description": "Elegancia diaria a precio accesible; una rosa versátil de oficina a cita.",
+    "ocasion": "Diario, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Carolina V.",
+        "estrellas": 5,
+        "fecha": "7 May 2025",
+        "comentario": "Perfecto para la ocasión que buscaba."
+      },
+      {
+        "nombre": "Valentina G.",
+        "estrellas": 5,
+        "fecha": "14 Jul 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      }
+    ]
+  },
+  {
+    "id": 100,
+    "brand": "Parfums de Marly",
+    "name": "Delina",
+    "category": "mujer",
+    "volume": "75ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral",
+    "notas_salida": "Lichi, ruibarbo, bergamota, nuez moscada",
+    "notas_corazon": "Rosa turca, peonía, muguete",
+    "notas_fondo": "Vainilla, cachemira, almizcle, incienso, vetiver",
+    "descripcion_olfativa": "Rosa-lichí regia, femenina y cremosa.",
+    "description": "La joya floral de Parfums de Marly; elegancia de haute parfumerie que deja una estela inolvidable.",
+    "ocasion": "Noche, Ocasiones especiales",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Paula H.",
+        "estrellas": 4,
+        "fecha": "7 May 2025",
+        "comentario": "Un aroma distinto a todo lo que tenía."
+      },
+      {
+        "nombre": "Mariana D.",
+        "estrellas": 5,
+        "fecha": "9 Feb 2025",
+        "comentario": "Excelente fijación, dura toda la jornada."
+      }
+    ]
+  },
+  {
+    "id": 101,
+    "brand": "Parfums de Marly",
+    "name": "Oriana",
+    "category": "mujer",
+    "volume": "75ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Frutal Gourmand",
+    "notas_salida": "Mandarina, bergamota, toronja",
+    "notas_corazon": "Azahar, grosella negra, frambuesa",
+    "notas_fondo": "Malvavisco, ambrette, crema chantilly, almizcle",
+    "descripcion_olfativa": "Malvavisco y frutos rojos sobre crema; goloso y sofisticado.",
+    "description": "El gourmand de lujo del momento; adictivo, cremoso y con firma inconfundible.",
+    "ocasion": "Noche, Diario",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Andrea L.",
+        "estrellas": 4,
+        "fecha": "28 Ene 2025",
+        "comentario": "Ideal para regalar, el frasco también es precioso."
+      },
+      {
+        "nombre": "Laura M.",
+        "estrellas": 4,
+        "fecha": "12 Ene 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "brand": "Montale",
+    "name": "Roses Musk",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Floral Almizclada",
+    "notas_salida": "Rosa, almizcle blanco",
+    "notas_corazon": "Rosa de Damasco, almizcle",
+    "notas_fondo": "Ambrette, cedro",
+    "descripcion_olfativa": "Rosa limpia envuelta en almizcle aterciopelado.",
+    "description": "La rosa perfecta de Montale; femenina, limpia y de duración excepcional.",
+    "ocasion": "Diario, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Sofía P.",
+        "estrellas": 4,
+        "fecha": "8 Sep 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "brand": "Nishane",
+    "name": "Ani",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Oriental Floral Gourmand",
+    "notas_salida": "Jengibre azul, bergamota, pimienta rosa",
+    "notas_corazon": "Cardamomo, grosella negra, rosa turca",
+    "notas_fondo": "Vainilla, benjuí, sándalo, cedro, ámbar gris",
+    "descripcion_olfativa": "Vainilla especiada y opulenta con un corazón floral.",
+    "description": "El nicho turco convertido en abrazo cálido; lujoso, dulce y envolvente.",
+    "ocasion": "Noche, Invierno",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Camila Z.",
+        "estrellas": 5,
+        "fecha": "7 May 2025",
+        "comentario": "Cada vez que lo uso me hacen un cumplido."
+      }
+    ]
+  },
+  {
+    "id": 104,
+    "brand": "Kayali",
+    "name": "Vanilla 28",
+    "category": "mujer",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": null,
+    "familia_olfativa": "Oriental Vainilla",
+    "notas_salida": "Ron, flor de azahar de Brasil",
+    "notas_corazon": "Vainilla de Madagascar",
+    "notas_fondo": "Ámbar, almizcle, maderas",
+    "descripcion_olfativa": "Vainilla boozy y sensual, cálida y adictiva.",
+    "description": "La vainilla más deseada de la nueva perfumería; un imán de cumplidos para la noche.",
+    "ocasion": "Noche, Invierno",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Daniela R.",
+        "estrellas": 3,
+        "fecha": "21 Feb 2025",
+        "comentario": "Se ha vuelto mi diario, muy versátil."
+      },
+      {
+        "nombre": "Carolina V.",
+        "estrellas": 5,
+        "fecha": "29 Oct 2025",
+        "comentario": "Un aroma distinto a todo lo que tenía."
+      },
+      {
+        "nombre": "Natalia O.",
+        "estrellas": 3,
+        "fecha": "12 Ene 2025",
+        "comentario": "Perfecto para la ocasión que buscaba."
+      }
+    ]
+  },
+  {
+    "id": 105,
+    "brand": "Lattafa",
+    "name": "Qaed Al Fursan",
+    "category": "unisex",
+    "volume": "90ml",
+    "price": null,
+    "badge": null,
+    "familia": "Unisex",
+    "familia_olfativa": "Oriental Amaderada",
+    "notas_salida": "Piña, azafrán",
+    "notas_corazon": "Jazmín, abeto balsámico",
+    "notas_fondo": "Ámbar, cedro, madera de oud",
+    "descripcion_olfativa": "Piña dulce y ligeramente ahumada sobre maderas cálidas.",
+    "description": "Un árabe versátil de fijación legendaria; frutal-amaderado que funciona para ambos géneros.",
+    "ocasion": "Diario, Noche",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Santiago L.",
+        "estrellas": 5,
+        "fecha": "29 Oct 2025",
+        "comentario": "Ideal para regalar, el frasco también es precioso."
+      }
+    ]
+  },
+  {
+    "id": 106,
+    "brand": "Lattafa",
+    "name": "Bade'e Al Oud Amethyst",
+    "category": "unisex",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": "Unisex",
+    "familia_olfativa": "Oriental Vainilla",
+    "notas_salida": "Pimienta rosa, bergamota",
+    "notas_corazon": "Rosa turca, rosa búlgara, jazmín",
+    "notas_fondo": "Oud, ámbar, vainilla",
+    "descripcion_olfativa": "Rosa-oud especiada con ámbar salado; sofisticada e intensa.",
+    "description": "El puente perfecto al rose-oud oriental; longevidad de 12 horas y frasco de lujo.",
+    "ocasion": "Noche, Invierno",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Melissa T.",
+        "estrellas": 5,
+        "fecha": "29 Oct 2025",
+        "comentario": "Cada vez que lo uso me hacen un cumplido."
+      },
+      {
+        "nombre": "Sebastián C.",
+        "estrellas": 5,
+        "fecha": "28 Ene 2025",
+        "comentario": "Sorprendido con la duración, más de 8 horas fácil."
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "brand": "Al Haramain",
+    "name": "Amber Oud Gold Edition",
+    "category": "unisex",
+    "volume": "60ml",
+    "price": null,
+    "badge": null,
+    "familia": "Unisex",
+    "familia_olfativa": "Frutal Amaderada",
+    "notas_salida": "Notas frutales, cítricos",
+    "notas_corazon": "Acordes dulces",
+    "notas_fondo": "Ámbar, maderas, almizcle",
+    "descripcion_olfativa": "Frutal-amaderado brillante y dulce.",
+    "description": "El best-seller unisex de Al Haramain; llamativo, moderno y de gran proyección.",
+    "ocasion": "Diario, Noche",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Valentina G.",
+        "estrellas": 5,
+        "fecha": "8 Sep 2025",
+        "comentario": "Cada vez que lo uso me hacen un cumplido."
+      },
+      {
+        "nombre": "Andrés R.",
+        "estrellas": 5,
+        "fecha": "21 Feb 2025",
+        "comentario": "Perfecto para la ocasión que buscaba."
+      },
+      {
+        "nombre": "Isabela T.",
+        "estrellas": 5,
+        "fecha": "2 Ago 2025",
+        "comentario": "Repetiría la compra sin dudar."
+      }
+    ]
+  },
+  {
+    "id": 108,
+    "brand": "Orientica",
+    "name": "Royal Amber",
+    "category": "unisex",
+    "volume": "80ml",
+    "price": null,
+    "badge": null,
+    "familia": "Unisex",
+    "familia_olfativa": "Oriental Vainilla",
+    "notas_salida": "Bergamota, notas verdes",
+    "notas_corazon": "Melón, piña, ámbar, gourmand",
+    "notas_fondo": "Vainilla, almizcle, maderas",
+    "descripcion_olfativa": "Frutal-dulce con vainilla, muy cercano al Erba Pura.",
+    "description": "El Erba Pura árabe: versátil, radiante y adictivo, a una fracción del precio del nicho.",
+    "ocasion": "Diario, Verano",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Miguel Á.",
+        "estrellas": 5,
+        "fecha": "8 Sep 2025",
+        "comentario": "Sorprendido con la duración, más de 8 horas fácil."
+      },
+      {
+        "nombre": "Catalina W.",
+        "estrellas": 3,
+        "fecha": "20 Ago 2025",
+        "comentario": "Muy buena relación calidad-precio."
+      },
+      {
+        "nombre": "Camila Z.",
+        "estrellas": 5,
+        "fecha": "2 Ago 2025",
+        "comentario": "Repetiría la compra sin dudar."
+      }
+    ]
+  },
+  {
+    "id": 109,
+    "brand": "Orientica",
+    "name": "Azure Fantasy",
+    "category": "unisex",
+    "volume": "80ml",
+    "price": null,
+    "badge": null,
+    "familia": "Unisex",
+    "familia_olfativa": "Amaderada Aromática",
+    "notas_salida": "Bergamota, jengibre, menta, nuez moscada",
+    "notas_corazon": "Jazmín, muguete, geranio",
+    "notas_fondo": "Almizcle, ámbar gris, madera de gaïac",
+    "descripcion_olfativa": "Fresco-aromático limpio con jengibre y menta.",
+    "description": "Frescura azul y elegante para el clima cálido; un blind buy seguro.",
+    "ocasion": "Diario, Verano",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Diego F.",
+        "estrellas": 5,
+        "fecha": "29 Oct 2025",
+        "comentario": "Perfecto para la ocasión que buscaba."
+      },
+      {
+        "nombre": "Natalia O.",
+        "estrellas": 5,
+        "fecha": "14 Jul 2025",
+        "comentario": "Excelente fijación, dura toda la jornada."
+      }
+    ]
+  },
+  {
+    "id": 110,
+    "brand": "Lattafa",
+    "name": "Khamrah",
+    "category": "unisex",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": "Unisex",
+    "familia_olfativa": "Oriental Gourmand Especiada",
+    "notas_salida": "Canela, nuez moscada, bergamota",
+    "notas_corazon": "Dátiles, praliné, nardo",
+    "notas_fondo": "Vainilla, haba tonka, amberwood, mirra, benjuí, akigalawood",
+    "descripcion_olfativa": "Dátiles y canela golosos sobre una vainilla especiada envolvente.",
+    "description": "El gourmand oriental estrella de Lattafa; cálido, adictivo y perfecto para el clima frío.",
+    "ocasion": "Noche, Invierno",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Alejandro S.",
+        "estrellas": 4,
+        "fecha": "7 May 2025",
+        "comentario": "Sorprendido con la duración, más de 8 horas fácil."
+      },
+      {
+        "nombre": "Laura M.",
+        "estrellas": 3,
+        "fecha": "11 Jun 2025",
+        "comentario": "Muy recomendado, superó mis expectativas."
+      }
+    ]
+  },
+  {
+    "id": 111,
+    "brand": "Maison Alhambra",
+    "name": "La Rouge Baroque",
+    "category": "unisex",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": "Unisex",
+    "familia_olfativa": "Ámbar Floral",
+    "notas_salida": "Azafrán, jazmín",
+    "notas_corazon": "Amberwood, ámbar gris",
+    "notas_fondo": "Resina de abeto, cedro",
+    "descripcion_olfativa": "Azafrán dulce y etéreo; dupe fiel del Baccarat Rouge 540.",
+    "description": "El aroma más viral del lujo, ahora accesible; radiante, dulce y universal.",
+    "ocasion": "Noche, Ocasiones especiales",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Andrés R.",
+        "estrellas": 5,
+        "fecha": "9 Feb 2025",
+        "comentario": "Un aroma distinto a todo lo que tenía."
+      },
+      {
+        "nombre": "Mariana D.",
+        "estrellas": 5,
+        "fecha": "19 Abr 2025",
+        "comentario": "Sorprendido con la duración, más de 8 horas fácil."
+      },
+      {
+        "nombre": "Tomás R.",
+        "estrellas": 4,
+        "fecha": "2 Ago 2025",
+        "comentario": "La salida es intensa y el fondo se siente lujoso."
+      }
+    ]
+  },
+  {
+    "id": 112,
+    "brand": "Lattafa",
+    "name": "Raghba",
+    "category": "unisex",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": "Unisex",
+    "familia_olfativa": "Oriental Vainilla",
+    "notas_salida": "Notas dulces",
+    "notas_corazon": "Madera de agar, oud",
+    "notas_fondo": "Vainilla, almizcle, ámbar, sándalo",
+    "descripcion_olfativa": "Vainilla y oud dulces, cálidos y resinosos.",
+    "description": "Un clásico de Lattafa: dulzura oriental envolvente y económica, de larga duración.",
+    "ocasion": "Noche, Invierno",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Carlos M.",
+        "estrellas": 5,
+        "fecha": "23 May 2025",
+        "comentario": "La salida es intensa y el fondo se siente lujoso."
+      },
+      {
+        "nombre": "Mateo V.",
+        "estrellas": 4,
+        "fecha": "19 Abr 2025",
+        "comentario": "Cada vez que lo uso me hacen un cumplido."
+      }
+    ]
+  },
+  {
+    "id": 113,
+    "brand": "Maison Francis Kurkdjian",
+    "name": "Baccarat Rouge 540",
+    "category": "unisex",
+    "volume": "70ml",
+    "price": null,
+    "badge": null,
+    "familia": "Unisex",
+    "familia_olfativa": "Ámbar Floral",
+    "notas_salida": "Azafrán, jazmín",
+    "notas_corazon": "Amberwood, ámbar gris, Hedione",
+    "notas_fondo": "Resina de abeto, cedro, azúcar, ambroxan, musgo de roble",
+    "descripcion_olfativa": "Azafrán dulce y etéreo, luminoso y adictivamente distinto.",
+    "description": "El fenómeno de nicho por excelencia; un aroma icónico que se reconoce a distancia.",
+    "ocasion": "Noche, Ocasiones especiales",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Manuela S.",
+        "estrellas": 4,
+        "fecha": "25 Sep 2025",
+        "comentario": "Repetiría la compra sin dudar."
+      },
+      {
+        "nombre": "Alejandra Q.",
+        "estrellas": 5,
+        "fecha": "30 Jun 2025",
+        "comentario": "Cada vez que lo uso me hacen un cumplido."
+      }
+    ]
+  },
+  {
+    "id": 114,
+    "brand": "Le Labo",
+    "name": "Santal 33",
+    "category": "unisex",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": "Unisex",
+    "familia_olfativa": "Amaderada Aromática",
+    "notas_salida": "Acordes iniciales suaves",
+    "notas_corazon": "Sándalo, cuero, papiro, cardamomo",
+    "notas_fondo": "Cedro de Virginia, violeta, iris, ámbar",
+    "descripcion_olfativa": "Sándalo cremoso con cuero y cardamomo, el aroma de referencia de la perfumería moderna.",
+    "description": "El perfume de nicho más buscado en Colombia en 2025; se reconoce al instante y crea comunidad.",
+    "ocasion": "Diario, Oficina",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Miguel Á.",
+        "estrellas": 5,
+        "fecha": "7 May 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      },
+      {
+        "nombre": "Iván Q.",
+        "estrellas": 5,
+        "fecha": "19 Abr 2025",
+        "comentario": "Cada vez que lo uso me hacen un cumplido."
+      }
+    ]
+  },
+  {
+    "id": 115,
+    "brand": "Xerjoff",
+    "name": "Erba Pura",
+    "category": "unisex",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": "Unisex",
+    "familia_olfativa": "Ámbar Frutal",
+    "notas_salida": "Naranja siciliana, bergamota de Calabria, limón siciliano",
+    "notas_corazon": "Frutas mediterráneas",
+    "notas_fondo": "Almizcle blanco, vainilla de Madagascar, ámbar",
+    "descripcion_olfativa": "Cítricos y frutas jugosas sobre almizcle y vainilla; cálido sin ser empalagoso.",
+    "description": "El fenómeno unisex del año en Colombia: proyección y longevidad excepcionales que generan conversación.",
+    "ocasion": "Diario, Verano",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Juan D.",
+        "estrellas": 5,
+        "fecha": "8 Sep 2025",
+        "comentario": "Se ha vuelto mi diario, muy versátil."
+      },
+      {
+        "nombre": "Tomás R.",
+        "estrellas": 5,
+        "fecha": "7 May 2025",
+        "comentario": "La proyección es impresionante, recibo cumplidos seguido."
+      },
+      {
+        "nombre": "Alejandro S.",
+        "estrellas": 5,
+        "fecha": "25 Sep 2025",
+        "comentario": "Repetiría la compra sin dudar."
+      }
+    ]
+  },
+  {
+    "id": 116,
+    "brand": "Initio",
+    "name": "Side Effect",
+    "category": "unisex",
+    "volume": "90ml",
+    "price": null,
+    "badge": null,
+    "familia": "Unisex",
+    "familia_olfativa": "Ámbar / Oriental Especiada",
+    "notas_salida": "Canela, ron",
+    "notas_corazon": "Tabaco, azafrán",
+    "notas_fondo": "Sándalo, vainilla, ámbar",
+    "descripcion_olfativa": "Tabaco boozy y especiado, intenso y seductor.",
+    "description": "Nicho de carácter fuerte y adictivo; para quien busca un aroma inolvidable de noche.",
+    "ocasion": "Noche, Invierno",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Camila Z.",
+        "estrellas": 5,
+        "fecha": "5 Mar 2025",
+        "comentario": "Sorprendido con la duración, más de 8 horas fácil."
+      }
+    ]
+  },
+  {
+    "id": 117,
+    "brand": "Montale",
+    "name": "Intense Café",
+    "category": "unisex",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": "Unisex",
+    "familia_olfativa": "Oriental Vainilla",
+    "notas_salida": "Café, rosa",
+    "notas_corazon": "Flores blancas",
+    "notas_fondo": "Vainilla, ámbar, almizcle",
+    "descripcion_olfativa": "Café dulce y cremoso sobre vainilla, goloso y cálido.",
+    "description": "El café más elegante de la perfumería; un gourmand unisex de gran fijación.",
+    "ocasion": "Noche, Invierno",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Alejandra Q.",
+        "estrellas": 4,
+        "fecha": "23 May 2025",
+        "comentario": "Huele carísimo, nadie diría el precio que tiene."
+      }
+    ]
+  },
+  {
+    "id": 118,
+    "brand": "Tom Ford",
+    "name": "Ombré Leather",
+    "category": "unisex",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": "Unisex",
+    "familia_olfativa": "Cuero",
+    "notas_salida": "Cardamomo",
+    "notas_corazon": "Cuero, jazmín sambac",
+    "notas_fondo": "Ámbar, musgo, pachulí",
+    "descripcion_olfativa": "Cuero suave y floral con un toque terroso.",
+    "description": "El lujo salvaje de Tom Ford; cuero moderno, sensual y unisex.",
+    "ocasion": "Noche, Diario",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Daniel O.",
+        "estrellas": 5,
+        "fecha": "29 Oct 2025",
+        "comentario": "Un aroma distinto a todo lo que tenía."
+      },
+      {
+        "nombre": "Andrés R.",
+        "estrellas": 5,
+        "fecha": "23 May 2025",
+        "comentario": "Ideal para regalar, el frasco también es precioso."
+      }
+    ]
+  },
+  {
+    "id": 119,
+    "brand": "Tom Ford",
+    "name": "Oud Wood",
+    "category": "unisex",
+    "volume": "100ml",
+    "price": null,
+    "badge": null,
+    "familia": "Unisex",
+    "familia_olfativa": "Oriental Amaderada",
+    "notas_salida": "Oud, palo de rosa, cardamomo",
+    "notas_corazon": "Sándalo, notas amaderadas",
+    "notas_fondo": "Vainilla, ámbar, notas tostadas",
+    "descripcion_olfativa": "Oud suave y cremoso, refinado y sin aristas.",
+    "description": "La puerta de entrada al oud de lujo; sofisticado, cálido y universalmente elegante.",
+    "ocasion": "Noche, Invierno",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Pablo E.",
+        "estrellas": 4,
+        "fecha": "8 Sep 2025",
+        "comentario": "Elegante y versátil, se ha vuelto mi favorito."
+      }
+    ]
+  },
+  {
+    "id": 120,
+    "brand": "Kilian",
+    "name": "Love Don't Be Shy",
+    "category": "unisex",
+    "volume": "50ml",
+    "price": null,
+    "badge": null,
+    "familia": "Unisex",
+    "familia_olfativa": "Oriental Gourmand",
+    "notas_salida": "Bergamota, azahar, flor de naranjo",
+    "notas_corazon": "Iris, malvavisco, caramelo",
+    "notas_fondo": "Vainilla, almizcle, ámbar",
+    "descripcion_olfativa": "Malvavisco y azahar sobre vainilla; dulce, luminoso y adictivo.",
+    "description": "El gourmand de culto de Kilian; una nube de dulzura elegante para la noche.",
+    "ocasion": "Noche, Fiesta",
+    "image": "assets/images/perfumes/placeholder-locion.webp",
+    "reviews": [
+      {
+        "nombre": "Gabriela A.",
+        "estrellas": 4,
+        "fecha": "29 Oct 2025",
+        "comentario": "Huele carísimo, nadie diría el precio que tiene."
+      },
+      {
+        "nombre": "Santiago L.",
+        "estrellas": 3,
+        "fecha": "28 Ene 2025",
+        "comentario": "Justo lo que esperaba, calidad muy buena."
+      }
+    ]
+  }
+]

@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeader();
   initHamburger();
   initCart();
-  initDarkMode();
   initHeroSparkles();
   initAmbientSparkles();
 });
@@ -50,12 +49,6 @@ function submitNL(e) {
 function closeMob() {
   document.getElementById('mobMenu').classList.remove('open');
   document.getElementById('hbg').classList.remove('open');
-}
-
-function initDarkMode() {
-  if (localStorage.getItem('isabelee-theme') === 'dark') {
-    document.documentElement.dataset.theme = 'dark';
-  }
 }
 
 function initHeroSparkles() {
@@ -142,15 +135,4 @@ function initAmbientSparkles() {
 
   for (let i = 0; i < 14; i++) spawn();   // relleno inicial
   setInterval(spawn, 190);                 // ~17 partículas en régimen estable
-}
-
-function toggleDark() {
-  const isDark = document.documentElement.dataset.theme === 'dark';
-  if (isDark) {
-    delete document.documentElement.dataset.theme;
-    localStorage.setItem('isabelee-theme', 'light');
-  } else {
-    document.documentElement.dataset.theme = 'dark';
-    localStorage.setItem('isabelee-theme', 'dark');
-  }
 }

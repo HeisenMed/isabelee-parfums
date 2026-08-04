@@ -1,6 +1,5 @@
-/* producto.js — $ y fmt vienen de cart.js (cargado antes) */
+/* producto.js — $, fmt, wish y toggleWishId vienen de cart.js (cargado antes) */
 
-let pdpWish = new Set();
 let currentProductId = null;
 let currentQty = 1;
 
@@ -8,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initPdpCart();
   initPdpHeader();
   initPdpHamburger();
-  initDarkModePdp();
 
   const params = new URLSearchParams(window.location.search);
   const id = parseInt(params.get('id'), 10);
@@ -44,20 +42,10 @@ function initPdpHamburger() {
   if (hbg && mob) hbg.addEventListener('click', () => { mob.classList.toggle('open'); hbg.classList.toggle('open'); });
 }
 
-function initDarkModePdp() {
-  if (localStorage.getItem('isabelee-theme') === 'dark') document.documentElement.dataset.theme = 'dark';
-}
-
 function closeMob() {
   const mob = $('mobMenu'), hbg = $('hbg');
   if (mob) mob.classList.remove('open');
   if (hbg) hbg.classList.remove('open');
-}
-
-function toggleDark() {
-  const isDark = document.documentElement.dataset.theme === 'dark';
-  if (isDark) { delete document.documentElement.dataset.theme; localStorage.setItem('isabelee-theme', 'light'); }
-  else { document.documentElement.dataset.theme = 'dark'; localStorage.setItem('isabelee-theme', 'dark'); }
 }
 
 /* ── Product render ───────────────────────────────────────────────────────── */
@@ -91,7 +79,7 @@ function renderProduct(p) {
       </button>
     </div>`;
 
-  if (pdpWish.has(p.id)) $('pdpWishBtn').classList.add('on');
+  if (wish.has(p.id)) $('pdpWishBtn').classList.add('on');   // favorito persistido
 
   $('qtyMinus').addEventListener('click', () => {
     if (currentQty > 1) { currentQty--; $('qtyNum').textContent = currentQty; }
@@ -107,16 +95,7 @@ function renderProduct(p) {
   });
 
   $('pdpWishBtn').addEventListener('click', () => {
-    const btn = $('pdpWishBtn');
-    if (pdpWish.has(p.id)) {
-      pdpWish.delete(p.id);
-      btn.classList.remove('on');
-      showToast('Eliminado de favoritos');
-    } else {
-      pdpWish.add(p.id);
-      btn.classList.add('on');
-      showToast('Agregado a favoritos ♡');
-    }
+    $('pdpWishBtn').classList.toggle('on', toggleWishId(p.id));
   });
 }
 

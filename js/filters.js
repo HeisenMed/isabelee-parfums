@@ -1,4 +1,10 @@
 ﻿/* filters.js */
+
+/* Campo real del perfume detrás de cada grupo del sidebar.
+   OJO: 'familia' filtra por familia_olfativa (la familia real de la fragancia);
+   el campo p.familia solo marca "Unisex" y no sirve para filtrar. */
+const FILTER_FIELD = { categoria: 'category', marca: 'brand', familia: 'familia_olfativa' };
+
 let activeFilters = { categoria: [], marca: [], familia: [], precio: { min: 0, max: Infinity } };
 let searchQuery = '';
 let sortBy = 'default';
@@ -7,8 +13,11 @@ function getFilteredProducts() {
   return window.PERFUMES.filter(p => {
     const catOk = !activeFilters.categoria.length || activeFilters.categoria.includes(p.category);
     const marcaOk = !activeFilters.marca.length || activeFilters.marca.includes(p.brand);
-    const familiaOk = !activeFilters.familia.length || activeFilters.familia.includes(p.familia);
-    const precioOk = p.price >= activeFilters.precio.min && p.price <= activeFilters.precio.max;
+    const familiaOk = !activeFilters.familia.length || activeFilters.familia.includes(p.familia_olfativa);
+    /* price null = "Consultar precio" (precio aún no definido), no es un precio de 0:
+       nunca se excluye por rango, si no el catálogo entero desaparecería. */
+    const precioOk = p.price == null ||
+      (p.price >= activeFilters.precio.min && p.price <= activeFilters.precio.max);
     const searchOk = !searchQuery || p.name.toLowerCase().includes(searchQuery) || p.brand.toLowerCase().includes(searchQuery);
     return catOk && marcaOk && familiaOk && precioOk && searchOk;
   }).sort((a, b) => {
@@ -22,23 +31,26 @@ function getFilteredProducts() {
 function applyFilters() { renderProducts(getFilteredProducts()); }
 
 function buildSidebar() {
-  const categorias = [...new Set(window.PERFUMES.map(p => p.category))];
-  const marcas = [...new Set(window.PERFUMES.map(p => p.brand))].sort();
-  const familias = [...new Set(window.PERFUMES.map(p => p.familia))].sort();
-
-  buildCheckGroup('filterCategorias', categorias, 'categoria', {hombre:'Hombre',mujer:'Mujer',unisex:'Unisex'});
-  buildCheckGroup('filterMarcas', marcas, 'marca', {});
-  buildCheckGroup('filterFamilias', familias, 'familia', {});
+  buildCheckGroup('filterCategorias', 'categoria', {hombre:'Hombre',mujer:'Mujer',unisex:'Unisex'});
+  buildCheckGroup('filterMarcas', 'marca', {});
+  buildCheckGroup('filterFamilias', 'familia', {});
 
   document.getElementById('priceMin').placeholder = '0';
   document.getElementById('priceMax').placeholder = '900.000';
 }
 
-function buildCheckGroup(containerId, values, filterKey, labels) {
+/* Genera las opciones a partir de los valores reales del catálogo, descartando
+   nulos y vacíos (antes se colaba una casilla rotulada literalmente "null"). */
+function buildCheckGroup(containerId, filterKey, labels) {
   const container = document.getElementById(containerId);
   if (!container) return;
+  const field = FILTER_FIELD[filterKey];
+  const values = [...new Set(window.PERFUMES.map(p => p[field]))]
+    .filter(v => v != null && v !== '')
+    .sort((a, b) => a.localeCompare(b, 'es'));   // orden correcto con acentos
+
   container.innerHTML = values.map(v => {
-    const count = window.PERFUMES.filter(p => p[filterKey === 'categoria' ? 'category' : filterKey === 'marca' ? 'brand' : 'familia'] === v).length;
+    const count = window.PERFUMES.filter(p => p[field] === v).length;
     const label = labels[v] || v;
     return `<label class="filter-check">
       <input type="checkbox" value="${v}" data-filter="${filterKey}" onchange="onCheckChange(this)">
@@ -49,8 +61,8 @@ function buildCheckGroup(containerId, values, filterKey, labels) {
 }
 
 function onCheckChange(input) {
-  const key = input.dataset.filter;
-  const arr = activeFilters[key === 'categoria' ? 'categoria' : key === 'marca' ? 'marca' : 'familia'];
+  const arr = activeFilters[input.dataset.filter];
+  if (!arr) return;
   if (input.checked) arr.push(input.value);
   else { const i = arr.indexOf(input.value); if (i > -1) arr.splice(i, 1); }
   applyFilters();

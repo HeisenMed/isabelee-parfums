@@ -41,3 +41,7 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+
+.claude/
+CLAUDE.md
+doc/

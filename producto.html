@@ -12,13 +12,21 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/responsive.css">
 <link rel="stylesheet" href="css/producto.css">
+<link rel="stylesheet" href="css/darkmode.css">
+<script>
+  /* Aplica el tema guardado antes de pintar, para que no haya parpadeo claro→oscuro */
+  try { if (localStorage.getItem('isabelee-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}
+</script>
 </head>
 <body>
 
 <!-- HEADER -->
 <header id="hdr">
   <div class="nav-wrap">
-    <a href="index.html" class="nav-logo"><img src="assets/images/logo/isabelee-logo.png" alt="Isabeleé Parfums"></a>
+    <a href="index.html" class="nav-logo">
+      <img class="logo-light" src="assets/images/logo/isabelee-logo.png" alt="Isabeleé Parfums">
+      <img class="logo-dark" src="assets/images/logo/isabellee-logo-blanco.png" alt="">
+    </a>
     <nav aria-label="Menú principal">
       <ul class="nav-links">
         <li><a href="index.html">Inicio</a></li>
@@ -34,6 +42,10 @@
       <input type="search" id="navSearch" placeholder="Buscar fragancia..." aria-label="Buscar" onfocus="window.location.href='index.html'" readonly>
     </div>
     <div class="nav-actions">
+      <button class="icon-btn" id="darkToggle" onclick="toggleDark()" aria-label="Activar modo oscuro" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+      </button>
       <button class="icon-btn" id="cartBtn" aria-label="Carrito">
         <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
         <span class="cart-badge" id="cartBadge">0</span>

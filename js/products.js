@@ -1,5 +1,4 @@
-﻿/* products.js */
-let wish = new Set();
+﻿/* products.js — `wish` y `toggleWishId` vienen de cart.js (cargado antes) */
 
 function renderProducts(list) {
   const grid = document.getElementById('prodGrid');
@@ -46,7 +45,5 @@ function renderProducts(list) {
 
 function toggleWish(e, id) {
   e.stopPropagation();
-  const btn = e.currentTarget;
-  if (wish.has(id)) { wish.delete(id); btn.classList.remove('on'); showToast('Eliminado de favoritos'); }
-  else { wish.add(id); btn.classList.add('on'); showToast('Agregado a favoritos ♡'); }
+  e.currentTarget.classList.toggle('on', toggleWishId(id));
 }
