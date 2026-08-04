@@ -1,0 +1,43 @@
+# ── Dependencias ──────────────────────────────────────────────────────────
+# Este proyecto es estático y NO usa npm para desarrollo (ver CLAUDE.md §1).
+# node_modules/ solo aparece por herramientas puntuales (Puppeteer), nunca
+# forma parte del sitio publicado.
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ── Sistema operativo ─────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Logs ──────────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# ── Entorno y secretos ────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ── Editores e IDE ────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*~
+
+# ── Temporales y build ────────────────────────────────────────────────────
+dist/
+build/
+.cache/
+.vercel/
+*.tmp
+*.bak
+
+# ── Python (scripts auxiliares de imágenes/datos) ─────────────────────────
+__pycache__/
+*.pyc
+.venv/
+venv/
