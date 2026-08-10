@@ -12,7 +12,59 @@ document.addEventListener('DOMContentLoaded', () => {
   initCart();
   initHeroSparkles();
   initAmbientSparkles();
+  initWelcomeModal();
 });
+
+/* ── Modal de bienvenida ──────────────────────────────────────────────────
+   Se abre 2s después de cargar y solo una vez por sesión: la marca queda en
+   sessionStorage (no localStorage), así vuelve a verse en una visita nueva
+   pero no molesta al navegar entre páginas o recargar. */
+const WELCOME_KEY = 'isabelee-welcome';
+let welcomeLastFocus = null;
+
+function initWelcomeModal() {
+  const overlay = document.getElementById('welcomeOverlay');
+  if (!overlay) return;
+
+  try {
+    if (sessionStorage.getItem(WELCOME_KEY)) return;   // ya se mostró en esta sesión
+  } catch (e) { /* sessionStorage bloqueado: se muestra igual */ }
+
+  setTimeout(openWelcome, 2000);
+
+  document.getElementById('welcomeClose').addEventListener('click', closeWelcome);
+  document.getElementById('welcomeContinue').addEventListener('click', closeWelcome);
+  // Clic en el fondo oscuro, pero no dentro del modal
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeWelcome(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && overlay.classList.contains('on')) closeWelcome();
+  });
+}
+
+function openWelcome() {
+  const overlay = document.getElementById('welcomeOverlay');
+  if (!overlay) return;
+
+  try { sessionStorage.setItem(WELCOME_KEY, '1'); } catch (e) {}
+
+  welcomeLastFocus = document.activeElement;
+  overlay.hidden = false;
+  document.body.style.overflow = 'hidden';
+  // Fuerza un reflow para que la transición de opacidad/scale sí se dispare
+  void overlay.offsetWidth;
+  overlay.classList.add('on');
+  document.getElementById('welcomeClose').focus();
+}
+
+function closeWelcome() {
+  const overlay = document.getElementById('welcomeOverlay');
+  if (!overlay || !overlay.classList.contains('on')) return;
+
+  overlay.classList.remove('on');          // fade-out de 0.3s (ver CSS)
+  document.body.style.overflow = '';
+  setTimeout(() => { overlay.hidden = true; }, 300);
+  if (welcomeLastFocus) welcomeLastFocus.focus();
+}
 
 function initHeader() {
   const hdr = document.getElementById('hdr');

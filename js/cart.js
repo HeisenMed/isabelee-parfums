@@ -110,7 +110,7 @@ function checkout() {
   const lines = cart.map(x => `• ${x.brand} ${x.name} (${x.volume}) ×${x.qty} = ${fmt(x.price * x.qty)}`).join('\n');
   const total = fmt(cart.reduce((s, x) => s + x.price * x.qty, 0));
   const msg = encodeURIComponent(`¡Hola! Quisiera hacer el siguiente pedido:\n\n${lines}\n\nTotal: ${total}\n\n¿Me pueden confirmar disponibilidad?`);
-  window.open(`https://wa.me/573011431065?text=${msg}`, '_blank');
+  window.open(`https://wa.me/573046446463?text=${msg}`, '_blank');
 }
 
 /* ── Favoritos ────────────────────────────────────────────────────────────

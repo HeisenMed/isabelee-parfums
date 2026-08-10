@@ -1083,11 +1083,12 @@ footer {
     color: rgba(255, 255, 255, .65)
 }
 
+/* ══ BOTÓN FLOTANTE DE WHATSAPP ═══════════════════════════════════════════ */
 .wa-btn {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 800;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
     width: 56px;
     height: 56px;
     border-radius: 50%;
@@ -1096,14 +1097,18 @@ footer {
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    box-shadow: 0 4px 20px rgba(37, 211, 102, .4);
-    transition: transform .25s, box-shadow .25s;
-    animation: waPulse 3s ease-in-out infinite
+    box-shadow: 0 4px 16px rgba(37, 211, 102, .35);
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+    animation: waPulse 3.2s ease-in-out infinite
 }
 
-.wa-btn:hover {
+/* Al pasar el cursor se detiene el pulso para que el scale del hover no
+   compita con el de la animación (una animación gana sobre el transform). */
+.wa-btn:hover,
+.wa-btn:focus-visible {
+    animation: none;
     transform: scale(1.1);
-    box-shadow: 0 6px 28px rgba(37, 211, 102, .55)
+    box-shadow: 0 6px 26px rgba(37, 211, 102, .5)
 }
 
 .wa-btn svg {
@@ -1116,11 +1121,77 @@ footer {
 
     0%,
     100% {
-        box-shadow: 0 4px 20px rgba(37, 211, 102, .4)
+        transform: scale(1)
     }
 
     50% {
-        box-shadow: 0 4px 20px rgba(37, 211, 102, .4), 0 0 0 10px rgba(37, 211, 102, .1)
+        transform: scale(1.05)
+    }
+}
+
+/* Tooltip "¿Necesitas ayuda?" — aparece a la izquierda del botón */
+.wa-tooltip {
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%) translateX(8px);
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: .04em;
+    white-space: nowrap;
+    padding: 8px 13px;
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .18);
+    transition: opacity .22s var(--ease), transform .22s var(--ease)
+}
+
+/* Puntita triangular hacia el botón */
+.wa-tooltip::after {
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 5px solid transparent;
+    border-left-color: var(--black)
+}
+
+.wa-btn:hover .wa-tooltip,
+.wa-btn:focus-visible .wa-tooltip {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0)
+}
+
+/* En táctil no hay hover: el tooltip solo estorbaría */
+@media (hover: none) {
+    .wa-tooltip {
+        display: none
+    }
+}
+
+/* Móvil: se acerca a la esquina para no invadir el contenido */
+@media (max-width: 480px) {
+    .wa-btn {
+        bottom: 16px;
+        right: 16px;
+        width: 52px;
+        height: 52px
+    }
+
+    .wa-btn svg {
+        width: 26px;
+        height: 26px
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wa-btn {
+        animation: none
     }
 }
 
@@ -1328,6 +1399,320 @@ footer {
 
 .cart-checkout:hover {
     background: #2a2a2a
+}
+
+/* ══ MODAL DE BIENVENIDA ══════════════════════════════════════════════════
+   Aparece 2s tras cargar index.html, una sola vez por sesión (sessionStorage).
+   Va por encima del botón de WhatsApp (9999) para que nada lo tape. */
+.welcome-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, .7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity .3s var(--ease)
+}
+
+.welcome-overlay[hidden] {
+    display: none
+}
+
+.welcome-overlay.on {
+    opacity: 1
+}
+
+.welcome-modal {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    padding: 44px 40px 36px;
+    text-align: center;
+    border-radius: 16px;
+    background: linear-gradient(160deg, #1a1a2e 0%, #16213e 100%);
+    border: 1px solid rgba(201, 168, 76, .3);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .55);
+    transform: scale(.9);
+    transition: transform .4s var(--ease)
+}
+
+.welcome-overlay.on .welcome-modal {
+    transform: scale(1)
+}
+
+/* Brillo dorado muy tenue en la esquina superior, para que no se vea plano */
+.welcome-modal::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201, 168, 76, .13), transparent 70%);
+    pointer-events: none
+}
+
+.welcome-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 1px solid rgba(201, 168, 76, .25);
+    border-radius: 50%;
+    color: #C9A84C;
+    cursor: pointer;
+    transition: background .22s, border-color .22s, transform .22s
+}
+
+.welcome-close svg {
+    width: 15px;
+    height: 15px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.6
+}
+
+.welcome-close:hover {
+    background: rgba(201, 168, 76, .12);
+    border-color: rgba(201, 168, 76, .6);
+    transform: rotate(90deg)
+}
+
+/* ── Contenido: entra escalonado, 0.1s entre elementos ── */
+.welcome-spark,
+.welcome-title,
+.welcome-sub,
+.welcome-sep,
+.welcome-msg,
+.welcome-cta,
+.welcome-note,
+.welcome-continue {
+    position: relative;
+    opacity: 0
+}
+
+.welcome-overlay.on .welcome-spark,
+.welcome-overlay.on .welcome-title,
+.welcome-overlay.on .welcome-sub,
+.welcome-overlay.on .welcome-sep,
+.welcome-overlay.on .welcome-msg,
+.welcome-overlay.on .welcome-cta,
+.welcome-overlay.on .welcome-note,
+.welcome-overlay.on .welcome-continue {
+    animation: wFadeUp .5s var(--ease) forwards
+}
+
+.welcome-overlay.on .welcome-spark { animation-delay: .10s }
+.welcome-overlay.on .welcome-title { animation-delay: .20s }
+.welcome-overlay.on .welcome-sub { animation-delay: .30s }
+.welcome-overlay.on .welcome-sep { animation-delay: .40s }
+.welcome-overlay.on .welcome-msg { animation-delay: .50s }
+.welcome-overlay.on .welcome-cta { animation-delay: .60s }
+.welcome-overlay.on .welcome-note { animation-delay: .70s }
+.welcome-overlay.on .welcome-continue { animation-delay: .80s }
+
+@keyframes wFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+.welcome-spark {
+    font-size: 34px;
+    line-height: 1;
+    margin-bottom: 14px
+}
+
+/* El ✨ respira una vez que ya entró */
+.welcome-overlay.on .welcome-spark {
+    animation: wFadeUp .5s var(--ease) .10s forwards,
+               wSparkGlow 2.6s ease-in-out 1s infinite
+}
+
+@keyframes wSparkGlow {
+
+    0%,
+    100% {
+        opacity: 1;
+        filter: drop-shadow(0 0 6px rgba(232, 212, 139, .45))
+    }
+
+    50% {
+        opacity: .62;
+        filter: drop-shadow(0 0 14px rgba(232, 212, 139, .8))
+    }
+}
+
+.welcome-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: #C9A84C;
+    margin-bottom: 8px
+}
+
+.welcome-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, .82);
+    margin-bottom: 22px
+}
+
+/* ── Separador: línea dorada que se expande + diamante ── */
+.welcome-sep {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 22px
+}
+
+.welcome-sep i {
+    display: block;
+    width: 74px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201, 168, 76, .55));
+    transform: scaleX(0)
+}
+
+.welcome-sep i:first-child { transform-origin: right center }
+.welcome-sep i:last-child {
+    transform-origin: left center;
+    background: linear-gradient(to left, transparent, rgba(201, 168, 76, .55))
+}
+
+.welcome-overlay.on .welcome-sep i {
+    animation: wFadeUp .5s var(--ease) .40s forwards,
+               wSepGrow .6s var(--ease) .30s forwards
+}
+
+@keyframes wSepGrow {
+    to {
+        transform: scaleX(1)
+    }
+}
+
+.welcome-sep span {
+    font-size: 9px;
+    color: #C9A84C;
+    line-height: 1
+}
+
+.welcome-msg {
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, .88);
+    margin-bottom: 28px
+}
+
+.welcome-cta {
+    display: block;
+    padding: 15px 24px;
+    background: #C9A84C;
+    color: #16213e;
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .04em;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background .22s var(--ease), transform .22s var(--ease), box-shadow .22s var(--ease)
+}
+
+.welcome-cta:hover {
+    background: #e8d48b;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(201, 168, 76, .3)
+}
+
+.welcome-note {
+    font-family: 'Jost', sans-serif;
+    font-size: 12.5px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, .5);
+    margin: 14px 0 18px
+}
+
+.welcome-continue {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, .62);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color .22s
+}
+
+.welcome-continue:hover {
+    color: #C9A84C
+}
+
+/* Móvil: margen de 16px a cada lado */
+@media (max-width: 480px) {
+    .welcome-modal {
+        max-width: calc(100vw - 32px);
+        padding: 38px 24px 30px
+    }
+
+    .welcome-title {
+        font-size: 28px
+    }
+
+    .welcome-sub {
+        font-size: 16px
+    }
+
+    .welcome-msg {
+        font-size: 14px
+    }
+
+    .welcome-sep i {
+        width: 56px
+    }
+}
+
+/* Sin animaciones: el modal aparece y desaparece sin movimiento */
+@media (prefers-reduced-motion: reduce) {
+
+    .welcome-modal,
+    .welcome-overlay.on .welcome-spark,
+    .welcome-overlay.on .welcome-sep i,
+    .welcome-overlay.on .welcome-title,
+    .welcome-overlay.on .welcome-sub,
+    .welcome-overlay.on .welcome-msg,
+    .welcome-overlay.on .welcome-cta,
+    .welcome-overlay.on .welcome-note,
+    .welcome-overlay.on .welcome-continue {
+        animation: none;
+        opacity: 1;
+        transform: none
+    }
+
+    .welcome-overlay.on .welcome-sep i {
+        transform: scaleX(1)
+    }
 }
 
 .toast {
