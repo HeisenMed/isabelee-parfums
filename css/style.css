@@ -1403,7 +1403,8 @@ footer {
 
 /* ══ MODAL DE BIENVENIDA ══════════════════════════════════════════════════
    Aparece 2s tras cargar index.html, una sola vez por sesión (sessionStorage).
-   Va por encima del botón de WhatsApp (9999) para que nada lo tape. */
+   Va por encima del botón de WhatsApp (9999) para que nada lo tape.
+   Paleta: solo dorados (#C9A84C, #e8d48b) sobre oscuros (#1c1c1c, #121212). */
 .welcome-overlay {
     position: fixed;
     inset: 0;
@@ -1434,9 +1435,9 @@ footer {
     padding: 44px 40px 36px;
     text-align: center;
     border-radius: 16px;
-    background: linear-gradient(160deg, #1a1a2e 0%, #16213e 100%);
-    border: 1px solid rgba(201, 168, 76, .3);
-    box-shadow: 0 24px 70px rgba(0, 0, 0, .55);
+    background: linear-gradient(160deg, #1c1c1c 0%, #121212 100%);
+    border: 1px solid rgba(201, 168, 76, .25);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .6);
     transform: scale(.9);
     transition: transform .4s var(--ease)
 }
@@ -1445,13 +1446,13 @@ footer {
     transform: scale(1)
 }
 
-/* Brillo dorado muy tenue en la esquina superior, para que no se vea plano */
+/* Halo dorado muy tenue arriba, para que el fondo no se vea plano */
 .welcome-modal::before {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201, 168, 76, .13), transparent 70%);
+    background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201, 168, 76, .12), transparent 70%);
     pointer-events: none
 }
 
@@ -1487,11 +1488,12 @@ footer {
 }
 
 /* ── Contenido: entra escalonado, 0.1s entre elementos ── */
-.welcome-spark,
+.welcome-mark,
 .welcome-title,
 .welcome-sub,
 .welcome-sep,
 .welcome-msg,
+.welcome-callout,
 .welcome-cta,
 .welcome-note,
 .welcome-continue {
@@ -1499,25 +1501,27 @@ footer {
     opacity: 0
 }
 
-.welcome-overlay.on .welcome-spark,
+.welcome-overlay.on .welcome-mark,
 .welcome-overlay.on .welcome-title,
 .welcome-overlay.on .welcome-sub,
 .welcome-overlay.on .welcome-sep,
 .welcome-overlay.on .welcome-msg,
+.welcome-overlay.on .welcome-callout,
 .welcome-overlay.on .welcome-cta,
 .welcome-overlay.on .welcome-note,
 .welcome-overlay.on .welcome-continue {
     animation: wFadeUp .5s var(--ease) forwards
 }
 
-.welcome-overlay.on .welcome-spark { animation-delay: .10s }
+.welcome-overlay.on .welcome-mark { animation-delay: .10s }
 .welcome-overlay.on .welcome-title { animation-delay: .20s }
 .welcome-overlay.on .welcome-sub { animation-delay: .30s }
 .welcome-overlay.on .welcome-sep { animation-delay: .40s }
 .welcome-overlay.on .welcome-msg { animation-delay: .50s }
-.welcome-overlay.on .welcome-cta { animation-delay: .60s }
-.welcome-overlay.on .welcome-note { animation-delay: .70s }
-.welcome-overlay.on .welcome-continue { animation-delay: .80s }
+.welcome-overlay.on .welcome-callout { animation-delay: .60s }
+.welcome-overlay.on .welcome-cta { animation-delay: .70s }
+.welcome-overlay.on .welcome-note { animation-delay: .80s }
+.welcome-overlay.on .welcome-continue { animation-delay: .90s }
 
 @keyframes wFadeUp {
     from {
@@ -1531,29 +1535,33 @@ footer {
     }
 }
 
-.welcome-spark {
-    font-size: 34px;
-    line-height: 1;
-    margin-bottom: 14px
+/* ── Marca decorativa: frasco en trazo dorado (SVG, sin emojis) ── */
+.welcome-mark {
+    display: block;
+    width: 30px;
+    height: 41px;
+    margin: 0 auto 16px;
+    fill: none;
+    stroke: #C9A84C;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round
 }
 
-/* El ✨ respira una vez que ya entró */
-.welcome-overlay.on .welcome-spark {
+.welcome-overlay.on .welcome-mark {
     animation: wFadeUp .5s var(--ease) .10s forwards,
-               wSparkGlow 2.6s ease-in-out 1s infinite
+               wMarkGlow 3s ease-in-out 1s infinite
 }
 
-@keyframes wSparkGlow {
+@keyframes wMarkGlow {
 
     0%,
     100% {
-        opacity: 1;
-        filter: drop-shadow(0 0 6px rgba(232, 212, 139, .45))
+        filter: drop-shadow(0 0 3px rgba(201, 168, 76, .35))
     }
 
     50% {
-        opacity: .62;
-        filter: drop-shadow(0 0 14px rgba(232, 212, 139, .8))
+        filter: drop-shadow(0 0 10px rgba(232, 212, 139, .7))
     }
 }
 
@@ -1571,31 +1579,42 @@ footer {
     font-style: italic;
     font-size: 18px;
     font-weight: 300;
-    color: rgba(255, 255, 255, .82);
+    color: #e8d48b;
     margin-bottom: 22px
 }
 
-/* ── Separador: línea dorada que se expande + diamante ── */
+/* ── Separador: línea dorada que se expande + rombo dibujado en CSS ── */
 .welcome-sep {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 22px
+    gap: 12px;
+    margin-bottom: 24px
 }
 
 .welcome-sep i {
     display: block;
     width: 74px;
     height: 1px;
-    background: linear-gradient(to right, transparent, rgba(201, 168, 76, .55));
+    background: linear-gradient(to right, transparent, #C9A84C);
     transform: scaleX(0)
 }
 
 .welcome-sep i:first-child { transform-origin: right center }
+
 .welcome-sep i:last-child {
     transform-origin: left center;
-    background: linear-gradient(to left, transparent, rgba(201, 168, 76, .55))
+    background: linear-gradient(to left, transparent, #C9A84C)
+}
+
+/* Rombo: cuadrado rotado 45 grados, no un caracter del sistema */
+.welcome-sep b {
+    display: block;
+    width: 5px;
+    height: 5px;
+    flex-shrink: 0;
+    background: #C9A84C;
+    transform: rotate(45deg)
 }
 
 .welcome-overlay.on .welcome-sep i {
@@ -1609,26 +1628,39 @@ footer {
     }
 }
 
-.welcome-sep span {
-    font-size: 9px;
-    color: #C9A84C;
-    line-height: 1
-}
-
 .welcome-msg {
     font-family: 'Jost', sans-serif;
     font-size: 15px;
     font-weight: 300;
     line-height: 1.7;
-    color: rgba(255, 255, 255, .88);
-    margin-bottom: 28px
+    color: #f5f5f5;
+    margin-bottom: 18px
+}
+
+/* ── Recuadro destacado: el mensaje clave de WhatsApp ── */
+.welcome-callout {
+    font-family: 'Jost', sans-serif;
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: #e8d48b;
+    text-align: left;
+    background: rgba(201, 168, 76, .1);
+    border-left: 3px solid #C9A84C;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 24px
 }
 
 .welcome-cta {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     padding: 15px 24px;
     background: #C9A84C;
-    color: #16213e;
+    color: #1a1a1a;
     font-family: 'Jost', sans-serif;
     font-size: 14px;
     font-weight: 500;
@@ -1636,6 +1668,14 @@ footer {
     text-decoration: none;
     border-radius: 8px;
     transition: background .22s var(--ease), transform .22s var(--ease), box-shadow .22s var(--ease)
+}
+
+/* Icono de WhatsApp en el mismo tono oscuro que el texto del boton */
+.welcome-cta svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    flex-shrink: 0
 }
 
 .welcome-cta:hover {
@@ -1648,7 +1688,7 @@ footer {
     font-family: 'Jost', sans-serif;
     font-size: 12.5px;
     font-weight: 300;
-    color: rgba(255, 255, 255, .5);
+    color: rgba(245, 245, 245, .5);
     margin: 14px 0 18px
 }
 
@@ -1659,7 +1699,7 @@ footer {
     font-family: 'Jost', sans-serif;
     font-size: 13px;
     font-weight: 300;
-    color: rgba(255, 255, 255, .62);
+    color: rgba(245, 245, 245, .62);
     text-decoration: underline;
     text-underline-offset: 3px;
     transition: color .22s
@@ -1688,6 +1728,11 @@ footer {
         font-size: 14px
     }
 
+    .welcome-callout {
+        font-size: 15px;
+        padding: 11px 14px
+    }
+
     .welcome-sep i {
         width: 56px
     }
@@ -1697,11 +1742,12 @@ footer {
 @media (prefers-reduced-motion: reduce) {
 
     .welcome-modal,
-    .welcome-overlay.on .welcome-spark,
+    .welcome-overlay.on .welcome-mark,
     .welcome-overlay.on .welcome-sep i,
     .welcome-overlay.on .welcome-title,
     .welcome-overlay.on .welcome-sub,
     .welcome-overlay.on .welcome-msg,
+    .welcome-overlay.on .welcome-callout,
     .welcome-overlay.on .welcome-cta,
     .welcome-overlay.on .welcome-note,
     .welcome-overlay.on .welcome-continue {
