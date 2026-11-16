@@ -34,6 +34,10 @@
 html {
   /* Desplazamiento suave al navegar a anclas (#catalogo, #contacto...). */
   scroll-behavior: smooth;
+  /* Avisa al navegador de que el sitio es oscuro: así dibuja en tonos
+     oscuros lo que él controla (barras de desplazamiento, listas de los
+     desplegables <select>, casillas) en lugar de dejarlo en blanco. */
+  color-scheme: dark;
 }
 
 /* Anillo de foco visible y coherente con la marca para quien navega con

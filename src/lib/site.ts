@@ -13,6 +13,8 @@
  *
  * CÓMO SE CONECTA CON EL RESTO
  *   - Header.tsx y Footer.tsx leen NAV_LINKS para pintar el menú.
+ *   - Las tarjetas y la ficha de producto usan PLACEHOLDER_IMAGE,
+ *     formatPrecio() y whatsappUrl().
  *   - WhatsAppButton.tsx, WelcomeModal.tsx, WhatsAppCta.tsx y Footer.tsx
  *     usan las URLs de WhatsApp.
  *   - layout.tsx usa SITE_NAME y SITE_TAGLINE para los metadatos.
@@ -53,14 +55,41 @@ export type NavLink = {
 
 /**
  * Enlaces del menú principal, en el mismo orden que la navbar anterior.
- * Hombre / Mujer / Unisex apuntan por ahora a la sección de categorías;
- * en la Fase 2 pasarán a abrir el catálogo ya filtrado.
+ * Hombre / Mujer / Unisex abren el catálogo ya filtrado por categoría: el
+ * parámetro ?genero= lo interpreta src/app/catalogo/page.tsx.
  */
 export const NAV_LINKS: NavLink[] = [
   { label: "Inicio", href: "/" },
-  { label: "Catálogo", href: "/#catalogo" },
-  { label: "Hombre", href: "/#categorias" },
-  { label: "Mujer", href: "/#categorias" },
-  { label: "Unisex", href: "/#categorias" },
+  { label: "Catálogo", href: "/catalogo" },
+  { label: "Hombre", href: "/catalogo?genero=Hombre" },
+  { label: "Mujer", href: "/catalogo?genero=Mujer" },
+  { label: "Unisex", href: "/catalogo?genero=Unisex" },
   { label: "Contacto", href: "/#contacto" },
 ];
+
+/**
+ * Imagen genérica para perfumes que aún no tienen foto (CLAUDE.md §4).
+ * Debe coincidir con la que usa scripts/migrate-perfumes.ts.
+ */
+export const PLACEHOLDER_IMAGE = "/assets/images/perfumes/placeholder-locion.webp";
+
+/**
+ * Construye un enlace de WhatsApp con un mensaje prellenado cualquiera.
+ * encodeURIComponent convierte espacios, tildes y signos al formato que
+ * exige una URL (CLAUDE.md §11.3).
+ */
+export function whatsappUrl(message: string): string {
+  return `${WHATSAPP_URL}?text=${encodeURIComponent(message)}`;
+}
+
+/**
+ * Da formato de pesos colombianos a un precio: 250000 → "$ 250.000".
+ * Sin decimales, porque los precios del catálogo son valores enteros en COP.
+ */
+export function formatPrecio(precio: number): string {
+  return new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    maximumFractionDigits: 0,
+  }).format(precio);
+}

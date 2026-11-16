@@ -19,7 +19,8 @@
  *   - Las animaciones CSS de las partículas, el indicador de scroll y el
  *     resplandor del texto están en src/app/globals.css
  *     (.ambient-sparkle, .scroll-hint, .text-glow-gold).
- *   - El botón lleva a #catalogo, el id de la sección Featured.tsx.
+ *   - El botón lleva a la página /catalogo; la flecha inferior baja a
+ *     #destacados, el id de la sección Featured.tsx.
  *   - Necesita "use client": GSAP y las partículas manipulan el DOM, cosa
  *     que solo puede ocurrir en el navegador.
  *
@@ -295,7 +296,7 @@ export default function Hero() {
 
         <div data-hero-item="cta" className={`${HIDDEN} mt-10`}>
           <Link
-            href="/#catalogo"
+            href="/catalogo"
             className="inline-block rounded-lg bg-gold px-9 py-4 text-xs font-medium uppercase tracking-[0.22em] text-dark-secondary transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-light hover:shadow-[0_12px_32px_rgba(201,168,76,0.3)]"
           >
             Explorar Catálogo
@@ -305,9 +306,9 @@ export default function Hero() {
 
       {/* Indicador de scroll */}
       <Link
-        href="/#catalogo"
+        href="/#destacados"
         data-hero-scroll
-        aria-label="Bajar al catálogo"
+        aria-label="Bajar a los destacados"
         className={`${HIDDEN} absolute bottom-7 left-1/2 z-10 flex h-11 w-11 -translate-x-1/2 items-center justify-center text-gold-light`}
       >
         <ChevronDownIcon className="scroll-hint h-6 w-6" />
