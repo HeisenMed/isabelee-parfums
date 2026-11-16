@@ -14,7 +14,7 @@
  * CÓMO SE CONECTA CON EL RESTO
  *   - Usa los clientes de src/lib/supabase.ts y los tipos de
  *     src/types/perfume.ts.
- *   - Las tablas las crea scripts/setup-database.sql.
+ *   - Las tablas las crean las migraciones de supabase/migrations/.
  *   - Lo usan: src/app/catalogo/page.tsx, src/app/producto/[id]/page.tsx y
  *     las secciones Featured y Categories de la portada.
  *

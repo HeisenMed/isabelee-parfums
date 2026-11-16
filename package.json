@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "migrate": "npx tsx scripts/migrate-perfumes.ts"
+    "db:seed": "npx tsx supabase/seed/seed-from-v1.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

@@ -1,34 +1,51 @@
 /**
- * scripts/migrate-perfumes.ts — Migración del catálogo v1 a Supabase.
+ * supabase/seed/seed-from-v1.ts — Carga inicial de datos desde el catálogo v1.
+ *
+ * One-time data seed from the v1 static catalog. Already executed on
+ * 2026-11-16. Kept for reproducibility: only re-run against an EMPTY database.
  *
  * QUÉ ES
- *   Un script de un solo uso que copia los 120 perfumes (y sus reseñas) de
+ *   Un "seed": un script que llena de DATOS una base de datos cuya
+ *   estructura ya existe. Copia los 120 perfumes (y sus 237 reseñas) de
  *   data/perfumes.js a las tablas `perfumes` y `reviews` de Supabase, y
  *   crea los dos almacenes de archivos (buckets) para fotos y videos.
  *
+ * ESTADO
+ *   Ya se ejecutó el 2026-11-16: la base de datos está cargada. Desde
+ *   entonces la fuente de verdad del catálogo es Supabase, no
+ *   data/perfumes.js. Este archivo se conserva solo para poder reconstruir
+ *   la base de datos desde cero de forma reproducible.
+ *   ⚠️ No lo ejecutes contra una base de datos con datos: los cambios
+ *   hechos después (precios, fotos, perfumes nuevos) no están en
+ *   data/perfumes.js. El propio script se detiene si la tabla no está vacía.
+ *
  * POR QUÉ EXISTE
  *   El catálogo v1 vivía en un archivo JavaScript. Para que el sitio v2 lo
- *   lea desde la base de datos, alguien tiene que cargarlo una primera vez
+ *   lea desde la base de datos, hubo que cargarlo una primera vez
  *   traduciendo los nombres de campo antiguos a los nuevos.
  *
- * CÓMO SE USA
- *   1. Ejecuta scripts/setup-database.sql en el SQL Editor de Supabase.
- *   2. npm run migrate -- --dry-run   → solo lee y traduce; NO escribe nada.
- *   3. npm run migrate                → inserta en Supabase.
- *   Si la tabla ya tiene perfumes, el script se detiene para no pisar
- *   cambios hechos después. Para rehacer la carga a propósito:
- *      npm run migrate -- --force
- *   (--force sobrescribe los perfumes con el mismo id y REEMPLAZA sus
- *   reseñas por las del archivo original).
+ * CÓMO SE USA (solo al reconstruir la base de datos; ver supabase/README.md)
+ *   Siempre desde la RAÍZ del proyecto, con npm:
+ *   1. Aplica antes todas las migraciones de supabase/migrations/, en orden.
+ *   2. npm run db:seed -- --dry-run   → solo lee y traduce; NO escribe nada.
+ *   3. npm run db:seed                → inserta en Supabase.
+ *   Existe también `npm run db:seed -- --force`, que sobrescribe los
+ *   perfumes con el mismo id y REEMPLAZA sus reseñas por las originales.
+ *   Es destructivo: no lo uses sobre una base de datos en uso.
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - Lee las credenciales de .env.local y usa getSupabaseAdmin()
- *     (src/lib/supabase.ts): la clave secreta, que se salta RLS. Por eso
- *     este script solo debe ejecutarse en tu equipo, nunca en el navegador.
+ *   - Lee data/perfumes.js y .env.local, que están en la raíz del
+ *     proyecto. Los localiza a partir de la carpeta desde la que se lanza
+ *     el comando (npm siempre lo lanza desde la raíz), no de la ubicación
+ *     de este archivo. Por eso mover el script no rompe esas rutas; lo
+ *     único relativo a su ubicación son los dos `import` de src/.
+ *   - Usa getSupabaseAdmin() (src/lib/supabase.ts): la clave secreta, que
+ *     se salta RLS. Por eso solo debe ejecutarse en tu equipo.
  *   - Los tipos vienen de src/types/perfume.ts, el mismo contrato que usa
  *     la app: si el esquema cambia, este script deja de compilar y avisa.
  *   - Al terminar llama a la función SQL sync_id_sequences() (definida en
- *     setup-database.sql) para que los ids nuevos continúen desde el 121.
+ *     supabase/migrations/20261116000000_initial_schema.sql) para que los
+ *     ids nuevos continúen desde el 121.
  *
  * TRADUCCIÓN DE CAMPOS (v1 → v2)
  *   name → nombre            brand → marca            volume → volumen
@@ -46,13 +63,19 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
-import { getSupabaseAdmin } from "../src/lib/supabase";
-import type { Genero, PerfumeInput, Review } from "../src/types/perfume";
+import { getSupabaseAdmin } from "../../src/lib/supabase";
+import type { Genero, PerfumeInput, Review } from "../../src/types/perfume";
 
 /* ── Configuración ──────────────────────────────────────────────────── */
 
+/**
+ * Raíz del proyecto. Se toma de la carpeta desde la que se lanza el comando
+ * y no de la ubicación de este archivo: `npm run db:seed` siempre se
+ * ejecuta desde la raíz, esté donde esté el script.
+ */
 const ROOT = process.cwd();
 const SOURCE_FILE = path.join(ROOT, "data", "perfumes.js");
+const ENV_FILE = path.join(ROOT, ".env.local");
 const PLACEHOLDER_IMAGE = "/assets/images/perfumes/placeholder-locion.webp";
 /** Buckets públicos de Supabase Storage que la app necesita. */
 const BUCKETS = ["product-images", "product-videos"];
@@ -158,6 +181,11 @@ const toPrecio = (value: unknown): number | null =>
  * luego se recoge el array.
  */
 function readLegacyPerfumes(): LegacyPerfume[] {
+  if (!existsSync(SOURCE_FILE)) {
+    throw new Error(
+      `No se encontró ${SOURCE_FILE}. Ejecuta el comando desde la raíz del proyecto: npm run db:seed`,
+    );
+  }
   const code = readFileSync(SOURCE_FILE, "utf8");
   const sandbox: { window: { PERFUMES?: unknown } } = { window: {} };
   vm.runInNewContext(code, sandbox, { filename: "data/perfumes.js" });
@@ -261,7 +289,7 @@ function mapAll(source: LegacyPerfume[]): MappingResult {
 /* ── Programa principal ─────────────────────────────────────────────── */
 
 async function main(): Promise<void> {
-  console.log("Isabelé Fragancias — migración del catálogo a Supabase\n");
+  console.log("Isabelé Fragancias — carga inicial del catálogo v1 en Supabase\n");
 
   // Leer y traducir (no toca la base de datos).
   const source = readLegacyPerfumes();
@@ -286,7 +314,7 @@ async function main(): Promise<void> {
   }
 
   // Cargar credenciales. process.loadEnvFile existe desde Node 20.12.
-  process.loadEnvFile(path.join(ROOT, ".env.local"));
+  process.loadEnvFile(ENV_FILE);
   const supabase = getSupabaseAdmin();
 
   // Comprobar que las tablas existen y si ya tienen datos.
@@ -297,7 +325,7 @@ async function main(): Promise<void> {
   if (countError) {
     console.error(
       `\nNo se pudo leer la tabla "perfumes": ${countError.message}\n` +
-        "¿Ya ejecutaste scripts/setup-database.sql en el SQL Editor de Supabase?",
+        "¿Ya aplicaste las migraciones de supabase/migrations/ en el SQL Editor de Supabase?",
     );
     process.exitCode = 1;
     return;
@@ -307,7 +335,7 @@ async function main(): Promise<void> {
     console.error(
       `\nLa tabla "perfumes" ya tiene ${count} filas. No se hizo ningún cambio.\n` +
         "Si de verdad quieres volver a cargar el catálogo original, usa:\n" +
-        "  npm run migrate -- --force\n" +
+        "  npm run db:seed -- --force\n" +
         "(sobrescribe los perfumes con el mismo id y reemplaza sus reseñas).",
     );
     process.exitCode = 1;
@@ -366,7 +394,7 @@ async function main(): Promise<void> {
     }
   }
 
-  /* Poner los contadores de id después del más alto (ver setup-database.sql). */
+  /* Poner los contadores de id después del más alto (ver la migración inicial). */
   const { error: sequenceError } = await supabase.rpc("sync_id_sequences");
   if (sequenceError) {
     errors.push(
@@ -401,12 +429,12 @@ async function main(): Promise<void> {
     errors.forEach((message) => console.log(`  ✗ ${message}`));
     process.exitCode = 1;
   } else {
-    console.log("\nMigración completada sin errores.");
+    console.log("\nCarga completada sin errores.");
   }
 }
 
 main().catch((error: unknown) => {
-  console.error("\nLa migración se detuvo por un error inesperado:");
+  console.error("\nLa carga se detuvo por un error inesperado:");
   console.error(error);
   process.exitCode = 1;
 });

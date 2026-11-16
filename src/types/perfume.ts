@@ -12,10 +12,10 @@
  *   las reseñas llegaban con claves en español).
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - Refleja exactamente las tablas creadas por scripts/setup-database.sql.
+ *   - Refleja exactamente las tablas creadas por supabase/migrations/.
  *     Si se añade o renombra una columna allí, hay que cambiarla aquí.
  *   - Lo usan src/lib/perfumes.ts (funciones de datos), el script de
- *     migración (scripts/migrate-perfumes.ts) y todos los componentes de
+ *     carga inicial (supabase/seed/seed-from-v1.ts) y todos los componentes de
  *     catálogo y producto.
  *   - Los nombres de campo están en español porque así se llaman las
  *     columnas; las reseñas conservan sus claves en inglés (name, stars,

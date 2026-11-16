@@ -69,7 +69,7 @@ export const NAV_LINKS: NavLink[] = [
 
 /**
  * Imagen genérica para perfumes que aún no tienen foto (CLAUDE.md §4).
- * Debe coincidir con la que usa scripts/migrate-perfumes.ts.
+ * Debe coincidir con la que usa supabase/seed/seed-from-v1.ts.
  */
 export const PLACEHOLDER_IMAGE = "/assets/images/perfumes/placeholder-locion.webp";
 

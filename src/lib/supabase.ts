@@ -30,7 +30,7 @@
  *     que Next nunca la envía al cliente.
  *   - src/lib/perfumes.ts es quien usa estos clientes; los componentes no
  *     deberían llamar a Supabase directamente.
- *   - scripts/migrate-perfumes.ts usa getSupabaseAdmin() para cargar el
+ *   - supabase/seed/seed-from-v1.ts usa getSupabaseAdmin() para cargar el
  *     catálogo inicial.
  *   - En producción (Vercel/Cloudflare) hay que definir las mismas tres
  *     variables en el panel del hosting.

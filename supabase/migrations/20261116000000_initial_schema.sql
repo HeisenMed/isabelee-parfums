@@ -1,23 +1,37 @@
 -- ============================================
--- Isabelé Fragancias — Database Setup
--- Run this ONCE in Supabase SQL Editor
--- (Dashboard → SQL Editor → New Query → pegar todo → Run)
+-- Isabelé Fragancias — Migración de esquema n.º 1: esquema inicial
+-- supabase/migrations/20261116000000_initial_schema.sql
 -- ============================================
 --
--- QUÉ ES
---   El script que crea la estructura de la base de datos: las tablas
---   `perfumes` y `reviews`, sus reglas de seguridad (RLS) y dos funciones
---   auxiliares.
+-- Schema migration #1 — structure only. Future schema changes go in NEW
+-- timestamped files, never edit this one.
 --
--- POR QUÉ EXISTE
---   Es la referencia escrita del esquema. Se ejecuta A MANO una sola vez;
---   ningún código del proyecto lo ejecuta automáticamente.
+-- QUÉ ES
+--   La primera migración de esquema: SOLO estructura, ningún dato. Crea
+--   las tablas `perfumes` y `reviews`, sus reglas de seguridad (RLS), un
+--   índice y dos funciones auxiliares.
+--
+-- ESTADO
+--   Ya aplicada en el proyecto de Supabase el 2026-11-16. NO EDITES ESTE
+--   ARCHIVO: describe lo que ya existe en la base de datos, y cambiarlo
+--   aquí no cambia nada allí (solo haría que el archivo deje de ser fiel).
+--   Cualquier cambio futuro del esquema — una columna nueva, una política
+--   distinta — va en un archivo NUEVO de esta misma carpeta, con su propia
+--   marca de tiempo: YYYYMMDDHHMMSS_descripcion.sql (ver supabase/README.md).
+--
+-- CÓMO SE APLICA
+--   A mano, una sola vez por base de datos: Dashboard → SQL Editor →
+--   New Query → pegar todo → Run. Ningún código del proyecto la ejecuta.
+--   Solo hace falta volver a ejecutarla al reconstruir la base de datos
+--   desde cero, siguiendo el orden de supabase/README.md.
 --
 -- CÓMO SE CONECTA CON EL RESTO
 --   - src/types/perfume.ts describe estas mismas columnas en TypeScript.
---     Si cambias una columna aquí, cámbiala también allí.
---   - scripts/migrate-perfumes.ts (npm run migrate) llena estas tablas con
---     los 120 perfumes de data/perfumes.js. Ejecuta primero ESTE archivo.
+--     Una migración nueva que cambie columnas debe ir acompañada del
+--     cambio correspondiente en ese archivo.
+--   - supabase/seed/seed-from-v1.ts (npm run db:seed) llena estas tablas
+--     con los 120 perfumes de data/perfumes.js y, al terminar, llama a la
+--     función sync_id_sequences() definida al final de este archivo.
 --   - src/lib/perfumes.ts lee y escribe en estas tablas.
 --
 -- DIFERENCIAS CON EL ESQUEMA PEDIDO ORIGINALMENTE (marcadas con [AÑADIDO])
@@ -127,7 +141,7 @@ CREATE TRIGGER perfumes_updated_at
 -- Pero al insertar ids a mano, el contador automático de la tabla no
 -- avanza y se queda en 1: el siguiente perfume creado desde el panel de
 -- administración chocaría con el id 1. Esta función pone cada contador
--- justo después del id más alto. El script de migración la llama al final.
+-- justo después del id más alto. El script de carga (seed) la llama al final.
 -- Solo puede ejecutarla el servidor (service_role), no los visitantes.
 CREATE OR REPLACE FUNCTION sync_id_sequences()
 RETURNS void
@@ -145,4 +159,4 @@ GRANT EXECUTE ON FUNCTION sync_id_sequences() TO service_role;
 
 -- Create storage buckets for product media
 -- NOTE: Storage buckets must be created via the Supabase Dashboard or API,
--- not via SQL. The migration script (Step 6) will create them via the JS client.
+-- not via SQL. The seed script (supabase/seed/seed-from-v1.ts) creates them via the JS client.
