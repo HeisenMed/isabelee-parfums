@@ -43,12 +43,6 @@ build/
 *.tmp
 *.bak
 
-# ── Python (scripts auxiliares de imágenes/datos) ─────────────────────────
-__pycache__/
-*.pyc
-.venv/
-venv/
-
 .claude/
 CLAUDE.md
 doc/
