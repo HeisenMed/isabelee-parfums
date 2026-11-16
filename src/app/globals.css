@@ -1,0 +1,170 @@
+/*
+ * src/app/globals.css — Hoja de estilos global de la app.
+ *
+ * QUÉ ES
+ *   El único CSS global del proyecto. Lo importa src/app/layout.tsx, por lo
+ *   que se aplica a todas las páginas.
+ *
+ * POR QUÉ EXISTE
+ *   1. Es el punto de entrada de Tailwind CSS v4 (@import "tailwindcss").
+ *   2. Conecta Tailwind con los tokens de marca de tailwind.config.ts
+ *      mediante @config (en v4 ese archivo no se lee solo).
+ *   3. Guarda las animaciones @keyframes que NO se pueden expresar con
+ *      clases utilitarias: los destellos del hero, el pulso del botón de
+ *      WhatsApp y el indicador de scroll. Son las mismas animaciones del
+ *      sitio estático anterior (css/style.css), portadas tal cual.
+ *
+ * CÓMO SE CONECTA CON EL RESTO
+ *   - Reemplaza a la antigua carpeta css/ (variables.css, style.css...).
+ *   - .ambient-sparkle la usa src/components/home/Hero.tsx, que crea los
+ *     <span> de cada partícula desde JavaScript.
+ *   - .wa-pulse la usa src/components/ui/WhatsAppButton.tsx.
+ *   - .scroll-hint y .text-glow-gold las usa el Hero.
+ *   - Todas las animaciones se desactivan con prefers-reduced-motion
+ *     (regla obligatoria de CLAUDE.md §10.5).
+ */
+/* source("../"): Tailwind solo busca clases dentro de src/. Sin esto,
+   v4 vigila TODO el proyecto (data/, doc/, registros de herramientas...) y
+   cualquier archivo que cambie fuera de src/ recompila el CSS sin motivo. */
+@import "tailwindcss" source("../");
+@config "../../tailwind.config.ts";
+
+/* ── Base ─────────────────────────────────────────────────────────────── */
+
+html {
+  /* Desplazamiento suave al navegar a anclas (#catalogo, #contacto...). */
+  scroll-behavior: smooth;
+}
+
+/* Anillo de foco visible y coherente con la marca para quien navega con
+   teclado. Solo aparece con :focus-visible, no al hacer clic con ratón. */
+:focus-visible {
+  outline: 2px solid #e8d48b;
+  outline-offset: 3px;
+}
+
+/* ── Hero: resplandor del texto en itálica ────────────────────────────── */
+
+.text-glow-gold {
+  text-shadow:
+    0 0 28px rgba(201, 168, 76, 0.45),
+    0 0 64px rgba(201, 168, 76, 0.2);
+}
+
+/* ── Hero: destellos ambientales ──────────────────────────────────────── */
+/* Cada partícula es un <span> creado por Hero.tsx. El componente le pasa
+   su color y su deriva horizontal con las variables --spark-color y
+   --drift; la partícula sube, se desvanece y se elimina al terminar. */
+
+.ambient-sparkle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--spark-color, #c9a84c);
+  box-shadow: 0 0 6px var(--spark-color, #c9a84c);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation-name: sparkle-float, sparkle-fade;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: 1, 1;
+  animation-fill-mode: forwards, forwards;
+}
+
+/* Aproximadamente un tercio de las partículas lleva un brillo más amplio. */
+.ambient-sparkle--glow {
+  box-shadow:
+    0 0 10px var(--spark-color, #c9a84c),
+    0 0 20px var(--spark-color, #c9a84c);
+}
+
+@keyframes sparkle-float {
+  0% {
+    transform: translate(0, 0) scale(0.5);
+  }
+  50% {
+    transform: translate(calc(var(--drift, 0px) * 0.5), -34px) scale(1);
+  }
+  100% {
+    transform: translate(var(--drift, 0px), -74px) scale(0.35);
+  }
+}
+
+@keyframes sparkle-fade {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  75% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ── Hero: indicador de scroll ────────────────────────────────────────── */
+/* Deslizamiento lento hacia abajo con fundido: sugiere seguir bajando sin
+   llegar a ser un rebote. */
+
+.scroll-hint {
+  animation: scroll-hint 2.4s ease-in-out infinite;
+}
+
+@keyframes scroll-hint {
+  0% {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+}
+
+/* ── Botón flotante de WhatsApp: pulso ────────────────────────────────── */
+
+.wa-pulse {
+  animation: wa-pulse 3.2s ease-in-out infinite;
+}
+
+/* Al pasar el cursor se detiene el pulso para que no compita con el
+   escalado del hover (una animación siempre gana sobre un transform). */
+.wa-pulse:hover,
+.wa-pulse:focus-visible {
+  animation: none;
+}
+
+@keyframes wa-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 4px 24px rgba(37, 211, 102, 0.55);
+  }
+}
+
+/* ── Accesibilidad: respetar prefers-reduced-motion SIEMPRE ───────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .ambient-sparkle,
+  .scroll-hint,
+  .wa-pulse {
+    animation: none;
+  }
+
+  .ambient-sparkle {
+    display: none;
+  }
+}

@@ -1,11 +1,18 @@
 # ── Dependencias ──────────────────────────────────────────────────────────
-# Este proyecto es estático y NO usa npm para desarrollo (ver CLAUDE.md §1).
-# node_modules/ solo aparece por herramientas puntuales (Puppeteer), nunca
-# forma parte del sitio publicado.
+# Desde la rama v2-nextjs el proyecto es una app Next.js: node_modules/ se
+# ignora, pero package-lock.json SÍ se versiona (Vercel lo usa para instalar
+# exactamente las mismas versiones que en local).
 node_modules/
-package-lock.json
 yarn.lock
 pnpm-lock.yaml
+
+# ── Next.js ───────────────────────────────────────────────────────────────
+# Salida de compilación y archivos que Next regenera por su cuenta.
+.playwright-mcp/
+/.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo
 
 # ── Sistema operativo ─────────────────────────────────────────────────────
 .DS_Store
