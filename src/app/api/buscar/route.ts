@@ -22,12 +22,13 @@
  *   - Lee con getPerfumes() de src/lib/perfumes.ts: el cliente PÚBLICO de
  *     Supabase, que solo ve perfumes activos (RLS — Row Level Security —
  *     lo impone en la base de datos).
- *   - revalidate = 60: la respuesta se guarda en caché y se regenera como
- *     mucho una vez por minuto, igual que la portada y las fichas. Miles de
- *     visitas buscando no generan miles de consultas.
- *   - Las Server Actions del panel llaman a revalidatePath("/catalogo") y
- *     otras rutas, pero NO a esta: un cambio de precio puede tardar hasta
- *     un minuto en verse aquí.
+ *   - `dynamic = "force-dynamic"` (Fase 6B): se genera en cada petición, sin
+ *     caché en el servidor. Antes usaba `revalidate = 60`, que en Cloudflare
+ *     exigiría una caché externa que no se usa (doc/DESPLIEGUE.md).
+ *   - Cache-Control "public, max-age=30": el NAVEGADOR reutiliza la lista
+ *     durante 30 segundos. Abrir y cerrar el buscador o el carrito varias
+ *     veces seguidas no repite la consulta. Un cambio de precio se ve aquí
+ *     como mucho 30 segundos después (en ese navegador).
  *
  * SEGURIDAD
  *   Esta ruta no recibe ningún parámetro: siempre devuelve la misma lista.
@@ -40,8 +41,11 @@
 import { NextResponse } from "next/server";
 import { getPerfumes } from "@/lib/perfumes";
 
-/** Segundos que la respuesta permanece en caché antes de regenerarse. */
-export const revalidate = 60;
+/** Se genera en cada petición: sin caché en el servidor (ver la cabecera). */
+export const dynamic = "force-dynamic";
+
+/** Cuánto puede reutilizar el navegador la lista (ver la cabecera). */
+const CACHE_NAVEGADOR = "public, max-age=30";
 
 /** Lo que se envía de cada perfume (lo mínimo para buscar y para el carrito). */
 export type PerfumeBuscable = {
@@ -68,5 +72,7 @@ export async function GET() {
     agotado: p.agotado === true,
   }));
 
-  return NextResponse.json(lista);
+  return NextResponse.json(lista, {
+    headers: { "Cache-Control": CACHE_NAVEGADOR },
+  });
 }

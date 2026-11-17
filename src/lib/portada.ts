@@ -21,9 +21,10 @@
  *
  * CÓMO SE CONECTA CON EL RESTO
  *   - Tipos y límites: src/types/portada.ts.
- *   - Lee con el cliente PÚBLICO de src/lib/supabase.ts (sin cookies, para
- *     que la portada siga en caché con revalidate = 60). RLS (Row Level
- *     Security) permite leer la tabla a cualquiera.
+ *   - Lee con el cliente PÚBLICO de src/lib/supabase.ts (sin cookies: la
+ *     portada no depende de quién la mira y así podría volver a guardarse
+ *     en caché si se reactiva; hoy se genera en cada visita, Fase 6B). RLS
+ *     (Row Level Security) permite leer la tabla a cualquiera.
  *   - Lo usan src/app/(tienda)/page.tsx (lectura) y, en el servidor del
  *     panel, src/lib/admin-portada.ts y src/app/admin/portada/actions.ts
  *     (validación y "Restaurar original").

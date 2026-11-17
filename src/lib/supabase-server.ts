@@ -29,8 +29,10 @@
  *     allí las cookies se leen de la petición y se escriben en la
  *     respuesta, no con cookies() de next/headers.
  *   - PROHIBIDO importarlo desde la tienda (src/app/(tienda)/ o los
- *     componentes que usa): llamar a cookies() convierte la página en
- *     dinámica y se pierde la caché de 60 segundos.
+ *     componentes que usa): la tienda no debe depender de la sesión de
+ *     nadie, y llamar a cookies() convertiría en dinámica para siempre una
+ *     página que podría volver a guardarse en caché (hoy la tienda se genera
+ *     en cada visita, Fase 6B; ver doc/DESPLIEGUE.md).
  *   - Solo servidor: next/headers no existe en el navegador, así que
  *     importarlo desde un componente con "use client" rompe la compilación.
  */

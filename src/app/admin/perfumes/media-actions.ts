@@ -37,8 +37,9 @@
  *     administradora: RLS (Row Level Security) y is_admin() vuelven a
  *     comprobar el permiso en la base de datos y en Storage.
  *   - Tras cada cambio llama a revalidatePath() para "/", "/catalogo" y
- *     "/producto/<id>": la tienda guarda esas páginas en caché y así
- *     muestra la foto nueva de inmediato.
+ *     "/producto/<id>". Hoy la tienda se genera en cada visita (Fase 6B, sin
+ *     caché en Cloudflare) y la llamada no hace nada; queda lista por si se
+ *     reactiva la caché. Nunca rompe el guardado (OpenNext captura errores).
  *   - Las invoca src/components/admin/GestorMedia.tsx.
  *
  * QUÉ SIGNIFICA LA LISTA DE FOTOS

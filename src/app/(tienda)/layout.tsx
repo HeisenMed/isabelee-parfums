@@ -27,12 +27,13 @@
  *       <ShareButton />     src/components/ui/ShareButton.tsx (compartir + QR)
  *       <CartProvider>      src/components/cart/CartProvider.tsx (carrito,
  *                           envuelve todo; dibuja también su cajón)
- *   - IMPORTANTE (caché): ni este archivo ni las páginas de la tienda deben
- *     importar src/lib/supabase-server.ts. Ese cliente lee cookies, y leer
- *     cookies obliga a Next a generar la página en cada visita; se perdería
- *     el ISR (Incremental Static Regeneration: páginas guardadas en caché
- *     que se regeneran cada cierto tiempo, aquí `revalidate = 60`). La
- *     tienda lee el catálogo con el cliente público de src/lib/supabase.ts.
+ *   - IMPORTANTE: ni este archivo ni las páginas de la tienda deben
+ *     importar src/lib/supabase-server.ts. Ese cliente lee cookies (la
+ *     sesión del panel). Desde la Fase 6B la tienda se genera en cada
+ *     visita (sin ISR —Incremental Static Regeneration—, porque en
+ *     Cloudflare exigiría una caché externa), pero la regla sigue: si algún
+ *     día se reactiva la caché (doc/DESPLIEGUE.md), leer cookies la anularía.
+ *     La tienda lee el catálogo con el cliente público de src/lib/supabase.ts.
  *   - El middleware (src/middleware.ts) tampoco se ejecuta en estas rutas.
  *   - Es un componente de servidor; los componentes interactivos que monta
  *     llevan su propio "use client".

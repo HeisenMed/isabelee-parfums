@@ -35,9 +35,11 @@
  *     FormularioPerfume (guardar), ListaPerfumes (interruptor, duplicar) y
  *     DialogoEliminar (eliminar).
  *   - Delegan la lectura y escritura en src/lib/admin-perfumes.ts.
- *   - Tras cada escritura llaman a revalidatePath(): la portada y las
- *     fichas de la tienda se guardan en caché 60 segundos, y esto la
- *     descarta al momento para que el cambio se vea de inmediato.
+ *   - Tras cada escritura llaman a revalidatePath(). Hoy la tienda se
+ *     genera en cada visita (Fase 6B, sin caché en Cloudflare), así que no
+ *     hace nada; queda lista por si se reactiva la caché. No puede romper el
+ *     guardado: sin caché de etiquetas, OpenNext la convierte en una
+ *     operación vacía y captura cualquier error.
  *   - Este archivo está en src/app/admin/perfumes/ (fuera del grupo
  *     (panel)), junto a src/app/admin/actions.ts; las páginas que lo usan
  *     están en src/app/admin/(panel)/perfumes/. La carpeta no contiene

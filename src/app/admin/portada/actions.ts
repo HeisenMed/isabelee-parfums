@@ -25,8 +25,11 @@
  * CÓMO SE CONECTA CON EL RESTO
  *   - Las invocan src/components/admin/portada/EditorFamilias.tsx y
  *     EditorEntrega.tsx.
- *   - Tras guardar, revalidatePath("/"): la portada (en caché 60 s) se
- *     regenera al momento con el contenido nuevo.
+ *   - Tras guardar, revalidatePath("/"). Hoy la portada se genera en cada
+ *     visita (Fase 6B, sin caché en Cloudflare), así que no hace nada; se
+ *     deja para cuando se reactive la caché. No puede romper el guardado:
+ *     sin caché de etiquetas, OpenNext la convierte en una operación vacía
+ *     y captura cualquier error.
  *   - guardarSeccion() limpia los archivos que dejan de usarse y, si el
  *     guardado falla, borra los recién subidos.
  */

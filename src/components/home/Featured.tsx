@@ -28,8 +28,8 @@
  *      del catálogo. Así la portada nunca se queda vacía.
  *   Si hay más de seis destacados se muestran seis: primero los que llevan
  *   badge y luego por orden de catálogo; los agotados van al final.
- *   Al cambiar un destacado desde el panel, la portada se actualiza al
- *   momento (las Server Actions llaman a revalidatePath("/")).
+ *   Al cambiar un destacado desde el panel, la portada lo muestra en la
+ *   siguiente visita (se genera en cada visita desde la Fase 6B).
  *
  * SI NO HAY DATOS
  *   Si la base de datos está vacía o no responde, se muestra un recuadro

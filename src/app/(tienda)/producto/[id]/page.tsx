@@ -22,9 +22,11 @@
  *     se muestra la página 404 de Next con notFound().
  *   - generateMetadata() pone el nombre del perfume en el <title> y en la
  *     vista previa de redes sociales.
- *   - `revalidate = 60`: la página se guarda en caché y se regenera como
- *     mucho una vez por minuto. Un cambio en la base de datos tarda hasta
- *     60 segundos en verse, a cambio de cargar mucho más rápido.
+ *   - `dynamic = "force-dynamic"` (Fase 6B): la ficha se genera en cada
+ *     visita con los datos del momento. Ya se comportaba así (Next la
+ *     marcaba como dinámica pese al antiguo `revalidate = 60`); ahora se
+ *     declara explícitamente, porque en Cloudflare no hay caché de páginas
+ *     (doc/DESPLIEGUE.md). Un cambio del panel se ve en la siguiente visita.
  *
  * REGLAS QUE RESPETA (CLAUDE.md)
  *   - §3: precio null → "Consultar precio"; nunca se inventa.
@@ -58,8 +60,8 @@ import {
 } from "@/lib/site";
 import type { Perfume } from "@/types/perfume";
 
-/** Segundos que la ficha permanece en caché antes de regenerarse. */
-export const revalidate = 60;
+/** Se genera en cada visita: sin caché de páginas (ver la cabecera). */
+export const dynamic = "force-dynamic";
 
 type ProductoPageProps = {
   // En Next.js 15 los parámetros de la ruta llegan como una promesa.
