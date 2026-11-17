@@ -55,7 +55,12 @@ export default function AdminLayout({
     // [&_:focus-visible]:outline-admin-gold-text: el anillo de foco global
     //   es dorado claro, pensado para fondo oscuro; sobre blanco casi no se
     //   vería. Dentro del panel se cambia al dorado oscuro (5,79:1).
-    <div className="min-h-screen bg-admin-bg font-sans text-admin-text [color-scheme:light] [&_:focus-visible]:outline-admin-gold-text">
+    // data-zona="admin": marca que globals.css usa para poner en claro el
+    //   documento entero (barra de desplazamiento de la ventana incluida).
+    <div
+      data-zona="admin"
+      className="min-h-screen bg-admin-bg font-sans text-admin-text [color-scheme:light] [&_:focus-visible]:outline-admin-gold-text"
+    >
       {children}
     </div>
   );

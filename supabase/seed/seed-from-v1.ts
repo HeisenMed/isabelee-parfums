@@ -289,7 +289,7 @@ function mapAll(source: LegacyPerfume[]): MappingResult {
 /* ── Programa principal ─────────────────────────────────────────────── */
 
 async function main(): Promise<void> {
-  console.log("Isabelé Fragancias — carga inicial del catálogo v1 en Supabase\n");
+  console.log("Isabeleé Fragancias — carga inicial del catálogo v1 en Supabase\n");
 
   // Leer y traducir (no toca la base de datos).
   const source = readLegacyPerfumes();

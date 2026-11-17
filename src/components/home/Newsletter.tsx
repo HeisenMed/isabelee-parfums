@@ -24,6 +24,7 @@ import { useState, type FormEvent } from "react";
 import { MailIcon } from "@/components/ui/icons";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
+import { SITE_SHORT_NAME } from "@/lib/site";
 
 export default function Newsletter() {
   /** true después de pulsar "Suscribirse": muestra el aviso. */
@@ -45,7 +46,7 @@ export default function Newsletter() {
         </Reveal>
 
         <SectionHeading
-          title="Únete a la experiencia Isabelé"
+          title={`Únete a la experiencia ${SITE_SHORT_NAME}`}
           subtitle="Sé el primero en conocer nuevas fragancias, ofertas exclusivas y eventos especiales."
         />
 

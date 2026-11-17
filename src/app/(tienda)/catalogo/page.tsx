@@ -46,6 +46,7 @@ import {
   getPerfumes,
   hayPreciosPublicados,
 } from "@/lib/perfumes";
+import { SITE_NAME } from "@/lib/site";
 import {
   GENEROS,
   ORDENES,
@@ -56,7 +57,7 @@ import {
 export const metadata: Metadata = {
   title: "Catálogo",
   description:
-    "Explora el catálogo completo de Isabelé Fragancias: perfumes para hombre, mujer y unisex de las mejores marcas del mundo, disponibles en Colombia.",
+    `Explora el catálogo completo de ${SITE_NAME}: perfumes para hombre, mujer y unisex de las mejores marcas del mundo, disponibles en Colombia.`,
 };
 
 /** Un parámetro de URL puede venir una vez, varias veces o no venir. */
@@ -142,7 +143,7 @@ export default async function CatalogoPage({ searchParams }: CatalogoPageProps) 
     <div className="mx-auto max-w-7xl px-5 pb-24 pt-28 sm:px-8 lg:pt-36">
       <header className="max-w-2xl">
         <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-gold-light">
-          Isabelé Fragancias
+          {SITE_NAME}
         </p>
         <h1 className="font-serif text-5xl font-medium leading-tight text-ink sm:text-6xl">
           {titulo}

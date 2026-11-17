@@ -27,6 +27,13 @@
  *   - Si el enlace no vale, se redirige a /admin/login?error=enlace, donde
  *     src/app/admin/(acceso)/login/page.tsx muestra la explicación.
  *
+ * ESTADO: SIN USO POR AHORA
+ *   Con RECUPERACION_POR_CORREO = false (src/lib/admin-rutas.ts) el sitio
+ *   no pide ningún correo, así que nadie llega aquí. La ruta se conserva
+ *   intacta y funcional para cuando haya servidor de correo propio: no
+ *   hace falta bloquearla, porque sin un enlace válido de Supabase solo
+ *   sabe redirigir al login.
+ *
  * SEGURIDAD
  *   - Solo se aceptan cuatro tipos de enlace (TIPOS_PERMITIDOS).
  *   - `next` se valida con rutaAdminSegura(): nunca se redirige fuera del

@@ -22,11 +22,15 @@
  *     de servidor como de cliente.
  */
 
-/** Nombre comercial actual (antes "Isabeleé Parfums"). */
-export const SITE_NAME = "Isabelé Fragancias";
+/**
+ * Nombre comercial. Se escribe "Isabeleé": doble e, con la tilde en la
+ * ÚLTIMA. (El sitio v1 se llamaba "Isabeleé Parfums"; durante las primeras
+ * fases de v2 se usó "Isabelé".)
+ */
+export const SITE_NAME = "Isabeleé Fragancias";
 
 /** Forma corta de la marca, usada como logotipo de texto. */
-export const SITE_SHORT_NAME = "Isabelé";
+export const SITE_SHORT_NAME = "Isabeleé";
 
 /** Lema de la marca. */
 export const SITE_TAGLINE = "Donde cada aroma encuentra su historia";
@@ -38,12 +42,18 @@ export const WHATSAPP_DISPLAY = "+57 304 644 6463";
 export const WHATSAPP_URL = "https://wa.me/573046446463";
 
 /**
- * Enlace de WhatsApp con mensaje prellenado y codificado para URL:
- * "Hola Isabelé, me interesa una fragancia 🌷".
+ * Enlace de WhatsApp con el mensaje prellenado estándar:
+ * "Hola Isabeleé, me interesa una fragancia 🌷".
+ * Se construye con whatsappUrl() (definida más abajo), que codifica la
+ * tilde, los espacios y el emoji para la URL: así el nombre de la marca
+ * sale de SITE_SHORT_NAME y no hay que reescribir a mano secuencias como
+ * %C3%A9 si vuelve a cambiar.
  * El emoji es la única excepción permitida por CLAUDE.md §10.3, porque se
  * muestra dentro de WhatsApp y no en la interfaz del sitio.
  */
-export const WHATSAPP_MESSAGE_URL = `${WHATSAPP_URL}?text=Hola%20Isabel%C3%A9%2C%20me%20interesa%20una%20fragancia%20%F0%9F%8C%B7`;
+export const WHATSAPP_MESSAGE_URL = whatsappUrl(
+  `Hola ${SITE_SHORT_NAME}, me interesa una fragancia 🌷`,
+);
 
 /** Forma de cada enlace de navegación. */
 export type NavLink = {

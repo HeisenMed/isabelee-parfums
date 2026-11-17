@@ -22,11 +22,22 @@
  *     llama a crearContrasena() de src/app/admin/actions.ts.
  *   - No exige ser administrador: cambiar la contraseña propia no da
  *     acceso a nada. El filtro de administradores está al entrar al panel.
+ *
+ * ESTADO: DESACTIVADA
+ *   Mientras RECUPERACION_POR_CORREO (src/lib/admin-rutas.ts) sea false no
+ *   hay enlaces de correo que traigan hasta aquí. La página redirige: con
+ *   sesión, a /admin/cambiar-contrasena (el cambio desde dentro del panel);
+ *   sin sesión, a /admin/login. El formulario se conserva para cuando se
+ *   active.
  */
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import CrearContrasenaForm from "@/components/admin/CrearContrasenaForm";
-import { RUTA_LOGIN } from "@/lib/admin-rutas";
+import {
+  RECUPERACION_POR_CORREO,
+  RUTA_CAMBIAR_CONTRASENA,
+  RUTA_LOGIN,
+} from "@/lib/admin-rutas";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 
 export const metadata: Metadata = {
@@ -39,6 +50,9 @@ export default async function CrearContrasenaPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  if (!RECUPERACION_POR_CORREO) {
+    redirect(user ? RUTA_CAMBIAR_CONTRASENA : RUTA_LOGIN);
+  }
   if (!user) redirect(`${RUTA_LOGIN}?error=enlace`);
 
   return (

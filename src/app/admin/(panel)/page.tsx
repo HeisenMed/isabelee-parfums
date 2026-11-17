@@ -3,13 +3,15 @@
  *
  * QUÉ ES
  *   Lo primero que ve una administradora al entrar: un saludo y las tres
- *   secciones que tendrá el panel, todavía marcadas como "Próximamente".
+ *   secciones del panel. "Perfumes" ya funciona y muestra un resumen del
+ *   catálogo; las otras dos siguen marcadas como "Próximamente".
  *
  * POR QUÉ EXISTE
- *   En la Fase 3A solo se construye el acceso (entrar, salir, contraseñas).
- *   Esta portada confirma que el acceso funciona y anuncia lo que llegará
- *   en la Fase 3B. No muestra cifras ni datos: no hay nada real que
- *   enseñar todavía y no se inventa.
+ *   Sirve de índice del panel y de vistazo rápido al estado del catálogo:
+ *   cuántos perfumes hay, cuántos están a la venta y cuántos tienen
+ *   pendiente el precio o la foto. Las cifras se calculan con los datos
+ *   reales de la base de datos; si no se pueden cargar, se dice, no se
+ *   inventan.
  *
  * CÓMO SE CONECTA CON EL RESTO
  *   - Se dibuja dentro de src/app/admin/(panel)/layout.tsx, que ya impidió
@@ -18,23 +20,25 @@
  *     Next.js puede preparar layout y página a la vez, así que una página
  *     no debe dar por hecho que el layout ya la protegió. La llamada está
  *     memorizada por petición: no repite la consulta a Supabase.
- *   - Cuando existan las secciones, cada tarjeta pasará a ser un enlace a
- *     su página dentro de (panel)/.
+ *   - Los contadores salen de listarPerfumesAdmin()
+ *     (src/lib/admin-perfumes.ts); "sin foto" usa tieneFoto() de
+ *     src/lib/admin-formato.ts, el mismo criterio que el filtro de la lista.
+ *   - La tarjeta "Perfumes" enlaza a /admin/perfumes. Las otras dos pasarán
+ *     a ser enlaces cuando existan sus páginas.
  */
 import type { Metadata } from "next";
+import Link from "next/link";
 import { comprobarAccesoAdmin } from "@/lib/admin-auth";
+import { tieneFoto } from "@/lib/admin-formato";
+import { listarPerfumesAdmin } from "@/lib/admin-perfumes";
+import { RUTA_PERFUMES } from "@/lib/admin-rutas";
 
 export const metadata: Metadata = {
   title: "Inicio",
 };
 
-/** Secciones previstas del panel (Fase 3B). Aún no tienen página. */
+/** Secciones previstas del panel que aún no tienen página. */
 const SECCIONES = [
-  {
-    titulo: "Perfumes",
-    descripcion:
-      "Crear, editar y ocultar fragancias del catálogo, con sus precios y notas.",
-  },
   {
     titulo: "Fotos y videos",
     descripcion: "Subir y cambiar las imágenes y los videos de cada perfume.",
@@ -51,6 +55,27 @@ export default async function PanelPage() {
   // basta con no dibujar nada.
   if (acceso.estado !== "ok") return null;
 
+  const lista = await listarPerfumesAdmin();
+  // Resumen del catálogo. null si no se pudo cargar: no se muestran ceros
+  // que parecerían un dato real.
+  const resumen = lista.ok
+    ? [
+        { etiqueta: "En total", valor: lista.perfumes.length },
+        {
+          etiqueta: "Activos",
+          valor: lista.perfumes.filter((p) => p.activo).length,
+        },
+        {
+          etiqueta: "Sin precio",
+          valor: lista.perfumes.filter((p) => p.precio === null).length,
+        },
+        {
+          etiqueta: "Sin foto",
+          valor: lista.perfumes.filter((p) => !tieneFoto(p.imagen)).length,
+        },
+      ]
+    : null;
+
   return (
     <>
       <h1 className="font-serif text-4xl font-semibold text-admin-text">
@@ -65,6 +90,42 @@ export default async function PanelPage() {
       </p>
 
       <ul className="mt-8 grid gap-5 sm:grid-cols-3">
+        <li>
+          {/* Toda la tarjeta es el enlace: un objetivo grande y claro. */}
+          <Link
+            href={RUTA_PERFUMES}
+            className="block h-full rounded-lg border border-admin-border-strong bg-admin-surface p-6 transition-colors duration-200 hover:border-admin-gold-text"
+          >
+            <h2 className="font-serif text-2xl font-semibold text-admin-text">
+              Perfumes
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-admin-muted">
+              Crear, editar y ocultar fragancias del catálogo, con sus precios y
+              notas.
+            </p>
+            {resumen ? (
+              <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3">
+                {resumen.map(({ etiqueta, valor }) => (
+                  <div key={etiqueta}>
+                    <dt className="text-xs uppercase tracking-[0.08em] text-admin-muted">
+                      {etiqueta}
+                    </dt>
+                    <dd className="font-serif text-3xl font-semibold text-admin-text">
+                      {valor}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            ) : (
+              <p className="mt-4 text-sm text-admin-error">
+                No se pudo cargar el resumen del catálogo.
+              </p>
+            )}
+            <p className="mt-4 text-sm font-medium text-admin-gold-text underline underline-offset-4">
+              Administrar perfumes
+            </p>
+          </Link>
+        </li>
         {SECCIONES.map((seccion) => (
           <li
             key={seccion.titulo}

@@ -41,7 +41,12 @@ import ProductGallery from "@/components/product/ProductGallery";
 import { WhatsAppIcon } from "@/components/ui/icons";
 import Stars from "@/components/ui/Stars";
 import { getPerfumeById, getReviewsByPerfumeId } from "@/lib/perfumes";
-import { formatPrecio, PLACEHOLDER_IMAGE, whatsappUrl } from "@/lib/site";
+import {
+  formatPrecio,
+  PLACEHOLDER_IMAGE,
+  SITE_SHORT_NAME,
+  whatsappUrl,
+} from "@/lib/site";
 import type { Perfume } from "@/types/perfume";
 
 /** Segundos que la ficha permanece en caché antes de regenerarse. */
@@ -130,8 +135,18 @@ export default async function ProductoPage({ params }: ProductoPageProps) {
 
   // Enlace de WhatsApp con el nombre del perfume en el mensaje.
   const consultaUrl = whatsappUrl(
-    `Hola Isabelé, me interesa el perfume ${perfume.nombre} de ${perfume.marca}` +
+    `Hola ${SITE_SHORT_NAME}, me interesa el perfume ${perfume.nombre} de ${perfume.marca}` +
       `${perfume.volumen ? ` (${perfume.volumen})` : ""}. ¿Me pueden dar más información?`,
+  );
+
+  // Agotado (columna de la migración n.º 3; `=== true` porque el campo no
+  // existe mientras no esté aplicada). El botón cambia de texto y de
+  // mensaje: quien escribe ya sabe que no hay existencias y pregunta
+  // cuándo vuelve o qué alternativa hay.
+  const agotado = perfume.agotado === true;
+  const agotadoUrl = whatsappUrl(
+    `Hola ${SITE_SHORT_NAME}, vi que el perfume ${perfume.nombre} de ${perfume.marca}` +
+      `${perfume.volumen ? ` (${perfume.volumen})` : ""} está agotado. ¿Cuándo vuelve a estar disponible?`,
   );
 
   const notas = perfume.notas ?? { salida: [], corazon: [], fondo: [] };
@@ -228,15 +243,29 @@ export default async function ProductoPage({ params }: ProductoPageProps) {
               </p>
             )}
 
-            <a
-              href={consultaUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-flex w-full items-center justify-center gap-3 rounded-lg bg-gold px-8 py-4 text-xs font-medium uppercase tracking-[0.18em] text-dark-secondary transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-light hover:shadow-[0_10px_26px_rgba(201,168,76,0.3)] sm:w-auto"
-            >
-              <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
-              Consultar por este perfume
-            </a>
+            {agotado ? (
+              // Botón de contorno en lugar del dorado sólido: deja claro de
+              // un vistazo que no es la compra habitual.
+              <a
+                href={agotadoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex w-full items-center justify-center gap-3 rounded-lg border border-gold/50 px-8 py-4 text-xs font-medium uppercase tracking-[0.18em] text-gold transition-colors duration-300 hover:border-gold hover:bg-gold hover:text-dark-secondary sm:w-auto"
+              >
+                <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
+                Agotado — consúltalo por WhatsApp
+              </a>
+            ) : (
+              <a
+                href={consultaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex w-full items-center justify-center gap-3 rounded-lg bg-gold px-8 py-4 text-xs font-medium uppercase tracking-[0.18em] text-dark-secondary transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-light hover:shadow-[0_10px_26px_rgba(201,168,76,0.3)] sm:w-auto"
+              >
+                <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
+                Consultar por este perfume
+              </a>
+            )}
           </div>
 
           {/* Descripción */}

@@ -40,6 +40,19 @@ html {
   color-scheme: dark;
 }
 
+/* Panel de administración: tema claro.
+   El panel (src/app/admin/layout.tsx) marca su envoltorio con
+   data-zona="admin". :has() permite que el DOCUMENTO entero cambie cuando
+   contiene ese envoltorio: así la barra de desplazamiento de la ventana
+   —que pertenece a <html>, no al envoltorio— sale clara en /admin y sigue
+   oscura en la tienda. El color de fondo cubre además el "rebote" al
+   desplazar más allá del final en móviles (es el valor del token
+   admin.bg de tailwind.config.ts). */
+html:has([data-zona="admin"]) {
+  color-scheme: light;
+  background-color: #faf8f3;
+}
+
 /* Anillo de foco visible y coherente con la marca para quien navega con
    teclado. Solo aparece con :focus-visible, no al hacer clic con ratón. */
 :focus-visible {

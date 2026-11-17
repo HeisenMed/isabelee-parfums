@@ -25,7 +25,7 @@
 import type { Metadata } from "next";
 import LoginForm from "@/components/admin/LoginForm";
 import { avisoInfo } from "@/components/admin/estilos";
-import { rutaAdminSegura } from "@/lib/admin-rutas";
+import { RECUPERACION_POR_CORREO, rutaAdminSegura } from "@/lib/admin-rutas";
 
 export const metadata: Metadata = {
   title: "Ingresar",
@@ -36,8 +36,11 @@ export const metadata: Metadata = {
  * muestra nada: nunca se imprime en pantalla texto llegado por la URL.
  */
 const AVISOS: Record<string, string> = {
-  enlace:
-    "El enlace del correo caducó o ya se usó. Pide uno nuevo con «¿Olvidaste tu contraseña?».",
+  // El texto depende de si la recuperación por correo está activa: no se
+  // debe remitir a un enlace que hoy no se muestra.
+  enlace: RECUPERACION_POR_CORREO
+    ? "El enlace del correo caducó o ya se usó. Pide uno nuevo con «¿Olvidaste tu contraseña?»."
+    : "El enlace del correo caducó o ya no es válido. Pide a quien administra el sitio que te asigne una contraseña nueva.",
   "sin-acceso":
     "Esa cuenta no tiene permiso para entrar al panel. Si crees que es un error, avisa a quien administra el sitio.",
 };

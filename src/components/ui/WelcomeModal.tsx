@@ -10,7 +10,7 @@
  * POR QUÉ EXISTE
  *   Sustituye al <div class="welcome-overlay"> del index.html antiguo y a
  *   initWelcomeModal()/openWelcome()/closeWelcome() de js/main.js. El
- *   contenido es el mismo, con la marca nueva: "Isabelé Fragancias".
+ *   contenido es el mismo, con la marca nueva: "Isabeleé Fragancias".
  *
  * CÓMO SE CONECTA CON EL RESTO
  *   - Lo monta src/app/(tienda)/layout.tsx, fuera del contenido de la página.

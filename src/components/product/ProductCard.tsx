@@ -24,6 +24,12 @@
  *     limita al recuadro de la foto porque las fotos de producto traen
  *     fondo blanco; el resto de la tarjeta sigue la paleta oscura.
  *   - Precio null → "Consultar precio". Nunca se inventa un precio (§3).
+ *   - Agotado (columna `agotado`, migración n.º 3): etiqueta "Agotado" en
+ *     la esquina superior derecha de la foto, con la paleta de la tienda
+ *     (fondo oscuro y borde dorado, sin azules ni rojos), y la foto algo
+ *     atenuada. La tarjeta sigue enlazando a la ficha, donde se puede
+ *     consultar por WhatsApp. Se compara con `=== true` porque el campo no
+ *     existe mientras la migración no esté aplicada.
  */
 import Image from "next/image";
 import Link from "next/link";
@@ -57,6 +63,7 @@ export default function ProductCard({
   // Solo se muestra el precio anterior si de verdad es mayor que el actual.
   const hayDescuento =
     precio !== null && precio_original !== null && precio_original > precio;
+  const agotado = perfume.agotado === true;
 
   return (
     <Link
@@ -71,8 +78,16 @@ export default function ProductCard({
           fill
           sizes={sizes}
           priority={priority}
-          className="object-contain p-5 transition-transform duration-500 group-hover:scale-[1.04]"
+          className={`object-contain p-5 transition-transform duration-500 group-hover:scale-[1.04] ${
+            agotado ? "opacity-60" : ""
+          }`}
         />
+        {agotado && (
+          // A la derecha, para no chocar con el badge (a la izquierda).
+          <span className="absolute right-3 top-3 rounded border border-gold/60 bg-dark-deep px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-gold-light">
+            Agotado
+          </span>
+        )}
         {badge && (
           <span className="absolute left-3 top-3 rounded bg-gold px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-dark-secondary">
             {badge}

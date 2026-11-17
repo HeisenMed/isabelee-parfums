@@ -17,6 +17,13 @@
  *   - Lo usan src/lib/perfumes.ts (funciones de datos), el script de
  *     carga inicial (supabase/seed/seed-from-v1.ts) y todos los componentes de
  *     catálogo y producto.
+ *   - `destacado` y `agotado` los añade la migración n.º 3
+ *     (supabase/migrations/20261118000000_destacado_agotado.sql). Mientras
+ *     esa migración no esté aplicada, las filas llegan SIN esos dos campos
+ *     (valen `undefined`): por eso el código los compara siempre con
+ *     `=== true` en lugar de darlos por presentes.
+ *   - PerfumeEditable y BADGES_SUGERIDOS los usa el panel de administración
+ *     (src/lib/admin-perfumes.ts y src/components/admin/).
  *   - Los nombres de campo están en español porque así se llaman las
  *     columnas; las reseñas conservan sus claves en inglés (name, stars,
  *     date, comment), igual que en el catálogo v1.
@@ -73,6 +80,17 @@ export interface Perfume {
   video_url: string | null;
   /** Si es `false`, el perfume no aparece en el catálogo público. */
   activo: boolean;
+  /**
+   * `true` = aparece en la sección "Destacados" de la portada.
+   * Columna de la migración n.º 3: `undefined` si aún no se aplicó.
+   */
+  destacado: boolean;
+  /**
+   * `true` = sin existencias: se sigue mostrando, con la etiqueta
+   * "Agotado" y al final del catálogo.
+   * Columna de la migración n.º 3: `undefined` si aún no se aplicó.
+   */
+  agotado: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -81,7 +99,67 @@ export interface Perfume {
  * Datos necesarios para CREAR un perfume: todo menos lo que la base de
  * datos genera sola (id y fechas).
  */
-export type PerfumeInput = Omit<Perfume, "id" | "created_at" | "updated_at">;
+export type PerfumeInput = Omit<
+  Perfume,
+  "id" | "created_at" | "updated_at" | "destacado" | "agotado"
+> & {
+  // Opcionales: la base de datos pone `false` por defecto, y el script de
+  // carga inicial (anterior a la migración n.º 3) no los conoce.
+  destacado?: boolean;
+  agotado?: boolean;
+};
+
+/**
+ * Los campos que el formulario del panel puede editar. Quedan fuera
+ * `imagen`, `imagenes` y `video_url`: las fotos y el video se gestionarán
+ * en una fase posterior y un guardado del formulario no debe tocarlos.
+ */
+export type PerfumeEditable = Pick<
+  Perfume,
+  | "nombre"
+  | "marca"
+  | "genero"
+  | "concentracion"
+  | "volumen"
+  | "precio"
+  | "precio_original"
+  | "descripcion"
+  | "descripcion_olfativa"
+  | "familia_olfativa"
+  | "notas"
+  | "ocasiones"
+  | "activo"
+  | "destacado"
+  | "agotado"
+  | "badge"
+>;
+
+/**
+ * Badges (etiquetas sobre la foto) que ofrece el desplegable del panel.
+ * El formulario permite además escribir uno distinto con "Otro…".
+ */
+export const BADGES_SUGERIDOS: readonly string[] = [
+  "Más Vendido",
+  "Nuevo",
+  "Exclusivo",
+  "Oferta",
+  "Edición limitada",
+];
+
+/**
+ * Valor interno de la opción "Otro…" del desplegable de badge: al elegirla,
+ * el formulario muestra un campo para escribir un badge propio.
+ */
+export const BADGE_OTRO = "__otro__";
+
+/** Concentraciones habituales, sugeridas además de las ya usadas. */
+export const CONCENTRACIONES_SUGERIDAS: readonly string[] = [
+  "EDT",
+  "EDP",
+  "Parfum",
+  "Extrait de Parfum",
+  "EDC",
+];
 
 /** Una reseña, tal como está guardada en la tabla `reviews`. */
 export interface Review {

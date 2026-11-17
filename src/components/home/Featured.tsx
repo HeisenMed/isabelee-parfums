@@ -19,11 +19,17 @@
  *   - Su id="destacados" es el destino de la flecha del Hero.
  *
  * QUÉ PERFUMES MUESTRA
- *   1. Hasta seis con el badge "Más Vendido".
- *   2. Si no hay ninguno con ese badge (hoy ningún perfume lo tiene), los
- *      seis primeros del catálogo.
- *   Para elegir los destacados a mano bastará con poner el badge
- *   "Más Vendido" a los perfumes deseados desde el panel de administración.
+ *   1. Hasta seis con el interruptor "Mostrar en la portada" encendido en
+ *      el panel de administración (columna `destacado`, migración n.º 3).
+ *      Es la forma de elegirlos a mano.
+ *   2. Si no hay ninguno destacado —o si la migración n.º 3 aún no está
+ *      aplicada y la columna no existe—, el comportamiento anterior: hasta
+ *      seis con el badge "Más Vendido" y, si tampoco hay, los seis primeros
+ *      del catálogo. Así la portada nunca se queda vacía.
+ *   Si hay más de seis destacados se muestran seis: primero los que llevan
+ *   badge y luego por orden de catálogo; los agotados van al final.
+ *   Al cambiar un destacado desde el panel, la portada se actualiza al
+ *   momento (las Server Actions llaman a revalidatePath("/")).
  *
  * SI NO HAY DATOS
  *   Si la base de datos está vacía o no responde, se muestra un recuadro
@@ -37,14 +43,22 @@ import { getPerfumes } from "@/lib/perfumes";
 
 /** Cuántos perfumes se muestran en la fila. */
 const FEATURED_COUNT = 6;
-/** Badge que marca un perfume como destacado. */
+/** Badge del plan B, cuando no hay ningún perfume marcado como destacado. */
 const FEATURED_BADGE = "Más Vendido";
 
 export default async function Featured() {
+  // 1) Los elegidos a mano en el panel.
   let perfumes = await getPerfumes({
-    badge: FEATURED_BADGE,
+    destacado: true,
     limit: FEATURED_COUNT,
   });
+  // 2) Plan B: el comportamiento anterior.
+  if (perfumes.length === 0) {
+    perfumes = await getPerfumes({
+      badge: FEATURED_BADGE,
+      limit: FEATURED_COUNT,
+    });
+  }
   if (perfumes.length === 0) {
     perfumes = await getPerfumes({ limit: FEATURED_COUNT });
   }

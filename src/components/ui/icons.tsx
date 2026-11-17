@@ -17,6 +17,8 @@
  *     provisional mientras no haya fotos).
  *   - SearchIcon, BagIcon, CloseIcon, ChevronDownIcon, MailIcon y los de
  *     redes sociales: Header, Hero, Newsletter y Footer.
+ *   - EyeIcon y EyeOffIcon: botón de mostrar/ocultar contraseña del panel
+ *     (src/components/admin/CampoContrasena.tsx).
  *   - El tamaño y el color NO se fijan aquí: los decide quien lo usa con
  *     clases de Tailwind (por ejemplo "h-5 w-5 text-gold").
  */
@@ -135,6 +137,27 @@ export function TikTokIcon(props: IconProps) {
   return (
     <svg {...stroke} {...props}>
       <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.77 0 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 106.33 6.34V8.69a8.16 8.16 0 004.77 1.52V6.76a4.85 4.85 0 01-1-.07z" />
+    </svg>
+  );
+}
+
+/** Ojo abierto: "mostrar contraseña" (panel de administración). */
+export function EyeIcon(props: IconProps) {
+  return (
+    <svg {...stroke} {...props}>
+      <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+/** Ojo tachado: "ocultar contraseña" (panel de administración). */
+export function EyeOffIcon(props: IconProps) {
+  return (
+    <svg {...stroke} {...props}>
+      <path d="M3 3l18 18" />
+      <path d="M10.6 5.1A10.9 10.9 0 0112 5c6.4 0 10 7 10 7a17.6 17.6 0 01-3.2 4.1M6.6 6.6A17.3 17.3 0 002 12s3.6 7 10 7a10.7 10.7 0 005.4-1.4" />
+      <path d="M9.9 9.9a3 3 0 004.2 4.2" />
     </svg>
   );
 }

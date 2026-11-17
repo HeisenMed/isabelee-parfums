@@ -1,10 +1,10 @@
 /**
- * src/lib/perfumes.ts — Acceso a los datos del catálogo.
+ * src/lib/perfumes.ts — Lectura del catálogo para la tienda pública.
  *
  * QUÉ ES
- *   Las funciones que leen y escriben perfumes y reseñas en Supabase. Es la
- *   "capa de datos" de la app: las páginas piden datos con estas funciones
- *   y no saben nada de tablas ni de consultas.
+ *   Las funciones que LEEN perfumes y reseñas para la tienda. Es la "capa
+ *   de datos" de la tienda: las páginas piden datos con estas funciones y
+ *   no saben nada de tablas ni de consultas.
  *
  * POR QUÉ EXISTE
  *   Sustituye a `window.PERFUMES` del sitio v1 y a fetchReviews() de
@@ -12,34 +12,41 @@
  *   una columna o el proveedor de base de datos, solo se toca este archivo.
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - Usa los clientes de src/lib/supabase.ts y los tipos de
- *     src/types/perfume.ts.
+ *   - Usa el cliente PÚBLICO de src/lib/supabase.ts (sin sesión, sin
+ *     cookies) y los tipos de src/types/perfume.ts. Al no leer cookies, las
+ *     páginas de la tienda pueden guardarse en caché.
  *   - Las tablas las crean las migraciones de supabase/migrations/.
- *   - Lo usan: src/app/(tienda)/catalogo/page.tsx, src/app/(tienda)/producto/[id]/page.tsx y
- *     las secciones Featured y Categories de la portada.
+ *   - Lo usan: src/app/(tienda)/catalogo/page.tsx,
+ *     src/app/(tienda)/producto/[id]/page.tsx y las secciones Featured y
+ *     Categories de la portada.
+ *   - Respeta RLS (Row Level Security: las reglas de Postgres que deciden,
+ *     fila por fila, qué puede ver cada quien): solo ve perfumes activos.
+ *   - Si una consulta falla (sin conexión, tablas aún no creadas), registra
+ *     el error en la consola del servidor y devuelve una lista vacía o
+ *     null, para que la página muestre un estado vacío en vez de romperse.
  *
- * DOS GRUPOS DE FUNCIONES
- *   1. PÚBLICAS (lectura). Usan el cliente público y respetan RLS: solo
- *      ven perfumes activos. Si la consulta falla (sin conexión, tablas
- *      aún no creadas), registran el error en la consola del servidor y
- *      devuelven una lista vacía o null, para que la página muestre un
- *      estado vacío en lugar de romperse.
- *   2. ADMINISTRACIÓN (escritura). Usan la clave secreta y se saltan RLS.
- *      Solo funcionan en el servidor y, al contrario que las públicas,
- *      LANZAN el error: quien administra necesita saber que algo falló.
- *      Están listas para el panel de la Fase 3. ⚠️ Todavía no hay ninguna
- *      ruta de API que las exponga, a propósito: no deben publicarse sin
- *      comprobar antes que quien llama es un administrador con sesión.
+ * LO QUE YA NO ESTÁ AQUÍ
+ *   Hasta la Fase 3B este archivo tenía también funciones de escritura
+ *   (createPerfume, updatePerfume, deletePerfume, uploadImage, uploadVideo)
+ *   que usaban la clave secreta y se saltaban RLS. Nadie las llegó a usar
+ *   y se eliminaron. Las escrituras del panel viven en
+ *   src/lib/admin-perfumes.ts y usan la SESIÓN de la administradora, de
+ *   modo que la base de datos comprueba en cada operación que es admin.
+ *
+ * COLUMNAS DE LA MIGRACIÓN N.º 3 (destacado, agotado)
+ *   getPerfumes() las usa para filtrar los destacados y para dejar los
+ *   agotados al final. Si la migración aún no está aplicada, la base de
+ *   datos responde "la columna no existe"; en ese caso la consulta se
+ *   repite SIN esas columnas y la tienda sigue funcionando como antes.
  */
 import {
   GENEROS,
   type Genero,
   type OrdenCatalogo,
   type Perfume,
-  type PerfumeInput,
   type Review,
 } from "@/types/perfume";
-import { getSupabaseAdmin, getSupabaseClient } from "./supabase";
+import { getSupabaseClient } from "./supabase";
 
 /* ── Opciones de consulta ───────────────────────────────────────────── */
 
@@ -57,15 +64,32 @@ export interface PerfumeFilters {
   precioMax?: number;
   /** Solo perfumes con este badge exacto ("Más Vendido"...). */
   badge?: string;
+  /** true = solo los marcados "Mostrar en la portada" (migración n.º 3). */
+  destacado?: boolean;
   /** Criterio de orden. Por defecto, "destacados". */
   orden?: OrdenCatalogo;
   /** Máximo de resultados. */
   limit?: number;
 }
 
-/** Nombres de los buckets de Storage (los crea el script de migración). */
-const IMAGES_BUCKET = "product-images";
-const VIDEOS_BUCKET = "product-videos";
+/**
+ * Códigos con los que Supabase avisa de que una columna no existe:
+ *   42703    — el código de Postgres para "undefined column".
+ *   PGRST204 — lo devuelve PostgREST (la capa que convierte la base de
+ *              datos en una API — Application Programming Interface — web)
+ *              cuando la columna no está en su copia del esquema.
+ */
+const CODIGOS_COLUMNA_INEXISTENTE = ["42703", "PGRST204"];
+
+/**
+ * Hasta cuándo (en milisegundos de reloj) se da por hecho que las columnas
+ * `destacado` y `agotado` NO existen. Evita repetir en cada visita una
+ * consulta que ya se sabe que falla; pasado un minuto se vuelve a probar,
+ * así la tienda empieza a usarlas sola poco después de aplicar la
+ * migración n.º 3, sin reiniciar el servidor.
+ */
+let sinColumnasNuevasHasta = 0;
+const REINTENTO_COLUMNAS_MS = 60_000;
 
 /** Deja constancia de un fallo de lectura sin romper la página. */
 function logError(context: string, message: string): void {
@@ -75,12 +99,11 @@ function logError(context: string, message: string): void {
 /* ── Lectura pública ────────────────────────────────────────────────── */
 
 /**
- * Devuelve los perfumes activos que cumplen los filtros.
- * Todo el filtrado y el orden lo hace la base de datos, no el navegador.
+ * Arma la consulta de perfumes activos con sus filtros y su orden.
+ * `conColumnasNuevas` indica si se pueden usar `destacado` y `agotado`
+ * (migración n.º 3); con false se construye la consulta de siempre.
  */
-export async function getPerfumes(
-  filters: PerfumeFilters = {},
-): Promise<Perfume[]> {
+function consultaPerfumes(filters: PerfumeFilters, conColumnasNuevas: boolean) {
   const { generos, marca, familia, precioMin, precioMax, badge, limit } = filters;
   const orden = filters.orden ?? "destacados";
 
@@ -92,6 +115,7 @@ export async function getPerfumes(
   if (marca) query = query.eq("marca", marca);
   if (familia) query = query.eq("familia_olfativa", familia);
   if (badge) query = query.eq("badge", badge);
+  if (conColumnasNuevas && filters.destacado) query = query.eq("destacado", true);
 
   // Rango de precio. Los perfumes SIN precio se muestran siempre (igual que
   // en el sitio v1): mientras no haya precios publicados, filtrar por
@@ -104,6 +128,10 @@ export async function getPerfumes(
       conditions.length > 1 ? `and(${conditions.join(",")})` : conditions[0];
     query = query.or(`precio.is.null,${inRange}`);
   }
+
+  // Antes que cualquier otro criterio: los agotados van al final, sea cual
+  // sea el orden elegido (en Postgres, false se ordena antes que true).
+  if (conColumnasNuevas) query = query.order("agotado", { ascending: true });
 
   // Orden principal. nullsFirst:false deja al final lo que no tiene valor.
   switch (orden) {
@@ -130,8 +158,40 @@ export async function getPerfumes(
   query = query.order("id", { ascending: true });
 
   if (limit) query = query.limit(limit);
+  return query;
+}
 
-  const { data, error } = await query;
+/**
+ * Devuelve los perfumes activos que cumplen los filtros.
+ * Todo el filtrado y el orden lo hace la base de datos, no el navegador.
+ */
+export async function getPerfumes(
+  filters: PerfumeFilters = {},
+): Promise<Perfume[]> {
+  const conColumnasNuevas = Date.now() >= sinColumnasNuevasHasta;
+
+  // Sin la columna `destacado` no hay forma de saber cuáles lo son: se
+  // responde "ninguno" y quien llama (Featured) aplica su plan B.
+  if (!conColumnasNuevas && filters.destacado) return [];
+
+  let { data, error } = await consultaPerfumes(filters, conColumnasNuevas);
+
+  if (
+    error &&
+    conColumnasNuevas &&
+    CODIGOS_COLUMNA_INEXISTENTE.includes(error.code)
+  ) {
+    // Falta la migración n.º 3. Se anota para no reintentar durante un
+    // minuto y se repite la consulta al modo antiguo.
+    sinColumnasNuevasHasta = Date.now() + REINTENTO_COLUMNAS_MS;
+    logError(
+      "getPerfumes",
+      "faltan las columnas destacado/agotado (migración n.º 3 sin aplicar); se usa el orden anterior",
+    );
+    if (filters.destacado) return [];
+    ({ data, error } = await consultaPerfumes(filters, false));
+  }
+
   if (error) {
     logError("getPerfumes", error.message);
     return [];
@@ -246,87 +306,4 @@ export async function getImagenesPorGenero(
     }),
   );
   return Object.fromEntries(entries) as Record<Genero, string | null>;
-}
-
-/* ── Administración (solo servidor, Fase 3) ─────────────────────────── */
-
-/** Crea un perfume y lo devuelve con su id nuevo. */
-export async function createPerfume(data: PerfumeInput): Promise<Perfume> {
-  const { data: created, error } = await getSupabaseAdmin()
-    .from("perfumes")
-    .insert(data)
-    .select()
-    .single();
-
-  if (error) throw new Error(`No se pudo crear el perfume: ${error.message}`);
-  return created as Perfume;
-}
-
-/** Actualiza solo los campos indicados de un perfume. */
-export async function updatePerfume(
-  id: number,
-  data: Partial<PerfumeInput>,
-): Promise<Perfume> {
-  const { data: updated, error } = await getSupabaseAdmin()
-    .from("perfumes")
-    .update(data)
-    .eq("id", id)
-    .select()
-    .single();
-
-  if (error) {
-    throw new Error(`No se pudo actualizar el perfume ${id}: ${error.message}`);
-  }
-  return updated as Perfume;
-}
-
-/**
- * Borra un perfume de forma definitiva (y, en cascada, sus reseñas).
- * Para ocultarlo sin perderlo, usa updatePerfume(id, { activo: false }).
- */
-export async function deletePerfume(id: number): Promise<void> {
-  const { error } = await getSupabaseAdmin().from("perfumes").delete().eq("id", id);
-  if (error) {
-    throw new Error(`No se pudo borrar el perfume ${id}: ${error.message}`);
-  }
-}
-
-/**
- * Sube un archivo a un bucket público y devuelve su URL.
- * Se guarda como "<id del perfume>/<marca de tiempo>-<nombre limpio>", así
- * los archivos de cada perfume quedan agrupados y nunca se pisan entre sí.
- */
-async function uploadMedia(
-  bucket: string,
-  file: File,
-  perfumeId: number,
-): Promise<string> {
-  const safeName = file.name
-    .toLowerCase()
-    .normalize("NFD") // separa las tildes de las letras...
-    .replace(/[̀-ͯ]/g, "") // ...y las elimina
-    .replace(/[^a-z0-9.]+/g, "-") // espacios y símbolos → guion
-    .replace(/^-+|-+$/g, "");
-  const filePath = `${perfumeId}/${Date.now()}-${safeName || "archivo"}`;
-
-  const storage = getSupabaseAdmin().storage.from(bucket);
-  const { error } = await storage.upload(filePath, file, {
-    contentType: file.type || undefined,
-    upsert: false, // nunca sobrescribir un archivo existente
-  });
-
-  if (error) {
-    throw new Error(`No se pudo subir "${file.name}" a ${bucket}: ${error.message}`);
-  }
-  return storage.getPublicUrl(filePath).data.publicUrl;
-}
-
-/** Sube una foto de producto y devuelve su URL pública. */
-export async function uploadImage(file: File, perfumeId: number): Promise<string> {
-  return uploadMedia(IMAGES_BUCKET, file, perfumeId);
-}
-
-/** Sube un video de producto y devuelve su URL pública. */
-export async function uploadVideo(file: File, perfumeId: number): Promise<string> {
-  return uploadMedia(VIDEOS_BUCKET, file, perfumeId);
 }

@@ -18,18 +18,27 @@
  *   - El correo que envía Supabase enlaza a src/app/auth/confirm/route.ts,
  *     que abre la sesión y lleva a /admin/crear-contrasena.
  *   - Se dibuja dentro de src/app/admin/(acceso)/layout.tsx.
+ *
+ * ESTADO: DESACTIVADA
+ *   Mientras RECUPERACION_POR_CORREO (src/lib/admin-rutas.ts) sea false,
+ *   esta página no muestra nada y redirige a /admin/login: no hay servidor
+ *   de correo, así que el enlace nunca llegaría. El formulario y su acción
+ *   se conservan intactos para cuando se active.
  */
 import type { Metadata } from "next";
 import Link from "next/link";
 import RecuperarForm from "@/components/admin/RecuperarForm";
 import { enlace } from "@/components/admin/estilos";
-import { RUTA_LOGIN } from "@/lib/admin-rutas";
+import { redirect } from "next/navigation";
+import { RECUPERACION_POR_CORREO, RUTA_LOGIN } from "@/lib/admin-rutas";
 
 export const metadata: Metadata = {
   title: "Recuperar contraseña",
 };
 
 export default function RecuperarPage() {
+  if (!RECUPERACION_POR_CORREO) redirect(RUTA_LOGIN);
+
   return (
     <>
       <h1 className="font-serif text-3xl font-semibold text-admin-text">

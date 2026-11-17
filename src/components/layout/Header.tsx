@@ -4,7 +4,7 @@
  * src/components/layout/Header.tsx — Barra de navegación superior.
  *
  * QUÉ ES
- *   El encabezado fijo del sitio: logotipo de texto "Isabelé", menú
+ *   El encabezado fijo del sitio: logotipo de texto "Isabeleé", menú
  *   principal, ícono de búsqueda, ícono de carrito con contador y, en
  *   pantallas pequeñas, un botón hamburguesa que abre un menú lateral.
  *

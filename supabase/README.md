@@ -1,4 +1,4 @@
-# supabase/ — Base de datos de Isabelé Fragancias
+# supabase/ — Base de datos de Isabeleé Fragancias
 
 Esta carpeta guarda todo lo necesario para **crear y llenar** la base de datos del proyecto en Supabase. Sigue la convención estándar de Supabase para que cualquier persona (o herramienta) que conozca esa convención sepa dónde está cada cosa.
 
@@ -16,7 +16,8 @@ Archivos actuales:
 Migraciones, **en el orden en que se ejecutan**:
 
 1. `migrations/20261116000000_initial_schema.sql` — migración n.º 1 (**aplicada** el 16 de noviembre de 2026). Crea las tablas `perfumes` y `reviews`, sus políticas RLS (Row Level Security: reglas de acceso fila por fila), un índice y dos funciones.
-2. `migrations/20261117000000_admin_access.sql` — migración n.º 2 (**pendiente de aplicar**). Crea la lista de administradores (`admin_users`), la función `is_admin()`, restringe a administradores las políticas "Admins can manage…" y protege los buckets de Storage. Ver "Aplicar la migración n.º 2" más abajo.
+2. `migrations/20261117000000_admin_access.sql` — migración n.º 2 (**aplicada**). Crea la lista de administradores (`admin_users`), la función `is_admin()`, restringe a administradores las políticas "Admins can manage…" y protege los buckets de Storage.
+3. `migrations/20261118000000_destacado_agotado.sql` — migración n.º 3 (**pendiente de aplicar**). Añade a `perfumes` las columnas `destacado` y `agotado`. Ver "Aplicar la migración n.º 3" más abajo.
 
 Seed:
 
@@ -96,7 +97,29 @@ La marca de tiempo es lo que ordena los archivos: al listarlos alfabéticamente 
 - **"La tabla perfumes ya tiene N filas"** — el seed se protege para no pisar datos. Si de verdad es una base de datos de pruebas y quieres recargarla, `npm run db:seed -- --force` sobrescribe los perfumes con el mismo id y reemplaza sus reseñas. Es destructivo: nunca sobre la base de datos en uso.
 - **Los ids nuevos chocan con los existentes** — el seed no pudo llamar a `sync_id_sequences()`. Ejecuta en el SQL Editor: `SELECT sync_id_sequences();`
 
-## Aplicar la migración n.º 2 (acceso de administración)
+## Aplicar la migración n.º 3 (destacado y agotado)
+
+Mientras no se aplique, nada se rompe: la tienda detecta que faltan las columnas y sigue como antes, y el panel muestra el aviso "Falta ejecutar la migración n.º 3" y guarda todo menos esos dos interruptores.
+
+1. Abre el Dashboard de Supabase → **SQL Editor** → **New Query**.
+2. Pega **todo** el contenido de `migrations/20261118000000_destacado_agotado.sql` y pulsa **Run**. Debe responder "Success. No rows returned". No borra ni cambia ningún dato: los perfumes existentes quedan con `destacado = false` y `agotado = false`.
+3. Comprueba el resultado con las consultas de "COMPROBACIONES" al final de ese archivo.
+4. Anota la fecha en la línea "ESTADO" del archivo y cambia arriba "pendiente de aplicar" por "aplicada".
+5. Recarga `/admin/perfumes`: el aviso desaparece. La tienda empieza a usar las columnas sola, como mucho un minuto después (no hace falta reiniciar nada).
+
+## Cuentas de administración (sin correo, por ahora)
+
+El proyecto no tiene un servidor de correo propio —SMTP (Simple Mail Transfer Protocol)—, así que los enlaces de invitación y de "olvidé mi contraseña" no llegan. Mientras tanto:
+
+- **Crear una cuenta:** Dashboard → Authentication → Users → Add user → *Create new user*, con correo y contraseña, y marcando "Auto Confirm User". El correo debe estar además en la tabla `admin_users` (ver el final de la migración n.º 2).
+- **Cambiar la contraseña:** cada administradora, ya dentro del panel, en "Cambiar contraseña" (`/admin/cambiar-contrasena`).
+- **Contraseña olvidada:** alguien con acceso al Dashboard la reasigna en Authentication → Users.
+
+En el código, esto lo gobierna `RECUPERACION_POR_CORREO = false` en `src/lib/admin-rutas.ts`. Las secciones "Dirección del sitio" y "Plantillas de correo" de más abajo solo harán falta el día que se configure un SMTP propio (por ejemplo Resend) con un dominio, y se ponga esa constante en `true`.
+
+## Aplicar la migración n.º 2 (acceso de administración) — ya hecho
+
+> Esta migración ya está aplicada. Los pasos se conservan para reconstruir la base de datos desde cero.
 
 Hasta que se aplique, el panel (`/admin`) deja iniciar sesión pero muestra el aviso "Falta un paso de configuración" y no abre. La tienda no se ve afectada.
 

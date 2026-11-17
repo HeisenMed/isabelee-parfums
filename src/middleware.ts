@@ -46,6 +46,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import {
+  RECUPERACION_POR_CORREO,
   RUTA_CREAR_CONTRASENA,
   RUTA_LOGIN,
   RUTA_PANEL,
@@ -119,8 +120,9 @@ export async function middleware(request: NextRequest) {
     if (pathname === RUTA_CREAR_CONTRASENA) {
       // A esta página solo se llega desde un enlace de correo. Sin sesión,
       // el enlace caducó o ya se usó: se explica eso en vez de pedir un
-      // login que la persona quizá aún no puede hacer.
-      destino.searchParams.set("error", "enlace");
+      // login que la persona quizá aún no puede hacer. Con la recuperación
+      // por correo desactivada no hay enlaces que explicar: login a secas.
+      if (RECUPERACION_POR_CORREO) destino.searchParams.set("error", "enlace");
     } else {
       // Se recuerda la página pedida para volver a ella tras el login.
       destino.searchParams.set("next", `${pathname}${search}`);

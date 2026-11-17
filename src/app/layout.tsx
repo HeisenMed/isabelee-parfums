@@ -1,5 +1,5 @@
 /**
- * src/app/layout.tsx — Layout raíz de Isabelé Fragancias (v2, Next.js).
+ * src/app/layout.tsx — Layout raíz de Isabeleé Fragancias (v2, Next.js).
  *
  * QUÉ ES
  *   El "marco" HTML mínimo que envuelve a TODAS las rutas de la app, tanto
@@ -60,7 +60,7 @@ const description =
 export const metadata: Metadata = {
   title: {
     default: SITE_NAME,
-    // Las páginas internas mostrarán "Su título | Isabelé Fragancias".
+    // Las páginas internas mostrarán "Su título | Isabeleé Fragancias".
     template: `%s | ${SITE_NAME}`,
   },
   description,
