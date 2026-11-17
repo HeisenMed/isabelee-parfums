@@ -5,8 +5,9 @@
  *
  * QUÉ ES
  *   El encabezado fijo del sitio: logotipo de texto "Isabeleé", menú
- *   principal, ícono de búsqueda, ícono de carrito con contador y, en
- *   pantallas pequeñas, un botón hamburguesa que abre un menú lateral.
+ *   principal, ícono de búsqueda, botón de tema (noche/día), ícono de
+ *   carrito con contador y, en pantallas pequeñas, un botón hamburguesa que
+ *   abre un menú lateral.
  *
  * POR QUÉ EXISTE
  *   Sustituye al <header id="hdr"> y al <div class="mob-menu"> del
@@ -28,14 +29,27 @@
  *
  * COMPORTAMIENTO
  *   - Arriba del todo es transparente, para que el hero se vea completo.
+ *   - TEMA (Fase 4): en la portada, mientras la barra es transparente,
+ *     flota sobre el Hero, que SIEMPRE es de noche. Por eso en ese caso la
+ *     barra lleva data-theme="noche": aunque la tienda esté en modo día,
+ *     sus textos e íconos se dibujan claros y se leen sobre el Hero. En
+ *     cuanto se baja (fondo translúcido) o en cualquier otra página, sigue
+ *     el tema elegido.
+ *   - Móvil (menos de 1024 px): logo a la izquierda; búsqueda, tema,
+ *     carrito y hamburguesa a la derecha. Cada botón mide 40 × 40 px y van
+ *     sin separación entre ellos por debajo de 640 px para que todo quepa
+ *     en 320 px de ancho. Los enlaces del menú están dentro de la
+ *     hamburguesa.
  *   - Al bajar se vuelve translúcido con desenfoque del fondo.
  *   - El menú móvil se cierra con Escape, tocando fuera o eligiendo un
  *     enlace, y bloquea el scroll de la página mientras está abierto.
  */
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BagIcon, CloseIcon, SearchIcon } from "@/components/ui/icons";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 import { NAV_LINKS, SITE_NAME, SITE_SHORT_NAME } from "@/lib/site";
 
 /** Marcador: cantidad de productos en el carrito. Se conecta en la Fase 2. */
@@ -52,6 +66,9 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const reduceMotion = useReducedMotion();
+  const pathname = usePathname();
+  // Barra transparente sobre el Hero (siempre de noche): ver COMPORTAMIENTO.
+  const sobreHero = pathname === "/" && !scrolled;
 
   // Detecta si la página ya se desplazó, para cambiar el fondo del header.
   useEffect(() => {
@@ -80,6 +97,7 @@ export default function Header() {
   return (
     <>
       <header
+        data-theme={sobreHero ? "noche" : undefined}
         className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
           scrolled
             ? "border-gold/15 bg-dark-deep/75 backdrop-blur-md"
@@ -91,7 +109,7 @@ export default function Header() {
           <Link
             href="/"
             aria-label={`${SITE_NAME} — inicio`}
-            className="font-serif text-3xl font-medium tracking-wide text-gold transition-colors duration-200 hover:text-gold-light lg:text-4xl"
+            className="font-serif text-3xl font-medium tracking-wide text-gold-ink transition-colors duration-200 hover:text-gold-light lg:text-4xl"
           >
             {SITE_SHORT_NAME}
           </Link>
@@ -117,11 +135,13 @@ export default function Header() {
             </ul>
           </nav>
 
-          {/* Acciones: búsqueda, carrito y hamburguesa */}
-          <div className="flex items-center gap-1">
+          {/* Acciones: búsqueda, tema, carrito y hamburguesa */}
+          <div className="flex items-center gap-0 sm:gap-1">
             <button type="button" className={iconButton} aria-label="Buscar">
               <SearchIcon className="h-5 w-5" />
             </button>
+
+            <ThemeToggle className={iconButton} />
 
             <button
               type="button"
@@ -131,7 +151,7 @@ export default function Header() {
               <BagIcon className="h-5 w-5" />
               <span
                 aria-hidden="true"
-                className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-1 text-[10px] font-semibold leading-none text-dark-deep"
+                className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-1 text-[10px] font-semibold leading-none text-on-gold"
               >
                 {CART_COUNT}
               </span>
@@ -185,7 +205,7 @@ export default function Header() {
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="flex h-16 items-center justify-between px-6">
-                <span className="font-serif text-2xl text-gold">
+                <span className="font-serif text-2xl text-gold-ink">
                   {SITE_SHORT_NAME}
                 </span>
                 <button

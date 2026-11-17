@@ -17,6 +17,11 @@
  *     detiene al pasar el cursor y con prefers-reduced-motion.
  *   - Es la ÚNICA pieza del sitio que usa el verde #25D366 como fondo
  *     (token `whatsapp`), tal como exige CLAUDE.md §10.1.
+ *   - Posición: 16 px del borde (24 px desde 640 px) más el margen seguro
+ *     de los iPhone con barra inferior (env(safe-area-inset-*)). Encima
+ *     se apila el botón de compartir (src/components/ui/ShareButton.tsx),
+ *     calculado a partir de estas mismas medidas: si cambias una, revisa
+ *     la otra.
  *   - z-40: queda por debajo del Header (z-50), del menú móvil y del modal
  *     de bienvenida, para no taparlos.
  *   - Componente de servidor: es solo un enlace con CSS.
@@ -31,7 +36,7 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Escríbenos por WhatsApp"
-      className="wa-pulse group fixed bottom-4 right-4 z-40 flex h-[52px] w-[52px] items-center justify-center rounded-full bg-whatsapp shadow-[0_4px_16px_rgba(37,211,102,0.35)] transition-transform duration-300 hover:scale-110 sm:bottom-6 sm:right-6 sm:h-14 sm:w-14"
+      className="wa-pulse group fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))] z-40 flex h-[52px] w-[52px] items-center justify-center rounded-full bg-whatsapp shadow-[0_4px_16px_rgba(37,211,102,0.35)] transition-transform duration-300 hover:scale-110 sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom))] sm:right-[calc(1.5rem+env(safe-area-inset-right))] sm:h-14 sm:w-14"
     >
       {/* Etiqueta "¿Necesitas ayuda?": solo en dispositivos con cursor,
           porque en táctil no existe el hover y solo estorbaría. */}

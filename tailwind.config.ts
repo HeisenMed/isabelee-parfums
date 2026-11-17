@@ -1,5 +1,5 @@
 /**
- * tailwind.config.ts — Sistema de diseño de Isabelé Fragancias para Tailwind.
+ * tailwind.config.ts — Sistema de diseño de Isabeleé Fragancias para Tailwind.
  *
  * QUÉ ES
  *   La definición de los "tokens" de marca (colores y tipografías) que
@@ -22,8 +22,15 @@
  *   - Las fuentes se referencian mediante variables CSS (--font-cormorant y
  *     --font-jost) que crea next/font en src/app/layout.tsx. El nombre
  *     literal de la fuente queda como respaldo por si la variable faltara.
- *   - La paleta es la de CLAUDE.md §10.1. No añadas colores aquí sin
- *     documentarlos allí.
+ *   - La paleta de noche es la de CLAUDE.md §10.1. No añadas colores aquí
+ *     sin documentarlos allí y en doc/DISEÑO.md.
+ *   - TEMAS (Fase 4): los colores de la TIENDA (gold, on-gold, dark, ink)
+ *     apuntan a variables CSS definidas en src/app/globals.css, una vez
+ *     para la noche y otra para el día. Cambiar un color de tema es
+ *     cambiarlo allí, no aquí. El atributo data-theme de <html> (lo pone el
+ *     script del layout raíz y ThemeToggle) decide qué juego se aplica.
+ *   - Los colores `whatsapp` y `admin` siguen siendo fijos: no cambian con
+ *     el tema.
  *   - El grupo `admin` es la paleta clara del panel de administración
  *     (Fase 3). Está documentado en doc/DISEÑO.md §6.
  */
@@ -35,23 +42,51 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Dorados de marca: CTAs, acentos, bordes y destellos.
+        // ── Tienda: colores con TEMA (noche / día) ──────────────────────
+        // Desde la Fase 4 estos tokens no son colores fijos sino variables
+        // CSS (var(--tema-…)). Sus valores están en src/app/globals.css:
+        //   :root y [data-theme="noche"]  → paleta de noche (la de siempre)
+        //   [data-theme="dia"]            → paleta de día
+        // Las clases se escriben igual que antes (text-ink, bg-dark-deep,
+        // border-gold/20…): Tailwind v4 escribe `var(--tema-…)` dentro de
+        // cada clase y resuelve la transparencia con color-mix(), así que
+        // un elemento con data-theme="noche" (el Hero) recibe los colores
+        // de noche aunque la página esté en día.
+        // Los nombres "dark" e "ink" vienen de la paleta de noche: en día,
+        // los "dark" son fondos claros y los "ink" textos oscuros. Piensa
+        // en ellos como "fondo" y "texto", no como "oscuro" y "claro".
+        // Los valores y su contraste WCAG están en doc/DISEÑO.md §1.
         gold: {
-          DEFAULT: "#C9A84C", // Dorado principal
-          light: "#e8d48b", // Destacados, hover, acentos de texto
-          cream: "#fff8e1", // Brillos y acentos muy claros
+          // Dorado de marca para RELLENOS y BORDES (#C9A84C en los dos
+          // temas). No sirve para texto sobre fondo de día (2,05:1).
+          DEFAULT: "var(--tema-oro)",
+          // Acentos de TEXTO (itálicas, enlaces al pasar el cursor).
+          // Noche #e8d48b; día un dorado oscuro legible.
+          light: "var(--tema-oro-claro)",
+          // Brillos (partículas del Hero, que siempre es de noche).
+          cream: "var(--tema-oro-crema)",
+          // Texto dorado "principal" (antes text-gold): noche #C9A84C,
+          // día dorado oscuro. Úsalo siempre que el dorado sea TEXTO o
+          // ícono; text-gold solo para casos sin legibilidad en juego.
+          ink: "var(--tema-oro-tinta)",
+          // Relleno dorado más luminoso para el hover de los botones
+          // dorados (antes hover:bg-gold-light).
+          bright: "var(--tema-oro-brillo)",
         },
-        // Fondos oscuros, de menos a más profundo.
+        // Texto SOBRE un relleno dorado (botones, contador del carrito):
+        // siempre oscuro, en los dos temas. Antes se usaba
+        // text-dark-secondary, que en día se volvería claro.
+        "on-gold": "var(--tema-sobre-oro)",
+        // Fondos, de menos a más profundo (en día: blanco cálido → marfil).
         dark: {
-          DEFAULT: "#1c1c1c", // Fondo de secciones
-          secondary: "#1a1a1a", // Tarjetas, modales, contenedores
-          deep: "#121212", // Body y footer
+          DEFAULT: "var(--tema-fondo)", // Fondo de secciones alternas
+          secondary: "var(--tema-fondo-2)", // Tarjetas, modales, paneles
+          deep: "var(--tema-fondo-3)", // Body y footer
         },
-        // Texto sobre fondo oscuro (CLAUDE.md §10.1). Se añade como token
-        // para no repetir los hex en cada componente.
+        // Texto (CLAUDE.md §10.1 en noche).
         ink: {
-          DEFAULT: "#f5f5f5", // Texto principal
-          muted: "#b0b0b0", // Texto secundario
+          DEFAULT: "var(--tema-texto)", // Texto principal
+          muted: "var(--tema-texto-suave)", // Texto secundario
         },
         // Verde oficial de WhatsApp: SOLO para su botón/ícono.
         whatsapp: "#25D366",

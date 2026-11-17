@@ -19,8 +19,11 @@
  *     redes sociales: Header, Hero, Newsletter y Footer.
  *   - EyeIcon y EyeOffIcon: botón de mostrar/ocultar contraseña del panel
  *     (src/components/admin/CampoContrasena.tsx).
+ *   - SunIcon / MoonIcon: ThemeToggle (Header). ShareIcon, CopyIcon y
+ *     DownloadIcon: ShareButton. SealIcon, GiftIcon y TruckIcon: sección
+ *     "Así llega tu fragancia" de la portada (Fase 4).
  *   - El tamaño y el color NO se fijan aquí: los decide quien lo usa con
- *     clases de Tailwind (por ejemplo "h-5 w-5 text-gold").
+ *     clases de Tailwind (por ejemplo "h-5 w-5 text-gold-ink").
  */
 import type { SVGProps } from "react";
 
@@ -158,6 +161,90 @@ export function EyeOffIcon(props: IconProps) {
       <path d="M3 3l18 18" />
       <path d="M10.6 5.1A10.9 10.9 0 0112 5c6.4 0 10 7 10 7a17.6 17.6 0 01-3.2 4.1M6.6 6.6A17.3 17.3 0 002 12s3.6 7 10 7a10.7 10.7 0 005.4-1.4" />
       <path d="M9.9 9.9a3 3 0 004.2 4.2" />
+    </svg>
+  );
+}
+
+/* ── Fase 4: tema, compartir y confianza ───────────────────────────── */
+
+/** Sol: "activar modo día" (ThemeToggle). */
+export function SunIcon(props: IconProps) {
+  return (
+    <svg {...stroke} {...props}>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+    </svg>
+  );
+}
+
+/** Luna: "activar modo noche" (ThemeToggle). */
+export function MoonIcon(props: IconProps) {
+  return (
+    <svg {...stroke} {...props}>
+      <path d="M20.5 14.5A8.5 8.5 0 019.5 3.5a8.5 8.5 0 1011 11z" />
+    </svg>
+  );
+}
+
+/** Compartir: tres nodos unidos (botón flotante de compartir). */
+export function ShareIcon(props: IconProps) {
+  return (
+    <svg {...stroke} {...props}>
+      <circle cx="18" cy="5" r="2.5" />
+      <circle cx="6" cy="12" r="2.5" />
+      <circle cx="18" cy="19" r="2.5" />
+      <path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4" />
+    </svg>
+  );
+}
+
+/** Copiar: dos hojas superpuestas. */
+export function CopyIcon(props: IconProps) {
+  return (
+    <svg {...stroke} {...props}>
+      <rect x="9" y="9" width="11" height="11" rx="2" />
+      <path d="M5 15V5a2 2 0 012-2h8" />
+    </svg>
+  );
+}
+
+/** Descargar: flecha hacia una bandeja. */
+export function DownloadIcon(props: IconProps) {
+  return (
+    <svg {...stroke} {...props}>
+      <path d="M12 4v11M7 10l5 5 5-5M5 20h14" />
+    </svg>
+  );
+}
+
+/** Sello con visto bueno: "Fragancias originales". */
+export function SealIcon(props: IconProps) {
+  return (
+    <svg {...stroke} {...props}>
+      <path d="M12 2l2.4 1.8 3-.2.9 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.9 2.9-3-.2L12 22l-2.4-1.8-3 .2-.9-2.9-2.5-1.7 1-2.8-1-2.8 2.5-1.7.9-2.9 3 .2z" />
+      <path d="M8.5 12l2.5 2.5 4.5-5" />
+    </svg>
+  );
+}
+
+/** Caja de regalo: "Empaque cuidado". */
+export function GiftIcon(props: IconProps) {
+  return (
+    <svg {...stroke} {...props}>
+      <rect x="3" y="8" width="18" height="4" rx="1" />
+      <path d="M5 12v8a1 1 0 001 1h12a1 1 0 001-1v-8M12 8v13" />
+      <path d="M12 8S10.5 3.5 8 4.2C6 4.8 7 8 12 8zM12 8s1.5-4.5 4-3.8C18 4.8 17 8 12 8z" />
+    </svg>
+  );
+}
+
+/** Camión: "Envíos a toda Colombia". */
+export function TruckIcon(props: IconProps) {
+  return (
+    <svg {...stroke} {...props}>
+      <path d="M2 6h11v10H2zM13 9h4l4 4v3h-8z" />
+      <circle cx="6.5" cy="17.5" r="1.8" />
+      <circle cx="17" cy="17.5" r="1.8" />
     </svg>
   );
 }

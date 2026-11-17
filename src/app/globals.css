@@ -22,6 +22,10 @@
  *   - .scroll-hint y .text-glow-gold las usa el Hero.
  *   - Todas las animaciones se desactivan con prefers-reduced-motion
  *     (regla obligatoria de CLAUDE.md §10.5).
+ *   - TEMAS (Fase 4): define las variables --tema-* de noche y de día a las
+ *     que apuntan los colores de la tienda en tailwind.config.ts, el
+ *     color-scheme de cada tema y la variante `dia:`. El script del layout
+ *     raíz y src/components/ui/ThemeToggle.tsx deciden el tema activo.
  */
 /* source("../"): Tailwind solo busca clases dentro de src/. Sin esto,
    v4 vigila TODO el proyecto (data/, doc/, registros de herramientas...) y
@@ -29,35 +33,131 @@
 @import "tailwindcss" source("../");
 @config "../../tailwind.config.ts";
 
+/* Variante `dia:` — aplica una clase SOLO cuando el tema de día está activo
+   en ese punto de la página (por ejemplo `dia:border-gold-ink/80`). Sirve
+   para los pocos ajustes que no se resuelven con las variables de abajo.
+   No se activa dentro de un bloque marcado data-theme="noche" (el Hero),
+   porque ahí el ancestro más cercano con data-theme es de noche. */
+@custom-variant dia (&:where([data-theme="dia"], [data-theme="dia"] *):not(:where([data-theme="dia"] [data-theme="noche"], [data-theme="dia"] [data-theme="noche"] *)));
+
+/* ── Temas de la tienda: noche (por defecto) y día ────────────────────── */
+/*
+   Cada token de color de la tienda (tailwind.config.ts) apunta a una de
+   estas variables. Se definen dos veces:
+     - :root y [data-theme="noche"]  → noche (la paleta de CLAUDE.md §10.1)
+     - [data-theme="dia"]            → día
+   El script del layout raíz (src/app/layout.tsx) pone data-theme en
+   <html> antes de pintar, según la preferencia guardada. Un elemento
+   interior con su propio data-theme (el Hero, siempre de noche) vuelve a
+   declarar las variables y sus hijos las heredan de él.
+
+   Van en @layer base A PROPÓSITO: así una clase utilitaria del mismo
+   elemento gana siempre. El panel de administración pone
+   data-theme="noche" + la clase [color-scheme:light] en su envoltorio, y
+   gracias a la capa gana la clase (tema claro del panel intacto).
+
+   Contraste WCAG (Web Content Accessibility Guidelines; AA pide 4,5:1 para
+   texto normal), del texto sobre el fondo más claro y el más oscuro:
+     NOCHE  texto 17,2  · suave 8,0  · oro-tinta 8,2  · oro-claro 12,7
+     DÍA    texto 15,3–16,8 · suave 6,4–7,0 · oro-tinta 5,2–5,7 · oro-claro 6,3–7,0
+     Texto sobre relleno dorado (on-gold #1a1a1a sobre #C9A84C): 7,6.
+*/
+@layer base {
+  :root,
+  [data-theme="noche"] {
+    --tema-oro: #c9a84c;
+    --tema-oro-claro: #e8d48b;
+    --tema-oro-crema: #fff8e1;
+    --tema-oro-tinta: #c9a84c;
+    --tema-oro-brillo: #e8d48b;
+    --tema-sobre-oro: #1a1a1a;
+    --tema-fondo: #1c1c1c;
+    --tema-fondo-2: #1a1a1a;
+    --tema-fondo-3: #121212;
+    --tema-texto: #f5f5f5;
+    --tema-texto-suave: #b0b0b0;
+    /* El navegador dibuja barras de desplazamiento, desplegables y
+       casillas en oscuro. */
+    color-scheme: dark;
+  }
+
+  [data-theme="dia"] {
+    /* El dorado de relleno y bordes no cambia: es la marca. */
+    --tema-oro: #c9a84c;
+    /* Dorados para TEXTO: más oscuros para leerse sobre marfil. */
+    --tema-oro-claro: #6e5511; /* 6,3:1 sobre el fondo marfil */
+    --tema-oro-tinta: #7d6215; /* 5,2:1 sobre el fondo marfil */
+    --tema-oro-crema: #fff8e1; /* solo en el Hero, que es de noche */
+    /* Hover de los botones dorados: un poco más luminoso que el relleno;
+       con texto on-gold da 9,8:1. */
+    --tema-oro-brillo: #dcc06e;
+    --tema-sobre-oro: #1a1a1a;
+    /* Fondos: blancos cálidos y marfil. No se usa blanco puro (#fff) como
+       fondo de página: CLAUDE.md §10.1 lo prohíbe; las fotos de producto
+       siguen sobre su recuadro blanco. */
+    --tema-fondo: #fffdf8; /* secciones alternas */
+    --tema-fondo-2: #fbf8f2; /* tarjetas, modales, paneles */
+    --tema-fondo-3: #f6f2e9; /* body y footer */
+    --tema-texto: #1f1b16; /* 15,3:1 */
+    --tema-texto-suave: #5e574c; /* 6,4:1 */
+    color-scheme: light;
+  }
+
+  html {
+    /* Color del "rebote" al desplazar más allá del borde en móviles y de
+       cualquier hueco sin fondo propio: el fondo del tema activo. */
+    background-color: var(--tema-fondo-3);
+    /* Fondo de la PÁGINA, leído una sola vez en <html>. A diferencia de
+       --tema-fondo-3, NO se redefine dentro del Hero: el fundido inferior
+       del Hero lo usa para pasar de la noche al fondo real de la página
+       (marfil en día). */
+    --fondo-pagina: var(--tema-fondo-3);
+  }
+
+  /* Anillo de foco visible y coherente con la marca para quien navega con
+     teclado. Solo aparece con :focus-visible, no al hacer clic con ratón.
+     Usa el dorado de texto del tema (claro en noche, oscuro en día).
+     Está en @layer base para que el panel pueda sustituirlo con una clase
+     (antes, fuera de capa, ganaba siempre y el panel no podía). */
+  :focus-visible {
+    outline: 2px solid var(--tema-oro-claro);
+    outline-offset: 3px;
+  }
+}
+
+/* Transición suave de colores al pulsar ThemeToggle. La clase la pone
+   ThemeToggle.tsx en <html> durante ~0,4 s y la quita después; NO se
+   añade si la persona pidió reducir el movimiento. Va limitada a esos
+   instantes para no interferir con las demás transiciones del sitio. */
+html.tema-cambiando,
+html.tema-cambiando *,
+html.tema-cambiando *::before,
+html.tema-cambiando *::after {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    fill 0.35s ease !important;
+}
+
 /* ── Base ─────────────────────────────────────────────────────────────── */
 
 html {
   /* Desplazamiento suave al navegar a anclas (#catalogo, #contacto...). */
   scroll-behavior: smooth;
-  /* Avisa al navegador de que el sitio es oscuro: así dibuja en tonos
-     oscuros lo que él controla (barras de desplazamiento, listas de los
-     desplegables <select>, casillas) en lugar de dejarlo en blanco. */
-  color-scheme: dark;
 }
 
 /* Panel de administración: tema claro.
    El panel (src/app/admin/layout.tsx) marca su envoltorio con
    data-zona="admin". :has() permite que el DOCUMENTO entero cambie cuando
    contiene ese envoltorio: así la barra de desplazamiento de la ventana
-   —que pertenece a <html>, no al envoltorio— sale clara en /admin y sigue
-   oscura en la tienda. El color de fondo cubre además el "rebote" al
-   desplazar más allá del final en móviles (es el valor del token
-   admin.bg de tailwind.config.ts). */
+   —que pertenece a <html>, no al envoltorio— sale clara en /admin aunque
+   la tienda esté en noche o en día. Va fuera de capa para ganar a las
+   reglas de tema de arriba. El color de fondo es el del token admin.bg de
+   tailwind.config.ts. */
 html:has([data-zona="admin"]) {
   color-scheme: light;
   background-color: #faf8f3;
-}
-
-/* Anillo de foco visible y coherente con la marca para quien navega con
-   teclado. Solo aparece con :focus-visible, no al hacer clic con ratón. */
-:focus-visible {
-  outline: 2px solid #e8d48b;
-  outline-offset: 3px;
 }
 
 /* ── Hero: resplandor del texto en itálica ────────────────────────────── */

@@ -44,7 +44,7 @@ export default function WhatsAppCta() {
             href={WHATSAPP_MESSAGE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex shrink-0 items-center gap-3 rounded-lg bg-gold px-7 py-4 text-xs font-medium uppercase tracking-[0.18em] text-dark-secondary transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-light hover:shadow-[0_10px_26px_rgba(201,168,76,0.3)]"
+            className="inline-flex shrink-0 items-center gap-3 rounded-lg bg-gold px-7 py-4 text-xs font-medium uppercase tracking-[0.18em] text-on-gold transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-bright hover:shadow-[0_10px_26px_rgba(201,168,76,0.3)]"
           >
             <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
             Escríbenos por WhatsApp

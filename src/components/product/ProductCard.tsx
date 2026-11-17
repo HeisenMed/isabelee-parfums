@@ -89,7 +89,7 @@ export default function ProductCard({
           </span>
         )}
         {badge && (
-          <span className="absolute left-3 top-3 rounded bg-gold px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-dark-secondary">
+          <span className="absolute left-3 top-3 rounded bg-gold px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-on-gold">
             {badge}
           </span>
         )}

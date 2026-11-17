@@ -21,6 +21,10 @@
  *     src/components/ui/icons.tsx (SVG, sin emojis — CLAUDE.md §10.3).
  *   - Estilo según CLAUDE.md §10.4: fondo #1a1a1a (dark-secondary), borde
  *     dorado sutil, desenfoque del fondo y ningún azul.
+ *   - Tema (Fase 4): en modo día los tokens dan fondo marfil y texto
+ *     oscuro; la sombra negra se sustituye por una cálida y suave con la
+ *     variante dia:. El botón dorado usa text-on-gold (oscuro en los dos
+ *     temas).
  *
  * COMPORTAMIENTO
  *   - Aparece 2 segundos después de cargar, UNA vez por sesión del
@@ -126,7 +130,7 @@ export default function WelcomeModal() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="welcome-title"
-            className="relative my-auto w-full max-w-[440px] overflow-hidden rounded-2xl border border-gold/25 bg-dark-secondary px-6 pb-8 pt-10 text-center shadow-[0_24px_70px_rgba(0,0,0,0.6)] sm:px-10 sm:pb-9 sm:pt-11"
+            className="relative my-auto w-full max-w-[440px] overflow-hidden rounded-2xl border border-gold/25 bg-dark-secondary px-6 pb-8 pt-10 text-center shadow-[0_24px_70px_rgba(0,0,0,0.6)] dia:shadow-[0_24px_70px_rgba(31,27,22,0.22)] sm:px-10 sm:pb-9 sm:pt-11"
             initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: reduceMotion ? 1 : 0.96 }}
@@ -158,14 +162,14 @@ export default function WelcomeModal() {
               <motion.div variants={itemVariants}>
                 <BottleIcon
                   aria-hidden="true"
-                  className="mx-auto mb-4 h-10 w-auto text-gold drop-shadow-[0_0_6px_rgba(201,168,76,0.45)]"
+                  className="mx-auto mb-4 h-10 w-auto text-gold-ink drop-shadow-[0_0_6px_rgba(201,168,76,0.45)]"
                 />
               </motion.div>
 
               <motion.h2
                 id="welcome-title"
                 variants={itemVariants}
-                className="font-serif text-3xl font-normal leading-tight text-gold sm:text-[34px]"
+                className="font-serif text-3xl font-normal leading-tight text-gold-ink sm:text-[34px]"
               >
                 Bienvenido a {SITE_SHORT_NAME}
               </motion.h2>
@@ -210,7 +214,7 @@ export default function WelcomeModal() {
                 href={WHATSAPP_MESSAGE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 flex items-center justify-center gap-2.5 rounded-lg bg-gold px-6 py-4 text-sm font-medium tracking-wide text-dark-secondary transition-[background-color,box-shadow] duration-200 hover:bg-gold-light hover:shadow-[0_10px_26px_rgba(201,168,76,0.3)]"
+                className="mt-6 flex items-center justify-center gap-2.5 rounded-lg bg-gold px-6 py-4 text-sm font-medium tracking-wide text-on-gold transition-[background-color,box-shadow] duration-200 hover:bg-gold-bright hover:shadow-[0_10px_26px_rgba(201,168,76,0.3)]"
               >
                 <WhatsAppIcon className="h-[18px] w-[18px]" aria-hidden="true" />
                 Escríbenos por WhatsApp
@@ -227,7 +231,7 @@ export default function WelcomeModal() {
                 variants={itemVariants}
                 type="button"
                 onClick={close}
-                className="mt-3 px-2 py-2 text-sm font-light text-gold underline underline-offset-4 transition-colors duration-200 hover:text-gold-light"
+                className="mt-3 px-2 py-2 text-sm font-light text-gold-ink underline underline-offset-4 transition-colors duration-200 hover:text-gold-light"
               >
                 Continuar al sitio
               </motion.button>

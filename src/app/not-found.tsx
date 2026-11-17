@@ -48,7 +48,7 @@ export default function NotFound() {
         </p>
         <Link
           href="/catalogo"
-          className="mt-8 rounded-lg bg-gold px-8 py-4 text-xs font-medium uppercase tracking-[0.2em] text-dark-secondary transition-colors duration-300 hover:bg-gold-light"
+          className="mt-8 rounded-lg bg-gold px-8 py-4 text-xs font-medium uppercase tracking-[0.2em] text-on-gold transition-colors duration-300 hover:bg-gold-bright"
         >
           Ver el catálogo
         </Link>

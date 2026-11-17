@@ -24,6 +24,7 @@
  *       <Footer />          src/components/layout/Footer.tsx
  *       <WhatsAppButton />  src/components/ui/WhatsAppButton.tsx
  *       <WelcomeModal />    src/components/ui/WelcomeModal.tsx
+ *       <ShareButton />     src/components/ui/ShareButton.tsx (compartir + QR)
  *   - IMPORTANTE (caché): ni este archivo ni las páginas de la tienda deben
  *     importar src/lib/supabase-server.ts. Ese cliente lee cookies, y leer
  *     cookies obliga a Next a generar la página en cada visita; se perdería
@@ -36,6 +37,7 @@
  */
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
+import ShareButton from "@/components/ui/ShareButton";
 import WelcomeModal from "@/components/ui/WelcomeModal";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
@@ -45,14 +47,16 @@ export default function TiendaLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // Envoltorio oscuro de la tienda (antes estas clases iban en <body>).
-    // min-h-screen: el fondo oscuro cubre la ventana aunque la página sea
+    // Envoltorio de la tienda (antes estas clases iban en <body>). Sus
+    // colores salen de las variables de tema: oscuro en noche, marfil en
+    // día. min-h-screen: el fondo cubre la ventana aunque la página sea
     // corta.
     <div className="min-h-screen bg-dark-deep text-ink">
       <Header />
       <main>{children}</main>
       <Footer />
       <WhatsAppButton />
+      <ShareButton />
       <WelcomeModal />
     </div>
   );

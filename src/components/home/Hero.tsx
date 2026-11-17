@@ -214,8 +214,12 @@ export default function Hero() {
   }, []);
 
   return (
+    // data-theme="noche": el Hero es SIEMPRE de noche, también cuando la
+    // tienda está en modo día. Al redefinir aquí las variables de tema
+    // (globals.css), todo lo que hay dentro usa la paleta oscura.
     <section
       ref={rootRef}
+      data-theme="noche"
       aria-label="Presentación"
       className="relative flex h-[100svh] min-h-[600px] items-center justify-center overflow-hidden bg-dark-deep text-center"
     >
@@ -239,10 +243,14 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0 overflow-hidden"
       />
 
-      {/* Fundido inferior: une el hero con la sección siguiente */}
+      {/* Fundido inferior: une el hero con la sección siguiente. Usa
+          --fondo-pagina (definida solo en <html>, globals.css) y no
+          dark-deep: dentro del Hero dark-deep es siempre de noche, y en
+          modo día la sección siguiente es marfil. Así el fundido termina
+          en el color real de la página en los dos temas. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-dark-deep to-transparent"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-(--fondo-pagina) to-transparent"
       />
 
       {/* Texto */}
@@ -279,7 +287,7 @@ export default function Hero() {
               <span
                 key={word.text}
                 data-hero-item="word"
-                className={`${HIDDEN} text-glow-gold mx-[0.12em] inline-block italic text-gold`}
+                className={`${HIDDEN} text-glow-gold mx-[0.12em] inline-block italic text-gold-ink`}
               >
                 {word.text}
               </span>
@@ -297,7 +305,7 @@ export default function Hero() {
         <div data-hero-item="cta" className={`${HIDDEN} mt-10`}>
           <Link
             href="/catalogo"
-            className="inline-block rounded-lg bg-gold px-9 py-4 text-xs font-medium uppercase tracking-[0.22em] text-dark-secondary transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-light hover:shadow-[0_12px_32px_rgba(201,168,76,0.3)]"
+            className="inline-block rounded-lg bg-gold px-9 py-4 text-xs font-medium uppercase tracking-[0.22em] text-on-gold transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-bright hover:shadow-[0_12px_32px_rgba(201,168,76,0.3)]"
           >
             Explorar Catálogo
           </Link>

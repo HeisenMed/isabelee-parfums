@@ -46,9 +46,12 @@ const FILTER_PARAMS = ["genero", "marca", "familia", "min", "max"];
 
 /* Estilos compartidos por los controles del formulario. */
 const groupTitle =
-  "mb-3 text-xs font-medium uppercase tracking-[0.2em] text-gold";
+  "mb-3 text-xs font-medium uppercase tracking-[0.2em] text-gold-ink";
 const control =
-  "w-full rounded-lg border border-gold/25 bg-dark-secondary px-3 py-2.5 text-sm text-ink transition-colors duration-200 hover:border-gold/50 focus:border-gold focus:outline-none";
+  // dia:border-gold-ink/80: en el tema de día el borde dorado al 25 % casi
+  // no se distingue sobre marfil; se usa el dorado oscuro para que el
+  // contorno del campo se vea (WCAG pide 3:1 para controles).
+  "w-full rounded-lg border border-gold/25 bg-dark-secondary px-3 py-2.5 text-sm text-ink transition-colors duration-200 hover:border-gold/50 focus:border-gold focus:outline-none dia:border-gold-ink/80";
 
 export default function CatalogFilters({
   marcas,
@@ -240,7 +243,7 @@ export default function CatalogFilters({
           </div>
           <button
             type="submit"
-            className="mt-3 w-full rounded-lg border border-gold/40 px-4 py-2.5 text-xs font-medium uppercase tracking-[0.18em] text-gold transition-colors duration-200 hover:border-gold hover:text-gold-light"
+            className="mt-3 w-full rounded-lg border border-gold/40 px-4 py-2.5 text-xs font-medium uppercase tracking-[0.18em] text-gold-ink transition-colors duration-200 hover:border-gold hover:text-gold-light"
           >
             Aplicar
           </button>
@@ -254,7 +257,7 @@ export default function CatalogFilters({
         <button
           type="button"
           onClick={clearAll}
-          className="text-sm font-light text-gold underline underline-offset-4 transition-colors duration-200 hover:text-gold-light"
+          className="text-sm font-light text-gold-ink underline underline-offset-4 transition-colors duration-200 hover:text-gold-light"
         >
           Limpiar filtros
         </button>
@@ -290,7 +293,7 @@ export default function CatalogFilters({
           </span>
           Filtrar
           {activeCount > 0 && (
-            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-gold px-1.5 text-[11px] font-semibold text-dark-deep">
+            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-gold px-1.5 text-[11px] font-semibold text-on-gold">
               {activeCount}
             </span>
           )}
@@ -346,7 +349,7 @@ export default function CatalogFilters({
                 <button
                   type="button"
                   onClick={() => setDrawerOpen(false)}
-                  className="w-full rounded-lg bg-gold px-6 py-3.5 text-xs font-medium uppercase tracking-[0.2em] text-dark-secondary transition-colors duration-300 hover:bg-gold-light"
+                  className="w-full rounded-lg bg-gold px-6 py-3.5 text-xs font-medium uppercase tracking-[0.2em] text-on-gold transition-colors duration-300 hover:bg-gold-bright"
                 >
                   Ver resultados
                 </button>

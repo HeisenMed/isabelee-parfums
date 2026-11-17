@@ -194,7 +194,7 @@ export default async function CatalogoPage({ searchParams }: CatalogoPageProps) 
               {hayFiltros && (
                 <Link
                   href="/catalogo"
-                  className="mt-6 inline-block text-sm font-light text-gold underline underline-offset-4 transition-colors duration-200 hover:text-gold-light"
+                  className="mt-6 inline-block text-sm font-light text-gold-ink underline underline-offset-4 transition-colors duration-200 hover:text-gold-light"
                 >
                   Ver todo el catálogo
                 </Link>

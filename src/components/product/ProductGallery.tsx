@@ -52,7 +52,7 @@ export default function ProductGallery({ images, alt, badge }: ProductGalleryPro
           className="object-contain p-8 sm:p-12"
         />
         {badge && (
-          <span className="absolute left-4 top-4 rounded bg-gold px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-dark-secondary">
+          <span className="absolute left-4 top-4 rounded bg-gold px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-on-gold">
             {badge}
           </span>
         )}

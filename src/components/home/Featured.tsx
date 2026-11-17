@@ -100,7 +100,7 @@ export default async function Featured() {
           <div className="mt-8 text-center">
             <Link
               href="/catalogo"
-              className="inline-block rounded-lg border border-gold/50 px-8 py-3.5 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-colors duration-300 hover:border-gold hover:bg-gold hover:text-dark-secondary"
+              className="inline-block rounded-lg border border-gold/50 px-8 py-3.5 text-xs font-medium uppercase tracking-[0.2em] text-gold-ink transition-colors duration-300 hover:border-gold hover:bg-gold hover:text-on-gold"
             >
               Ver todo el catálogo
             </Link>

@@ -42,7 +42,7 @@ export default async function Categories() {
   return (
     <section
       id="categorias"
-      className="scroll-mt-20 bg-dark px-5 py-24 sm:px-8 sm:py-32"
+      className="scroll-mt-20 bg-dark-deep px-5 py-24 sm:px-8 sm:py-32"
     >
       <div className="mx-auto max-w-7xl">
         <SectionHeading
@@ -79,7 +79,7 @@ export default async function Categories() {
                       <div className="flex aspect-[4/3] items-center justify-center bg-[radial-gradient(ellipse_at_50%_45%,rgba(201,168,76,0.14),transparent_70%)]">
                         <BottleIcon
                           aria-hidden="true"
-                          className="h-20 w-auto text-gold/60 transition-[color,transform] duration-500 group-hover:scale-105 group-hover:text-gold-light"
+                          className="h-20 w-auto text-gold-ink/60 transition-[color,transform] duration-500 group-hover:scale-105 group-hover:text-gold-light"
                         />
                       </div>
                     )}

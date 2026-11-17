@@ -57,8 +57,16 @@ export default function AdminLayout({
     //   vería. Dentro del panel se cambia al dorado oscuro (5,79:1).
     // data-zona="admin": marca que globals.css usa para poner en claro el
     //   documento entero (barra de desplazamiento de la ventana incluida).
+    // data-theme="noche": la tienda tiene tema noche/día (Fase 4) y el
+    //   panel no debe cambiar con él. Algunas clases del panel usan tokens
+    //   de la tienda (por ejemplo hover:bg-gold-light en el botón
+    //   primario); fijando aquí el tema, esos tokens valen siempre lo mismo
+    //   que antes, aunque la persona tenga la tienda en modo día. Las
+    //   reglas de tema están en @layer base, así que [color-scheme:light]
+    //   de este mismo elemento sigue ganando.
     <div
       data-zona="admin"
+      data-theme="noche"
       className="min-h-screen bg-admin-bg font-sans text-admin-text [color-scheme:light] [&_:focus-visible]:outline-admin-gold-text"
     >
       {children}

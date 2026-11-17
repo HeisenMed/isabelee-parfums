@@ -45,7 +45,7 @@ export default function Stars({ value, className = "h-4 w-4" }: StarsProps) {
         return (
           <span key={index} className={`relative ${className}`}>
             {/* Estrella de fondo, apagada */}
-            <svg viewBox="0 0 24 24" className="h-full w-full fill-gold/20">
+            <svg viewBox="0 0 24 24" className="h-full w-full fill-gold-ink/20">
               <path d={STAR_PATH} />
             </svg>
             {/* Estrella dorada encima, recortada al porcentaje relleno */}
@@ -53,7 +53,7 @@ export default function Stars({ value, className = "h-4 w-4" }: StarsProps) {
               className="absolute inset-0 overflow-hidden"
               style={{ width: `${fill * 100}%` }}
             >
-              <svg viewBox="0 0 24 24" className={`fill-gold ${className}`}>
+              <svg viewBox="0 0 24 24" className={`fill-gold-ink ${className}`}>
                 <path d={STAR_PATH} />
               </svg>
             </span>

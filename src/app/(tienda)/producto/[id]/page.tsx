@@ -156,7 +156,7 @@ export default async function ProductoPage({ params }: ProductoPageProps) {
     <div className="mx-auto max-w-7xl px-5 pb-24 pt-28 sm:px-8 lg:pt-36">
       <Link
         href="/catalogo"
-        className="inline-flex items-center gap-2 text-sm font-light text-gold underline underline-offset-4 transition-colors duration-200 hover:text-gold-light"
+        className="inline-flex items-center gap-2 text-sm font-light text-gold-ink underline underline-offset-4 transition-colors duration-200 hover:text-gold-light"
       >
         {/* Flecha dibujada con CSS: dos bordes de un cuadrado girado */}
         <span
@@ -202,7 +202,7 @@ export default async function ProductoPage({ params }: ProductoPageProps) {
           </p>
 
           {perfume.familia_olfativa && (
-            <p className="mt-5 inline-block rounded-full border border-gold/35 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.16em] text-gold">
+            <p className="mt-5 inline-block rounded-full border border-gold/35 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.16em] text-gold-ink">
               {perfume.familia_olfativa}
             </p>
           )}
@@ -250,7 +250,7 @@ export default async function ProductoPage({ params }: ProductoPageProps) {
                 href={agotadoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex w-full items-center justify-center gap-3 rounded-lg border border-gold/50 px-8 py-4 text-xs font-medium uppercase tracking-[0.18em] text-gold transition-colors duration-300 hover:border-gold hover:bg-gold hover:text-dark-secondary sm:w-auto"
+                className="mt-6 inline-flex w-full items-center justify-center gap-3 rounded-lg border border-gold/50 px-8 py-4 text-xs font-medium uppercase tracking-[0.18em] text-gold-ink transition-colors duration-300 hover:border-gold hover:bg-gold hover:text-on-gold sm:w-auto"
               >
                 <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
                 Agotado — consúltalo por WhatsApp
@@ -260,7 +260,7 @@ export default async function ProductoPage({ params }: ProductoPageProps) {
                 href={consultaUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex w-full items-center justify-center gap-3 rounded-lg bg-gold px-8 py-4 text-xs font-medium uppercase tracking-[0.18em] text-dark-secondary transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-light hover:shadow-[0_10px_26px_rgba(201,168,76,0.3)] sm:w-auto"
+                className="mt-6 inline-flex w-full items-center justify-center gap-3 rounded-lg bg-gold px-8 py-4 text-xs font-medium uppercase tracking-[0.18em] text-on-gold transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-bright hover:shadow-[0_10px_26px_rgba(201,168,76,0.3)] sm:w-auto"
               >
                 <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
                 Consultar por este perfume
@@ -278,7 +278,7 @@ export default async function ProductoPage({ params }: ProductoPageProps) {
           {/* Ocasiones */}
           {perfume.ocasiones?.length > 0 && (
             <div className="mt-8">
-              <h2 className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-gold">
+              <h2 className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-gold-ink">
                 Ocasiones
               </h2>
               <ul className="flex flex-wrap gap-2">
@@ -315,7 +315,7 @@ export default async function ProductoPage({ params }: ProductoPageProps) {
                   key={key}
                   className="rounded-lg border border-gold/15 bg-dark-secondary px-6 py-6"
                 >
-                  <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-gold">
+                  <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-gold-ink">
                     Notas de {label}
                   </h3>
                   {(notas[key] ?? []).length > 0 ? (
@@ -351,7 +351,7 @@ export default async function ProductoPage({ params }: ProductoPageProps) {
         {reviews.length > 0 ? (
           <>
             <div className="mt-5 flex items-center gap-4">
-              <span className="font-serif text-5xl font-medium text-gold">
+              <span className="font-serif text-5xl font-medium text-gold-ink">
                 {average.toLocaleString("es-CO", {
                   minimumFractionDigits: 1,
                   maximumFractionDigits: 1,

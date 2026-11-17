@@ -14,12 +14,15 @@
  * CÓMO SE CONECTA CON EL RESTO
  *   - Se renderiza dentro de src/app/(tienda)/layout.tsx (entra como {children}),
  *     entre el Header y el Footer.
- *   - Orden y anclas de las secciones:
- *       Hero         presentación a pantalla completa
- *       Featured     id="destacados" (6 perfumes reales, desde Supabase)
- *       Categories   id="categorias" (Hombre / Mujer / Unisex)
- *       Newsletter   suscripción por correo (marcador)
- *       WhatsAppCta  id="contacto"
+ *   - Orden, anclas y fondo de las secciones (los fondos alternan
+ *     dark-deep / dark para separar visualmente cada bloque):
+ *       Hero         presentación a pantalla completa (siempre de noche)
+ *       Featured     id="destacados"  dark-deep (6 perfumes, desde Supabase)
+ *       Familias     id="familias"    dark      (4 arcos con video, Fase 4)
+ *       Categories   id="categorias"  dark-deep (Hombre / Mujer / Unisex)
+ *       Newsletter                     dark      (suscripción, marcador)
+ *       Entrega      id="entrega"     dark-deep ("Así llega tu fragancia", Fase 4)
+ *       WhatsAppCta  id="contacto"    dark
  *   - Featured y Categories leen de Supabase mientras se genera la página.
  *   - `revalidate = 60`: la portada se guarda en caché y se regenera como
  *     mucho una vez por minuto, así refleja los cambios del catálogo sin
@@ -28,6 +31,8 @@
  *     Newsletter) declaran su propio "use client".
  */
 import Categories from "@/components/home/Categories";
+import Entrega from "@/components/home/Entrega";
+import Familias from "@/components/home/Familias";
 import Featured from "@/components/home/Featured";
 import Hero from "@/components/home/Hero";
 import Newsletter from "@/components/home/Newsletter";
@@ -41,8 +46,10 @@ export default function Home() {
     <>
       <Hero />
       <Featured />
+      <Familias />
       <Categories />
       <Newsletter />
+      <Entrega />
       <WhatsAppCta />
     </>
   );

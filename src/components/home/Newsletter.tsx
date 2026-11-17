@@ -37,10 +37,10 @@ export default function Newsletter() {
   };
 
   return (
-    <section className="bg-dark-deep px-5 py-24 sm:px-8 sm:py-32">
+    <section className="bg-dark px-5 py-24 sm:px-8 sm:py-32">
       <div className="mx-auto max-w-2xl">
         <Reveal className="mb-6 flex justify-center">
-          <span className="flex h-14 w-14 items-center justify-center rounded-full border border-gold/30 text-gold">
+          <span className="flex h-14 w-14 items-center justify-center rounded-full border border-gold/30 text-gold-ink">
             <MailIcon className="h-6 w-6" aria-hidden="true" />
           </span>
         </Reveal>
@@ -65,11 +65,11 @@ export default function Newsletter() {
               required
               autoComplete="email"
               placeholder="Tu correo electrónico"
-              className="min-w-0 flex-1 rounded-lg border border-gold/25 bg-dark-secondary px-5 py-4 text-base font-light text-ink placeholder:text-ink-muted/70 transition-colors duration-200 focus:border-gold focus:outline-none"
+              className="min-w-0 flex-1 rounded-lg border border-gold/25 bg-dark-secondary px-5 py-4 text-base font-light text-ink placeholder:text-ink-muted/70 transition-colors duration-200 focus:border-gold focus:outline-none dia:border-gold-ink/80"
             />
             <button
               type="submit"
-              className="rounded-lg bg-gold px-8 py-4 text-xs font-medium uppercase tracking-[0.2em] text-dark-secondary transition-colors duration-300 hover:bg-gold-light"
+              className="rounded-lg bg-gold px-8 py-4 text-xs font-medium uppercase tracking-[0.2em] text-on-gold transition-colors duration-300 hover:bg-gold-bright"
             >
               Suscribirse
             </button>

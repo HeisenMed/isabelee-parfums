@@ -45,7 +45,7 @@ const SOCIAL_LINKS = [
 
 /** Estilo de los títulos de cada columna. */
 const columnTitle =
-  "mb-5 text-xs font-medium uppercase tracking-[0.25em] text-gold";
+  "mb-5 text-xs font-medium uppercase tracking-[0.25em] text-gold-ink";
 
 /** Estilo de los enlaces de texto del footer. */
 const footerLink =
@@ -57,7 +57,7 @@ export default function Footer() {
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:grid-cols-2 sm:px-8 lg:grid-cols-[1.4fr_1fr_1fr]">
         {/* Columna 1: marca, lema y redes */}
         <div>
-          <p className="font-serif text-4xl font-medium text-gold">
+          <p className="font-serif text-4xl font-medium text-gold-ink">
             {SITE_SHORT_NAME}
           </p>
           <p className="mt-2 font-serif text-lg italic text-gold-light">

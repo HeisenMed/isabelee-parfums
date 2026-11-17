@@ -29,12 +29,40 @@
  *     cambia además la plantilla del título en src/app/admin/layout.tsx.
  *   - src/app/not-found.tsx (la página 404) se dibuja directamente dentro
  *     de este layout, por eso trae su propio header y footer.
+ *   - TEMA DÍA/NOCHE (Fase 4): un script en <head> pone data-theme en
+ *     <html> antes de que se pinte nada (ver SCRIPT_TEMA más abajo). Las
+ *     variables de color de cada tema están en globals.css y el botón que
+ *     lo cambia es src/components/ui/ThemeToggle.tsx.
  *   - Es un componente de servidor.
  */
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import { SITE_NAME, SITE_TAGLINE } from "@/lib/site";
 import "./globals.css";
+
+/**
+ * Clave de localStorage con el tema elegido ("noche" | "dia"). La misma
+ * constante usa ThemeToggle.tsx; se repite aquí como texto porque el
+ * script de abajo se ejecuta antes que cualquier módulo de JavaScript.
+ */
+const CLAVE_TEMA = "isabelee-tema";
+
+/**
+ * Script que se ejecuta en <head>, ANTES de pintar la página.
+ *
+ * Por qué: si el tema se aplicara desde React (después de cargar el
+ * JavaScript), quien eligió el modo día vería primero la página en noche
+ * y luego un "fogonazo" al cambiar. Este script mínimo lee la preferencia
+ * y pone data-theme en <html> antes del primer pintado.
+ *   - Cualquier valor que no sea "dia" se trata como "noche" (el tema por
+ *     defecto de la marca).
+ *   - try/catch: en algunos navegadores en modo privado, o con el
+ *     almacenamiento bloqueado, leer localStorage lanza un error; entonces
+ *     se queda en noche.
+ * Se escribe como texto (no como función de React) porque debe ir
+ * literalmente dentro de <script> en el HTML.
+ */
+const SCRIPT_TEMA = `(function(){var t="noche";try{if(localStorage.getItem("${CLAVE_TEMA}")==="dia")t="dia"}catch(e){}document.documentElement.setAttribute("data-theme",t)})();`;
 
 /** Títulos y texto de marca. Incluye itálica para los acentos dorados. */
 const cormorant = Cormorant_Garamond({
@@ -84,14 +112,28 @@ export default function RootLayout({
     // para que estén disponibles en todo el documento.
     // data-scroll-behavior: avisa a Next de que el scroll suave de
     // globals.css es intencional, para que no interfiera al navegar.
+    // data-theme="noche": el valor que llega en el HTML del servidor. Si la
+    //   persona eligió el día, SCRIPT_TEMA lo cambia antes de pintar.
+    // suppressHydrationWarning: como SCRIPT_TEMA puede cambiar data-theme
+    //   antes de que React "hidrate" la página (es decir, antes de que
+    //   conecte su versión con el HTML recibido), React vería que <html> no
+    //   coincide con lo que generó el servidor y avisaría de un error de
+    //   hidratación. Esta propiedad le indica que esa diferencia en los
+    //   atributos de <html> es intencional. Solo afecta a <html>, no a sus
+    //   hijos: cualquier otro desajuste seguiría avisándose.
     <html
       lang="es"
       data-scroll-behavior="smooth"
+      data-theme="noche"
+      suppressHydrationWarning
       className={`${cormorant.variable} ${jost.variable}`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: SCRIPT_TEMA }} />
+      </head>
       {/* El <body> solo fija la tipografía base. Los colores (fondo y texto)
-          los pone el marco de cada zona: oscuro en la tienda, claro en el
-          panel. */}
+          los pone el marco de cada zona: la tienda (noche o día) y el panel
+          (siempre claro). */}
       <body className="font-sans antialiased">{children}</body>
     </html>
   );
