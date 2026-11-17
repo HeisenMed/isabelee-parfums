@@ -38,9 +38,19 @@
  *   Las columnas `destacado` y `agotado` las crea la migración n.º 3. Si aún
  *   no está aplicada: migracion3Aplicada() devuelve false (el panel muestra
  *   un aviso) y crear/editar guardan todo lo demás sin esos dos campos.
+ *   (La migración ya está aplicada; la comprobación se conserva por si se
+ *   reconstruye la base de datos.)
+ *
+ * FOTOS Y VIDEO (Fase 3C)
+ *   actualizarMedia() guarda SOLO imagen, imagenes y video_url, y
+ *   borrarArchivos() borra archivos concretos de Storage. Las usan las
+ *   acciones de src/app/admin/perfumes/media-actions.ts. Los archivos los
+ *   sube el navegador (src/components/admin/GestorMedia.tsx); aquí solo se
+ *   apuntan y se borran.
  */
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
+import { BUCKET_FOTOS, BUCKET_VIDEOS } from "@/lib/storage-media";
 import type { Perfume, PerfumeEditable } from "@/types/perfume";
 
 /** Resultado de una operación: bien (con sus datos) o mal (con el motivo). */
@@ -48,8 +58,12 @@ export type Resultado<T = object> =
   | ({ ok: true } & T)
   | { ok: false; error: string };
 
-/** Buckets (carpetas raíz de Supabase Storage) con archivos de producto. */
-const BUCKETS_PRODUCTO = ["product-images", "product-videos"] as const;
+/**
+ * Buckets (carpetas raíz de Supabase Storage) con archivos de producto.
+ * Los nombres viven en src/lib/storage-media.ts, compartidos con el
+ * navegador.
+ */
+const BUCKETS_PRODUCTO = [BUCKET_FOTOS, BUCKET_VIDEOS] as const;
 
 /**
  * Códigos con los que Supabase avisa de que una columna no existe:
@@ -435,4 +449,67 @@ export async function eliminarPerfume(
     if (aviso) avisos.push(aviso);
   }
   return { ok: true, avisos };
+}
+
+/* ── Fotos y video (Fase 3C) ────────────────────────────────────────── */
+
+/** Campos de medios que se pueden guardar. */
+export type CamposMedia = {
+  imagen?: string;
+  imagenes?: string[];
+  video_url?: string | null;
+};
+
+/**
+ * Guarda solo los campos de fotos y video de un perfume.
+ * Es una función aparte de actualizarPerfume() a propósito: el formulario
+ * principal guarda PerfumeEditable, que NO incluye estos campos, así que
+ * un "Guardar" del formulario nunca pisa las fotos, y esta función nunca
+ * toca los textos. La usan las acciones de
+ * src/app/admin/perfumes/media-actions.ts.
+ */
+export async function actualizarMedia(
+  id: number,
+  campos: CamposMedia,
+): Promise<Resultado<{ perfume: Perfume }>> {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("perfumes")
+    .update(campos)
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    return fallo(
+      `actualizarMedia(${id})`,
+      error.message,
+      "No se pudieron guardar las fotos o el video. Inténtalo de nuevo.",
+    );
+  }
+  // Cero filas: no existe, o RLS no lo permitió (ver actualizarPerfume).
+  if (!data || data.length === 0) {
+    return { ok: false, error: ERROR_NO_ENCONTRADO };
+  }
+  return { ok: true, perfume: data[0] as Perfume };
+}
+
+/**
+ * Borra archivos concretos de un bucket de producto, con la sesión de la
+ * administradora (las políticas de Storage de la migración n.º 2 exigen
+ * is_admin()). `rutas` son rutas DENTRO del bucket ("12/archivo.webp"),
+ * nunca rutas locales del sitio.
+ * Devuelve null si fue bien, o un aviso en español si no. No lanza.
+ */
+export async function borrarArchivos(
+  bucket: (typeof BUCKETS_PRODUCTO)[number],
+  rutas: string[],
+): Promise<string | null> {
+  if (rutas.length === 0) return null;
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase.storage.from(bucket).remove(rutas);
+  if (error) {
+    console.error(`[admin-perfumes] borrarArchivos(${bucket}): ${error.message}`);
+    return `No se pudieron borrar ${rutas.length} archivo(s) de "${bucket}".`;
+  }
+  return null;
 }

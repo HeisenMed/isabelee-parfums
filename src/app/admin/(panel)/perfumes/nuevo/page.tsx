@@ -16,6 +16,9 @@
  *   - Dibuja FormularioPerfume (src/components/admin/) con `perfume={null}`.
  *   - Al guardar, la Server Action guardarPerfume() crea la fila y redirige
  *     a /admin/perfumes/<id nuevo>, el formulario de edición.
+ *   - No se pueden subir fotos todavía: cada archivo se guarda en la
+ *     carpeta "<id>/" del perfume en Storage, y el id no existe hasta
+ *     crearlo. El formulario lo explica en la sección "Fotos y video".
  *   - "nuevo" es una carpeta fija y tiene prioridad sobre la ruta dinámica
  *     hermana [id]: /admin/perfumes/nuevo nunca se interpreta como un id.
  */
@@ -51,8 +54,9 @@ export default async function NuevoPerfumePage() {
         Nuevo perfume
       </h1>
       <p className="mt-1 text-base text-admin-muted">
-        Los campos con asterisco son obligatorios. Las fotos se añadirán en una
-        fase posterior; mientras tanto la tienda muestra una imagen genérica.
+        Los campos con asterisco son obligatorios. Las fotos y el video se
+        agregan después de crear el perfume; mientras tanto la tienda muestra
+        una imagen genérica.
       </p>
 
       <div className="mt-6">

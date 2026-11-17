@@ -22,6 +22,9 @@
  *   - Lee ?aviso= de la URL para mostrar el resultado de una acción que
  *     terminó redirigiendo aquí (eliminar, duplicar con error). Solo se
  *     muestran textos de la lista AVISOS; nunca texto llegado por la URL.
+ *   - Lee ?filtro= (por ejemplo ?filtro=sin-foto, que pone la tarjeta
+ *     "Fotos y videos" de /admin) y se lo pasa a ListaPerfumes, que lo
+ *     valida.
  *   - Si falta la migración n.º 3 lo avisa, sin impedir trabajar.
  */
 import type { Metadata } from "next";
@@ -123,7 +126,12 @@ export default async function PerfumesPage({ searchParams }: PerfumesPageProps) 
 
       <div className="mt-6">
         {lista.ok ? (
-          <ListaPerfumes perfumes={lista.perfumes} />
+          <ListaPerfumes
+            perfumes={lista.perfumes}
+            filtroInicial={
+              typeof params.filtro === "string" ? params.filtro : undefined
+            }
+          />
         ) : (
           <p role="alert" className={avisoError}>
             {lista.error}

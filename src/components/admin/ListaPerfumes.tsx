@@ -25,6 +25,12 @@
  *     se muestra el motivo.
  *   - "Duplicar": formulario mínimo que invoca duplicarPerfumeAccion().
  *   - "Eliminar": abre DialogoEliminar, que exige escribir el nombre.
+ *   - `filtroInicial` (opcional) llega de ?filtro= en la URL, por ejemplo
+ *     desde la tarjeta "Fotos y videos" de la portada del panel
+ *     (/admin/perfumes?filtro=sin-foto). Se valida aquí contra la lista de
+ *     filtros; un valor desconocido se ignora.
+ *   - "Sin foto" usa tieneFoto() (src/lib/admin-formato.ts): vale igual
+ *     para fotos locales ("/assets/…") que para URLs de Storage.
  *   - Utilidades de src/lib/admin-formato.ts (búsqueda sin tildes, foto) y
  *     formatPrecio() de src/lib/site.ts.
  *
@@ -66,17 +72,35 @@ type Filtro =
   | "destacados"
   | "agotados";
 
+/** Identificadores válidos de filtro (para validar ?filtro= de la URL). */
+const FILTROS_VALIDOS: readonly Filtro[] = [
+  "todos",
+  "activos",
+  "inactivos",
+  "sin-precio",
+  "sin-foto",
+  "destacados",
+  "agotados",
+];
+
 type ListaPerfumesProps = {
   perfumes: Perfume[];
+  /** Filtro rápido elegido al abrir (de ?filtro=). Se valida. */
+  filtroInicial?: string;
 };
 
 /** Enlace de texto de 44 px de alto para las acciones de cada perfume. */
 const accion =
   "inline-flex min-h-11 items-center rounded px-2 text-sm font-medium text-admin-gold-text underline underline-offset-4 transition-colors duration-200 hover:text-admin-text";
 
-export default function ListaPerfumes({ perfumes }: ListaPerfumesProps) {
+export default function ListaPerfumes({
+  perfumes,
+  filtroInicial,
+}: ListaPerfumesProps) {
   const [busqueda, setBusqueda] = useState("");
-  const [filtro, setFiltro] = useState<Filtro>("todos");
+  const [filtro, setFiltro] = useState<Filtro>(() =>
+    FILTROS_VALIDOS.find((valor) => valor === filtroInicial) ?? "todos",
+  );
   const [genero, setGenero] = useState("");
 
   /**

@@ -23,8 +23,11 @@
  *   - Los contadores salen de listarPerfumesAdmin()
  *     (src/lib/admin-perfumes.ts); "sin foto" usa tieneFoto() de
  *     src/lib/admin-formato.ts, el mismo criterio que el filtro de la lista.
- *   - La tarjeta "Perfumes" enlaza a /admin/perfumes. Las otras dos pasarán
- *     a ser enlaces cuando existan sus páginas.
+ *   - La tarjeta "Perfumes" enlaza a /admin/perfumes. La de "Fotos y
+ *     videos" (Fase 3C) cuenta cuántos perfumes usan aún la imagen genérica
+ *     y enlaza a la lista con el filtro "Sin foto" ya elegido
+ *     (/admin/perfumes?filtro=sin-foto): las fotos se gestionan dentro de
+ *     cada perfume. "Respaldo del catálogo" sigue como "Próximamente".
  */
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -39,10 +42,6 @@ export const metadata: Metadata = {
 
 /** Secciones previstas del panel que aún no tienen página. */
 const SECCIONES = [
-  {
-    titulo: "Fotos y videos",
-    descripcion: "Subir y cambiar las imágenes y los videos de cada perfume.",
-  },
   {
     titulo: "Respaldo del catálogo",
     descripcion: "Descargar una copia de seguridad de todos los perfumes.",
@@ -74,6 +73,9 @@ export default async function PanelPage() {
           valor: lista.perfumes.filter((p) => !tieneFoto(p.imagen)).length,
         },
       ]
+    : null;
+  const sinFoto = lista.ok
+    ? lista.perfumes.filter((p) => !tieneFoto(p.imagen)).length
     : null;
 
   return (
@@ -123,6 +125,36 @@ export default async function PanelPage() {
             )}
             <p className="mt-4 text-sm font-medium text-admin-gold-text underline underline-offset-4">
               Administrar perfumes
+            </p>
+          </Link>
+        </li>
+        <li>
+          <Link
+            href={`${RUTA_PERFUMES}?filtro=sin-foto`}
+            className="block h-full rounded-lg border border-admin-border-strong bg-admin-surface p-6 transition-colors duration-200 hover:border-admin-gold-text"
+          >
+            <h2 className="font-serif text-2xl font-semibold text-admin-text">
+              Fotos y videos
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-admin-muted">
+              Se agregan dentro de cada perfume, en la sección «Fotos y video».
+            </p>
+            {sinFoto === null ? (
+              <p className="mt-4 text-sm text-admin-error">
+                No se pudo cargar el recuento.
+              </p>
+            ) : (
+              <dl className="mt-4">
+                <dt className="text-xs uppercase tracking-[0.08em] text-admin-muted">
+                  Usan la imagen genérica
+                </dt>
+                <dd className="font-serif text-3xl font-semibold text-admin-text">
+                  {sinFoto}
+                </dd>
+              </dl>
+            )}
+            <p className="mt-4 text-sm font-medium text-admin-gold-text underline underline-offset-4">
+              {sinFoto === 0 ? "Ver perfumes" : "Ver perfumes sin foto"}
             </p>
           </Link>
         </li>

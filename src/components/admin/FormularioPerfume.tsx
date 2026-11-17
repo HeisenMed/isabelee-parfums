@@ -7,7 +7,7 @@
  * QUÉ ES
  *   El formulario completo de /admin/perfumes/nuevo y /admin/perfumes/[id],
  *   dividido en secciones: Básico, Precio, Descripción, Notas y ocasiones,
- *   Visibilidad, y Fotos y video (solo lectura por ahora). Abajo lleva una
+ *   Visibilidad, y Fotos y video. Abajo lleva una
  *   barra fija con "Guardar" y "Cancelar".
  *
  * POR QUÉ EXISTE
@@ -39,12 +39,21 @@
  *   precios como dígitos sin puntos, las listas como JSON (JavaScript
  *   Object Notation) y los interruptores como "true"/"false".
  *
+ * FOTOS Y VIDEO (Fase 3C)
+ *   Este formulario NO envía imagen, imagenes ni video_url: no tienen
+ *   campo aquí, y la acción guardarPerfume() solo guarda PerfumeEditable
+ *   (src/types/perfume.ts), que no los incluye. Un "Guardar" nunca pisa las
+ *   fotos. La sección "Fotos y video" la dibuja el componente que llega en
+ *   la prop `seccionMedia` (GestorMedia, que guarda cada cambio al
+ *   instante por su cuenta). Al crear un perfume no hay `seccionMedia`: los
+ *   archivos se guardan en la carpeta "<id>/" de Storage y el id aún no
+ *   existe, así que se agregan después de crearlo.
+ *
  * AVISO DE CAMBIOS SIN GUARDAR
  *   Si hay cambios pendientes: al cerrar o recargar la pestaña el navegador
  *   pregunta (evento beforeunload), y al pulsar un enlace interno se pide
  *   confirmación antes de salir.
  */
-import Image from "next/image";
 import Link from "next/link";
 import {
   useActionState,
@@ -74,10 +83,9 @@ import {
   tarjeta,
   tituloSeccion,
 } from "@/components/admin/estilos";
-import { conMiles, soloDigitos, tieneFoto } from "@/lib/admin-formato";
+import { conMiles, soloDigitos } from "@/lib/admin-formato";
 import type { SugerenciasPerfume } from "@/lib/admin-perfumes";
 import { RUTA_PERFUMES } from "@/lib/admin-rutas";
-import { PLACEHOLDER_IMAGE } from "@/lib/site";
 import {
   BADGE_OTRO,
   BADGES_SUGERIDOS,
@@ -169,6 +177,11 @@ type FormularioPerfumeProps = {
   migracionPendiente: boolean;
   /** Clave de AVISOS_INICIALES a mostrar al abrir, si la hay. */
   avisoInicial?: string;
+  /**
+   * Contenido de la sección "Fotos y video" (GestorMedia). Solo al editar;
+   * al crear se muestra un aviso en su lugar.
+   */
+  seccionMedia?: ReactNode;
 };
 
 export default function FormularioPerfume({
@@ -176,6 +189,7 @@ export default function FormularioPerfume({
   sugerencias,
   migracionPendiente,
   avisoInicial,
+  seccionMedia,
 }: FormularioPerfumeProps) {
   const [estado, enviar, enviando] = useActionState(
     guardarPerfume,
@@ -323,8 +337,6 @@ export default function FormularioPerfume({
   const concentraciones = [
     ...new Set([...CONCENTRACIONES_SUGERIDAS, ...sugerencias.concentraciones]),
   ];
-
-  const fotosGaleria = perfume?.imagenes?.filter(Boolean).length ?? 0;
 
   /** Fila de un interruptor con su título y su explicación. */
   function filaInterruptor(
@@ -732,47 +744,18 @@ export default function FormularioPerfume({
         </div>
       </section>
 
-      {/* ── 6. Fotos y video (solo lectura) ── */}
+      {/* ── 6. Fotos y video ──
+          Va dentro del <form> para conservar el orden de las secciones,
+          pero no envía nada con él: ver "FOTOS Y VIDEO" en la cabecera. */}
       <section className={tarjeta} aria-labelledby={idDe("sec-fotos")}>
         <h2 id={idDe("sec-fotos")} className={tituloSeccion}>
           Fotos y video
         </h2>
-        <div className="mt-4 flex flex-wrap items-start gap-5">
-          <Image
-            src={perfume?.imagen || PLACEHOLDER_IMAGE}
-            alt={
-              perfume && tieneFoto(perfume.imagen)
-                ? `Foto principal de ${perfume.nombre}`
-                : "Imagen genérica: este perfume aún no tiene foto"
-            }
-            width={144}
-            height={144}
-            className="h-36 w-36 rounded-lg border border-admin-border bg-white object-contain p-2"
-          />
-          <div className="min-w-0 flex-1 space-y-2 text-sm text-admin-text">
-            <p>
-              Foto principal:{" "}
-              <strong className="font-medium">
-                {perfume && tieneFoto(perfume.imagen)
-                  ? "sí"
-                  : "todavía no (se muestra la imagen genérica)"}
-              </strong>
-            </p>
-            <p>
-              Fotos adicionales en la galería:{" "}
-              <strong className="font-medium">{fotosGaleria}</strong>
-            </p>
-            <p>
-              Video:{" "}
-              <strong className="font-medium">
-                {perfume?.video_url ? "sí" : "no"}
-              </strong>
-            </p>
-            <p className={avisoInfo}>
-              La gestión de fotos y video llega en la siguiente fase.
-            </p>
-          </div>
-        </div>
+        {seccionMedia ?? (
+          <p className={`${avisoInfo} mt-4`}>
+            Podrás agregar fotos y video después de crear el perfume.
+          </p>
+        )}
       </section>
 
       {/* ── 7. Barra fija de guardado ──

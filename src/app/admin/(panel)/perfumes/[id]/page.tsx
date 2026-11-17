@@ -17,7 +17,11 @@
  *     perfume (obtenerPerfumeAdmin), las sugerencias y el estado de la
  *     migración n.º 3, todo de src/lib/admin-perfumes.ts. A diferencia de
  *     la tienda, aquí también se cargan perfumes INACTIVOS.
- *   - Dibuja FormularioPerfume y, debajo, AccionesPerfume.
+ *   - Dibuja FormularioPerfume y, debajo, AccionesPerfume. Dentro del
+ *     formulario, en la sección "Fotos y video", va GestorMedia
+ *     (src/components/admin/GestorMedia.tsx), que guarda fotos y video al
+ *     instante y por su cuenta. Recibe las fotos ya en orden: principal
+ *     (imagen) seguida de la galería (imagenes), sin vacíos ni la genérica.
  *   - Si el perfume no existe, vuelve a la lista con un aviso (en vez de
  *     la página 404 de la tienda, que tiene otro diseño).
  *   - ?aviso=creado|duplicado lo ponen las Server Actions al redirigir
@@ -31,6 +35,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import AccionesPerfume from "@/components/admin/AccionesPerfume";
 import FormularioPerfume from "@/components/admin/FormularioPerfume";
+import GestorMedia from "@/components/admin/GestorMedia";
 import { avisoError, enlace } from "@/components/admin/estilos";
 import { comprobarAccesoAdmin } from "@/lib/admin-auth";
 import {
@@ -39,6 +44,7 @@ import {
   obtenerPerfumeAdmin,
 } from "@/lib/admin-perfumes";
 import { RUTA_PERFUMES } from "@/lib/admin-rutas";
+import { PLACEHOLDER_IMAGE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Editar perfume",
@@ -99,6 +105,11 @@ export default async function EditarPerfumePage({
 
   const perfume = resultado.perfume;
   const aviso = typeof query.aviso === "string" ? query.aviso : undefined;
+  // Lista ordenada de fotos: principal + galería, sin repetidos, sin vacíos
+  // y sin la imagen genérica (que no es una foto del perfume).
+  const fotos = [
+    ...new Set([perfume.imagen, ...(perfume.imagenes ?? [])]),
+  ].filter((url) => url && url !== PLACEHOLDER_IMAGE);
 
   return (
     <>
@@ -117,6 +128,14 @@ export default async function EditarPerfumePage({
           sugerencias={sugerencias}
           migracionPendiente={!migracionLista}
           avisoInicial={aviso}
+          seccionMedia={
+            <GestorMedia
+              perfumeId={perfume.id}
+              nombre={perfume.nombre}
+              fotosIniciales={fotos}
+              videoInicial={perfume.video_url}
+            />
+          }
         />
       </div>
 
