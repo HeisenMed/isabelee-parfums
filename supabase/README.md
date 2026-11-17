@@ -19,7 +19,7 @@ Migraciones, **en el orden en que se ejecutan**:
 2. `migrations/20261117000000_admin_access.sql` — migración n.º 2 (**aplicada**). Crea la lista de administradores (`admin_users`), la función `is_admin()`, restringe a administradores las políticas "Admins can manage…" y protege los buckets de Storage.
 3. `migrations/20261118000000_destacado_agotado.sql` — migración n.º 3 (**aplicada**). Añade a `perfumes` las columnas `destacado` y `agotado`.
 4. `migrations/20261119000000_limites_storage.sql` — migración n.º 4 (**aplicada**). Limita el tamaño y el tipo de archivo de los buckets `product-images` (5 MB; WebP, JPEG, PNG) y `product-videos` (50 MB; MP4).
-5. `migrations/20261120000000_contenido_portada.sql` — migración n.º 5 (**pendiente de aplicar**). Crea la tabla `contenido_portada` (secciones editables de la portada, sembrada con el contenido actual) y el bucket público `site-media`, con sus políticas. Ver "Aplicar la migración n.º 5" más abajo.
+5. `migrations/20261120000000_contenido_portada.sql` — migración n.º 5 (**aplicada**). Crea la tabla `contenido_portada` (secciones editables de la portada, sembrada con el contenido actual) y el bucket público `site-media`, con sus políticas. Ver "Aplicar la migración n.º 5" más abajo.
 
 Seed:
 
@@ -99,7 +99,41 @@ La marca de tiempo es lo que ordena los archivos: al listarlos alfabéticamente 
 - **"La tabla perfumes ya tiene N filas"** — el seed se protege para no pisar datos. Si de verdad es una base de datos de pruebas y quieres recargarla, `npm run db:seed -- --force` sobrescribe los perfumes con el mismo id y reemplaza sus reseñas. Es destructivo: nunca sobre la base de datos en uso.
 - **Los ids nuevos chocan con los existentes** — el seed no pudo llamar a `sync_id_sequences()`. Ejecuta en el SQL Editor: `SELECT sync_id_sequences();`
 
-## Aplicar la migración n.º 5 (contenido de la portada)
+## Respaldo del catálogo (Fase 5C)
+
+El **plan gratuito de Supabase no ofrece copias de seguridad descargables**. Por eso el panel tiene `/admin/respaldo`, con dos descargas (solo para administradoras):
+
+| Archivo | Para qué sirve | Qué contiene |
+|---|---|---|
+| `isabelee-catalogo-AAAA-MM-DD.csv` | **Leer** el catálogo en Excel o Google Sheets. | Una fila por perfume, 24 columnas con títulos en español. Separador `;` y BOM UTF-8 (para que Excel en español muestre bien columnas y tildes). Listas unidas con ` \| `, notas en tres columnas, Sí/No. |
+| `isabelee-catalogo-AAAA-MM-DD.json` | **Reconstruir** los datos si hiciera falta. | `{ version: 1, generado, perfumes, reviews, contenido_portada }`: todas las filas de las tres tablas, con todas sus columnas, tal como están en la base de datos. |
+
+La fecha del nombre es la de Bogotá. Recomendación: **descargar el JSON una vez al mes** (y antes de cualquier cambio grande) y guardarlo fuera del computador (Drive, correo).
+
+**Qué NO va en el respaldo:**
+
+- **Los archivos de fotos y videos.** El JSON solo guarda sus URL. Las rutas `/assets/…` y `/videos/…` son archivos del repositorio (están a salvo en Git); las de Storage (`product-images`, `product-videos`, `site-media`) viven en Supabase.
+- **Las cuentas de administración** (`auth.users` y `admin_users`) ni las contraseñas.
+- **La estructura** (tablas, políticas, funciones, buckets): esa ya está en `migrations/`.
+
+El CSV **no sirve para reconstruir**: pierde los tipos (números, listas, fechas) y está pensado para leer. Para eso está el JSON.
+
+### Cómo se podría reconstruir con el JSON (visión general)
+
+Todavía **no existe una herramienta de restauración**; esto describe cómo se haría, para que quien la escriba (o lo haga a mano) no tenga que adivinar. Nunca sobre la base de datos en uso.
+
+1. **Estructura.** Proyecto de Supabase nuevo y las migraciones en orden, como en "Reconstruir la base de datos desde cero" (pasos 1 a 3). **No** se ejecuta el seed: los datos buenos son los del JSON, no los de `data/perfumes.js`.
+2. **Perfumes.** Insertar cada objeto de `perfumes` **conservando su `id`**: las reseñas, los enlaces compartidos (`/producto/<id>`) y las carpetas de Storage (`<bucket>/<id>/…`) dependen de él. Las claves del JSON son exactamente los nombres de las columnas.
+3. **Reseñas.** Después de los perfumes (cada reseña apunta a su perfume con `perfume_id`), insertar `reviews` conservando también su `id`.
+4. **Portada.** La migración n.º 5 ya crea las filas `familias` y `entrega` con el contenido original, así que las de `contenido_portada` se **actualizan** (no se insertan) con el `datos` del JSON.
+5. **Contadores de id.** Al insertar con `id` propio, los contadores no avanzan. Ejecutar `SELECT sync_id_sequences();` para que el siguiente perfume nuevo no choque con uno existente.
+6. **Fotos y videos.** Si el proyecto anterior sigue existiendo, las URL del JSON siguen funcionando. Si no, hay que volver a subir los archivos a los mismos buckets y cambiar en `imagen`, `imagenes`, `video_url` y en `contenido_portada` el dominio antiguo por el nuevo. Por eso conviene guardar aparte las fotos originales.
+7. **Acceso.** Crear de nuevo las cuentas de administración y añadir sus correos a `admin_users` (ver "Cuentas de administración").
+8. **Comprobar.** Que el número de perfumes y reseñas coincida con el del JSON y abrir `/catalogo`, una ficha y `/admin`.
+
+Si una migración futura cambia columnas, el JSON de una versión anterior puede necesitar una traducción antes de insertarse; el campo `version` está para distinguir esos formatos.
+
+## Aplicar la migración n.º 5 (contenido de la portada) — ya hecho
 
 Mientras no se aplique, nada se rompe: la tienda muestra el contenido original de "Explora por familia olfativa" y "Así llega tu fragancia", y `/admin/portada` muestra "Falta ejecutar la migración n.º 5".
 

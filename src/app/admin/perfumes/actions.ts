@@ -12,6 +12,8 @@
  *     alternarActivo    lo muestra u oculta en la tienda (interruptor)
  *     duplicarPerfumeAccion   crea una copia y abre su formulario
  *     eliminarPerfumeAccion   lo borra, tras confirmar escribiendo su nombre
+ *     actualizarPrecios lo usa la edición rápida de precios (Fase 5C):
+ *                       guarda solo precio y precio anterior
  *
  * POR QUÉ EXISTE
  *   Es el único camino por el que el navegador puede escribir en el
@@ -458,4 +460,65 @@ export async function eliminarPerfumeAccion(
   redirect(
     `${RUTA_PERFUMES}?aviso=${resultado.avisos.length > 0 ? "eliminado-con-avisos" : "eliminado"}`,
   );
+}
+
+/* ── Edición rápida de precios (Fase 5C) ────────────────────────────── */
+
+/** Resultado de guardar los precios de una fila. */
+export type ResultadoPrecios =
+  | { ok: true; precio: number | null; precio_original: number | null }
+  | { ok: false; error: string };
+
+/**
+ * Guarda SOLO el precio y el precio anterior de un perfume. La usa la
+ * pantalla de edición rápida (/admin/perfumes/precios), fila por fila.
+ *
+ * Las reglas son las mismas que en el formulario completo (validar()):
+ *   - cada precio, entero ≥ 0 o vacío (vacío = "Consultar precio");
+ *   - el precio anterior solo con precio actual, y MAYOR que él.
+ * Los textos llegan tal como se escribieron ("189.000"); leerPrecio() los
+ * convierte. Solo se actualizan estas dos columnas: nada más del perfume
+ * cambia, ni aunque el navegador enviara otros datos.
+ */
+export async function actualizarPrecios(
+  id: number,
+  precioTexto: string,
+  precioOriginalTexto: string,
+): Promise<ResultadoPrecios> {
+  const sinAcceso = await errorDeAcceso();
+  if (sinAcceso) return { ok: false, error: sinAcceso };
+
+  const idValido = leerId(id);
+  if (!idValido || typeof precioTexto !== "string" || typeof precioOriginalTexto !== "string") {
+    return { ok: false, error: "No se reconoce el perfume. Recarga la página." };
+  }
+
+  const precio = leerPrecio(precioTexto);
+  if ("error" in precio) return { ok: false, error: `Precio: ${precio.error}` };
+  const original = leerPrecio(precioOriginalTexto);
+  if ("error" in original) return { ok: false, error: `Precio anterior: ${original.error}` };
+
+  if (original.valor !== null) {
+    if (precio.valor === null) {
+      return {
+        ok: false,
+        error: "Para poner un precio anterior, escribe primero el precio actual.",
+      };
+    }
+    if (original.valor <= precio.valor) {
+      return {
+        ok: false,
+        error: "El precio anterior debe ser mayor que el precio. Si no hay descuento, déjalo vacío.",
+      };
+    }
+  }
+
+  const resultado = await actualizarPerfume(idValido, {
+    precio: precio.valor,
+    precio_original: original.valor,
+  });
+  if (!resultado.ok) return { ok: false, error: resultado.error };
+
+  refrescarTienda(idValido);
+  return { ok: true, precio: precio.valor, precio_original: original.valor };
 }

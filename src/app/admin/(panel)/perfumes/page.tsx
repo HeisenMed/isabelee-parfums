@@ -25,6 +25,7 @@
  *   - Lee ?filtro= (por ejemplo ?filtro=sin-foto, que pone la tarjeta
  *     "Fotos y videos" de /admin) y se lo pasa a ListaPerfumes, que lo
  *     valida.
+ *   - "Editar precios" (Fase 5C) lleva a /admin/perfumes/precios.
  *   - Si falta la migración n.º 3 lo avisa, sin impedir trabajar.
  */
 import type { Metadata } from "next";
@@ -34,11 +35,12 @@ import {
   avisoError,
   avisoExito,
   avisoInfo,
+  botonContorno,
   botonPrimarioCompacto,
 } from "@/components/admin/estilos";
 import { comprobarAccesoAdmin } from "@/lib/admin-auth";
 import { listarPerfumesAdmin, migracion3Aplicada } from "@/lib/admin-perfumes";
-import { RUTA_PERFUME_NUEVO } from "@/lib/admin-rutas";
+import { RUTA_PERFUME_NUEVO, RUTA_PRECIOS } from "@/lib/admin-rutas";
 
 export const metadata: Metadata = {
   title: "Perfumes",
@@ -95,9 +97,14 @@ export default async function PerfumesPage({ searchParams }: PerfumesPageProps) 
             </p>
           )}
         </div>
-        <Link href={RUTA_PERFUME_NUEVO} className={botonPrimarioCompacto}>
-          Nuevo perfume
-        </Link>
+        <div className="flex flex-wrap gap-3">
+          <Link href={RUTA_PRECIOS} className={botonContorno}>
+            Editar precios
+          </Link>
+          <Link href={RUTA_PERFUME_NUEVO} className={botonPrimarioCompacto}>
+            Nuevo perfume
+          </Link>
+        </div>
       </div>
 
       {aviso && (

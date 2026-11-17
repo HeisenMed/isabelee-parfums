@@ -37,6 +37,12 @@ export const RUTA_CREAR_CONTRASENA = "/admin/crear-contrasena";
 export const RUTA_CAMBIAR_CONTRASENA = "/admin/cambiar-contrasena";
 /** Lista de perfumes del panel. */
 export const RUTA_PERFUMES = "/admin/perfumes";
+/** Edición rápida de precios (Fase 5C). */
+export const RUTA_PRECIOS = "/admin/perfumes/precios";
+/** Respaldo del catálogo (Fase 5C) y sus dos descargas. */
+export const RUTA_RESPALDO = "/admin/respaldo";
+export const RUTA_RESPALDO_CSV = "/admin/respaldo/csv";
+export const RUTA_RESPALDO_JSON = "/admin/respaldo/json";
 /** Editor de la portada (Fase 5B). */
 export const RUTA_PORTADA = "/admin/portada";
 /** Formulario de perfume nuevo. */
@@ -120,6 +126,12 @@ export function rutaAdminSegura(
     const codigo = next.charCodeAt(i);
     if (codigo < 32 || codigo === 127) return porDefecto;
   }
+
+  // Las descargas del respaldo (/admin/respaldo/csv y /json) no son
+  // páginas: si alguien llegó al login desde una de ellas, tras entrar se le
+  // lleva a la página /admin/respaldo, desde donde descarga con un clic.
+  // Redirigir directo a la descarga dejaría la pantalla del login a la vista.
+  if (next.startsWith(`${RUTA_RESPALDO}/`)) return RUTA_RESPALDO;
 
   return next;
 }
