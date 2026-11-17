@@ -1,0 +1,134 @@
+// wrangler.jsonc — Configuración del Worker de Cloudflare (Fase 6).
+//
+// QUÉ ES
+//   Le dice a Wrangler (la herramienta de línea de comandos de Cloudflare)
+//   cómo se llama el Worker, qué archivo ejecuta, dónde están los archivos
+//   estáticos y a qué recursos de Cloudflare puede acceder ("bindings":
+//   conexiones con nombre a un bucket, una base de datos, etc.).
+//
+// POR QUÉ EXISTE
+//   La tienda se publica en Cloudflare Workers con el adaptador OpenNext
+//   (@opennextjs/cloudflare), que convierte la app de Next.js en un Worker.
+//   Cloudflare propone ahora "vinext" y su configuración automática lo
+//   elegiría; usamos OpenNext a propósito, así que este archivo se escribe
+//   a mano. Se basa en la documentación vigente (noviembre de 2026):
+//   opennext.js.org/cloudflare/get-started y /caching.
+//
+// CÓMO SE CONECTA CON EL RESTO
+//   - `npm run cf:build` (opennextjs-cloudflare build) genera .open-next/,
+//     con el Worker (.open-next/worker.js) y los estáticos (.open-next/assets).
+//   - `npm run cf:deploy` sube la caché inicial a R2, crea la tabla de D1 si
+//     falta y publica el Worker con esta configuración.
+//   - open-next.config.ts elige qué recursos usa la caché; los nombres de
+//     los bindings de aquí (NEXT_INC_CACHE_R2_BUCKET, NEXT_TAG_CACHE_D1,
+//     NEXT_CACHE_DO_QUEUE, WORKER_SELF_REFERENCE) son FIJOS: el adaptador
+//     los busca con exactamente esos nombres.
+//   - Los recursos que hay que crear a mano en el panel de Cloudflare y los
+//     valores de cada campo están en doc/DESPLIEGUE.md.
+{
+  // Esquema JSON: el editor autocompleta y valida las claves de este archivo.
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  // Nombre del Worker. DEBE coincidir con el nombre del Worker creado en el
+  // panel de Cloudflare ("isabelee-fragancias") y con el `service` de
+  // WORKER_SELF_REFERENCE más abajo.
+  "name": "isabelee-fragancias",
+
+  // Punto de entrada que genera `opennextjs-cloudflare build`. No cambiarlo.
+  "main": ".open-next/worker.js",
+
+  // Fecha de compatibilidad: fija el comportamiento del entorno de Workers
+  // a esa fecha. La documentación pide 2024-09-23 o posterior, y 2025-05-05
+  // o posterior para evitar el error "FinalizationRegistry is not defined".
+  // Es anterior a hoy y la admite el entorno local instalado (workerd
+  // 1.20261117). Cambiarla solo a propósito y probando antes.
+  "compatibility_date": "2026-11-01",
+
+  // nodejs_compat: activa las API de Node.js (Buffer, crypto, streams…)
+  //   que necesita el servidor de Next.js.
+  // global_fetch_strictly_public: fetch() solo sale a direcciones públicas
+  //   de Internet (exigido por el adaptador; Supabase lo es).
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+
+  // Archivos estáticos (public/, _next/static…), servidos por Cloudflare
+  // sin despertar al Worker. ASSETS es el nombre que espera el adaptador.
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+
+  // El Worker se llama a sí mismo para regenerar páginas en segundo plano
+  // (ISR: Incremental Static Regeneration, regeneración estática
+  // incremental). `service` debe ser igual a `name`.
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "isabelee-fragancias"
+    }
+  ],
+
+  // Caché incremental: las páginas ya generadas (portada, fichas,
+  // /api/buscar) se guardan en el bucket R2 "isabelee-cache".
+  // CREAR A MANO: R2 → Create bucket → isabelee-cache (doc/DESPLIEGUE.md).
+  "r2_buckets": [
+    {
+      "binding": "NEXT_INC_CACHE_R2_BUCKET",
+      "bucket_name": "isabelee-cache"
+    }
+  ],
+
+  // Caché de etiquetas: anota cuándo se invalidó cada ruta con
+  // revalidatePath() (al guardar en el panel), para no servir una copia
+  // vieja. La tabla `revalidations` la crea `cf:deploy` sola.
+  // CREAR A MANO: Storage & databases → D1 → Create database →
+  // isabelee-tag-cache, y pegar aquí su "Database ID" (no es secreto).
+  "d1_databases": [
+    {
+      "binding": "NEXT_TAG_CACHE_D1",
+      "database_name": "isabelee-tag-cache",
+      "database_id": "PEGAR-AQUI-EL-DATABASE-ID-DE-D1"
+    }
+  ],
+
+  // Cola de regeneración: cuando una página con `revalidate = 60` caduca,
+  // este Durable Object (objeto con estado propio que vive en Cloudflare)
+  // organiza su regeneración sin repetirla. Lo crea el propio despliegue:
+  // no hay que hacer nada en el panel.
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "NEXT_CACHE_DO_QUEUE",
+        "class_name": "DOQueueHandler"
+      }
+    ]
+  },
+
+  // Historial de clases de Durable Objects. "new_sqlite_classes" las crea
+  // con almacenamiento SQLite, el ÚNICO disponible en el plan gratuito de
+  // Workers. Una entrada ya desplegada no se edita: los cambios van en una
+  // entrada nueva (tag "v2"…), igual que las migraciones de Supabase.
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["DOQueueHandler"]
+    }
+  ],
+
+  // Optimización de next/image con Cloudflare Images (reduce y convierte
+  // las fotos al tamaño de cada pantalla). Plan gratuito: 5.000
+  // transformaciones únicas al mes, sin cobro; pasado el límite, las
+  // transformaciones NUEVAS fallan (error 9422) hasta el mes siguiente.
+  // Ver doc/DESPLIEGUE.md, "Límites conocidos".
+  "images": {
+    "binding": "IMAGES"
+  },
+
+  // Conserva las variables definidas en el panel de Cloudflare al
+  // desplegar (sin esto, cada despliegue borraría las que no estén aquí).
+  "keep_vars": true,
+
+  // Registros (logs) y métricas del Worker en el panel de Cloudflare.
+  "observability": {
+    "enabled": true
+  }
+}

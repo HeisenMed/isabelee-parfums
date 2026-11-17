@@ -7,9 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "db:seed": "npx tsx supabase/seed/seed-from-v1.ts"
+    "db:seed": "npx tsx supabase/seed/seed-from-v1.ts",
+    "cf:build": "opennextjs-cloudflare build",
+    "cf:deploy": "opennextjs-cloudflare deploy",
+    "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.20.17",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.119.0",
     "framer-motion": "^14.14.0",
@@ -30,6 +34,7 @@
     "eslint-config-next": "15.5.29",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.164.0"
   }
 }

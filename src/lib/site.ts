@@ -19,7 +19,9 @@
  *     para armar el pedido.
  *   - WhatsAppButton.tsx, WelcomeModal.tsx, WhatsAppCta.tsx y Footer.tsx
  *     usan las URLs de WhatsApp.
- *   - layout.tsx usa SITE_NAME y SITE_TAGLINE para los metadatos.
+ *   - layout.tsx usa SITE_NAME y SITE_TAGLINE para los metadatos, e INDEXAR
+ *     (junto con src/app/robots.ts) para decidir si los buscadores pueden
+ *     indexar la tienda.
  *   - No lleva "use client": son datos puros, sirven tanto en componentes
  *     de servidor como de cliente.
  */
@@ -84,6 +86,23 @@ export const NAV_LINKS: NavLink[] = [
  * Debe coincidir con la que usa supabase/seed/seed-from-v1.ts.
  */
 export const PLACEHOLDER_IMAGE = "/assets/images/perfumes/placeholder-locion.webp";
+
+/**
+ * ¿Pueden los buscadores (Google, Bing…) indexar la tienda? (Fase 6)
+ *
+ * Solo es true si la variable NEXT_PUBLIC_INDEXAR vale EXACTAMENTE "true".
+ * Cualquier otro valor —o no definirla— la deja en false, para que el sitio
+ * de pruebas en Cloudflare (*.workers.dev) no aparezca en Google antes del
+ * lanzamiento. Es el interruptor que se enciende al lanzar (doc/DESPLIEGUE.md).
+ *
+ * Con false: src/app/robots.ts responde "Disallow: /" y el layout raíz
+ * (src/app/layout.tsx) añade <meta name="robots" content="noindex, nofollow">.
+ * El panel (/admin) nunca se indexa, valga lo que valga.
+ *
+ * Como toda variable NEXT_PUBLIC_, Next.js escribe su valor en el código AL
+ * COMPILAR: cambiarla exige volver a compilar y desplegar.
+ */
+export const INDEXAR = process.env.NEXT_PUBLIC_INDEXAR === "true";
 
 /**
  * Construye un enlace de WhatsApp con un mensaje prellenado cualquiera.

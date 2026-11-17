@@ -27,6 +27,10 @@
  *     etiquetas Open Graph (la vista previa al compartir el enlace en
  *     WhatsApp o redes). Cada página puede sobrescribirlo; el panel
  *     cambia además la plantilla del título en src/app/admin/layout.tsx.
+ *   - INDEXACIÓN (Fase 6): `metadata.robots` depende de INDEXAR
+ *     (src/lib/site.ts, variable NEXT_PUBLIC_INDEXAR). Mientras no sea
+ *     "true", toda la tienda lleva noindex, nofollow; va a la par con
+ *     src/app/robots.ts.
  *   - src/app/not-found.tsx (la página 404) se dibuja directamente dentro
  *     de este layout, por eso trae su propio header y footer.
  *   - TEMA DÍA/NOCHE (Fase 4): un script en <head> pone data-theme en
@@ -37,7 +41,7 @@
  */
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
-import { SITE_NAME, SITE_TAGLINE } from "@/lib/site";
+import { INDEXAR, SITE_NAME, SITE_TAGLINE } from "@/lib/site";
 import "./globals.css";
 
 /**
@@ -99,6 +103,11 @@ export const metadata: Metadata = {
     locale: "es_CO",
     type: "website",
   },
+  // Mientras NEXT_PUBLIC_INDEXAR no sea "true" (sitio de pruebas), se pide a
+  // los buscadores que no indexen ni sigan enlaces. Con "true", no se pone
+  // nada y rige el comportamiento normal. El panel lo vuelve a fijar en
+  // noindex siempre (src/app/admin/layout.tsx).
+  robots: INDEXAR ? undefined : { index: false, follow: false },
 };
 
 export default function RootLayout({

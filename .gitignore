@@ -46,3 +46,16 @@ build/
 .claude/
 CLAUDE.md
 doc/
+
+# ── Cloudflare / OpenNext (Fase 6) ────────────────────────────────────────
+# .open-next/  salida de `npm run cf:build` (el Worker y sus estáticos); se
+#              regenera en cada compilación, también en Workers Builds.
+# .wrangler/   estado local de Wrangler (simulación de R2, D1 y Durable
+#              Objects de `npm run cf:preview`).
+# .dev.vars    variables locales del Worker (puede tener secretos). Hoy no
+#              hace falta: `cf:preview` lee .env.local (doc/DESPLIEGUE.md).
+# cloudflare-env.d.ts  tipos que genera `wrangler types`; el código no los usa.
+.open-next/
+.wrangler/
+.dev.vars
+cloudflare-env.d.ts
