@@ -11,7 +11,7 @@
  *   antiguo y a sus estilos en css/style.css.
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - Lo monta src/app/layout.tsx, así aparece en todas las páginas.
+ *   - Lo monta src/app/(tienda)/layout.tsx, así aparece en todas las páginas.
  *   - La URL viene de WHATSAPP_MESSAGE_URL (src/lib/site.ts).
  *   - El pulso es la animación .wa-pulse de src/app/globals.css, que se
  *     detiene al pasar el cursor y con prefers-reduced-motion.

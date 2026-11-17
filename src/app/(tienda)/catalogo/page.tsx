@@ -1,5 +1,5 @@
 /**
- * src/app/catalogo/page.tsx — Página del catálogo (ruta "/catalogo").
+ * src/app/(tienda)/catalogo/page.tsx — Página del catálogo (ruta "/catalogo").
  *
  * QUÉ ES
  *   La lista completa de perfumes, con filtros a la izquierda (o en un

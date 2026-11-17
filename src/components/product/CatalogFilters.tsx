@@ -16,7 +16,7 @@
  *   compartir, guardar en favoritos y recorrer con el botón "atrás".
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - Lo usa src/app/catalogo/page.tsx, que le pasa las listas de marcas y
+ *   - Lo usa src/app/(tienda)/catalogo/page.tsx, que le pasa las listas de marcas y
  *     familias ya leídas de la base de datos.
  *   - Este componente NO filtra perfumes. Solo cambia la URL. Al cambiar,
  *     Next.js vuelve a renderizar la página en el servidor, que lee esos

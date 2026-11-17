@@ -13,7 +13,7 @@
  *   de administración en la Fase 3; la galería ya está lista para ellas.
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - La usa src/app/producto/[id]/page.tsx, que le pasa la lista de
+ *   - La usa src/app/(tienda)/producto/[id]/page.tsx, que le pasa la lista de
  *     imágenes ya preparada (principal primero, sin duplicados).
  *   - Necesita "use client" solo por el estado de "qué miniatura está
  *     elegida"; el resto de la ficha se renderiza en el servidor.

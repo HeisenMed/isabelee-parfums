@@ -13,7 +13,7 @@
  *   contenido es el mismo, con la marca nueva: "Isabelé Fragancias".
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - Lo monta src/app/layout.tsx, fuera del contenido de la página.
+ *   - Lo monta src/app/(tienda)/layout.tsx, fuera del contenido de la página.
  *   - Necesita "use client": usa estado, temporizador y sessionStorage.
  *   - Framer Motion anima la entrada y la salida (AnimatePresence es lo
  *     que permite animar la salida antes de quitarlo del DOM).

@@ -12,7 +12,7 @@
  *   enlace se puede compartir y el botón "atrás" funciona.
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - Lo usa src/app/catalogo/page.tsx.
+ *   - Lo usa src/app/(tienda)/catalogo/page.tsx.
  *   - Al cambiar, reescribe el parámetro `orden` de la URL conservando los
  *     demás filtros. Next.js vuelve a renderizar la página en el servidor
  *     con esa URL, y getPerfumes() (src/lib/perfumes.ts) aplica el orden

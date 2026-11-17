@@ -10,7 +10,7 @@
  *   components/footer.html, que estaban duplicados y desincronizados).
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - Lo monta src/app/layout.tsx después del contenido de cada página.
+ *   - Lo monta src/app/(tienda)/layout.tsx después del contenido de cada página.
  *   - Los enlaces rápidos reutilizan NAV_LINKS (src/lib/site.ts), la misma
  *     lista del Header.
  *   - El número y el enlace de WhatsApp vienen también de site.ts

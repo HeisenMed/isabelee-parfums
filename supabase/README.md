@@ -13,7 +13,13 @@ Esta carpeta guarda todo lo necesario para **crear y llenar** la base de datos d
 
 Archivos actuales:
 
-- `migrations/20261116000000_initial_schema.sql` — migración n.º 1. Crea las tablas `perfumes` y `reviews`, sus políticas RLS, un índice y dos funciones.
+Migraciones, **en el orden en que se ejecutan**:
+
+1. `migrations/20261116000000_initial_schema.sql` — migración n.º 1 (**aplicada** el 16 de noviembre de 2026). Crea las tablas `perfumes` y `reviews`, sus políticas RLS (Row Level Security: reglas de acceso fila por fila), un índice y dos funciones.
+2. `migrations/20261117000000_admin_access.sql` — migración n.º 2 (**pendiente de aplicar**). Crea la lista de administradores (`admin_users`), la función `is_admin()`, restringe a administradores las políticas "Admins can manage…" y protege los buckets de Storage. Ver "Aplicar la migración n.º 2" más abajo.
+
+Seed:
+
 - `seed/seed-from-v1.ts` — carga los 120 perfumes y sus reseñas desde `data/perfumes.js` (el catálogo del sitio v1) y crea los buckets de Storage `product-images` y `product-videos`.
 
 ## Migración y seed: la diferencia
@@ -90,6 +96,48 @@ La marca de tiempo es lo que ordena los archivos: al listarlos alfabéticamente 
 - **"La tabla perfumes ya tiene N filas"** — el seed se protege para no pisar datos. Si de verdad es una base de datos de pruebas y quieres recargarla, `npm run db:seed -- --force` sobrescribe los perfumes con el mismo id y reemplaza sus reseñas. Es destructivo: nunca sobre la base de datos en uso.
 - **Los ids nuevos chocan con los existentes** — el seed no pudo llamar a `sync_id_sequences()`. Ejecuta en el SQL Editor: `SELECT sync_id_sequences();`
 
-## Aviso de seguridad pendiente
+## Aplicar la migración n.º 2 (acceso de administración)
 
-Las políticas "Admins can manage…" de la migración inicial dan control total a **cualquier** usuario con sesión iniciada, y Supabase permite por defecto que cualquiera se registre. Antes de publicar un inicio de sesión (Fase 3) hay que desactivar el registro público (Dashboard → Authentication) o restringir esas políticas mediante una migración nueva.
+Hasta que se aplique, el panel (`/admin`) deja iniciar sesión pero muestra el aviso "Falta un paso de configuración" y no abre. La tienda no se ve afectada.
+
+1. Abre el Dashboard de Supabase → **SQL Editor** → **New Query**.
+2. Pega **todo** el contenido de `migrations/20261117000000_admin_access.sql` y pulsa **Run**. Debe responder "Success. No rows returned". Va en una transacción: si algo falla, no se aplica nada.
+3. Comprueba el resultado con las consultas de la sección "COMPROBACIONES" al final de ese archivo (los dos correos en `admin_users`, las políticas con `is_admin()` y las cuatro políticas de Storage).
+4. Anota la fecha en la línea "ESTADO" del archivo y cambia arriba "pendiente de aplicar" por "aplicada". Desde ese momento el archivo no se edita más.
+5. Entra en `http://localhost:3000/admin` con una cuenta de administración: debe abrir el panel.
+
+Dar o quitar acceso a otra persona más adelante **no** necesita una migración: es un cambio de datos en `admin_users` (las consultas están al final del mismo archivo). Además hay que invitar la cuenta en Authentication → Users → Invite user.
+
+## Configuración manual de Supabase Auth
+
+Estos pasos se hacen una vez en el Dashboard; ningún archivo del proyecto los aplica.
+
+### Registro público desactivado
+
+Authentication → Sign In / Providers → "Allow new users to sign up" debe estar **apagado**. Las cuentas se crean solo por invitación.
+
+### Dirección del sitio
+
+Authentication → URL Configuration → **Site URL**: `http://localhost:3000` mientras se prueba en local. Los enlaces de los correos se construyen con este valor; al publicar el sitio habrá que cambiarlo por el dominio real.
+
+### Plantillas de correo
+
+Los correos de Supabase deben enlazar a `/auth/confirm` (archivo `src/app/auth/confirm/route.ts`), que canjea el enlace por una sesión y lleva a `/admin/crear-contrasena`. Con la plantilla por defecto el enlace **no funciona** con este sitio.
+
+En Authentication → Emails → Templates, sustituye el enlace (`href`) de cada plantilla:
+
+**Invite user**
+
+```html
+<a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=invite&next=/admin/crear-contrasena">Crear mi contraseña</a>
+```
+
+**Reset Password**
+
+```html
+<a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery&next=/admin/crear-contrasena">Crear una contraseña nueva</a>
+```
+
+`{{ .SiteURL }}` y `{{ .TokenHash }}` se escriben tal cual: Supabase los reemplaza al enviar. El resto del texto del correo se puede redactar libremente (conviene ponerlo en español).
+
+Cada enlace sirve una sola vez y caduca; si falla, el sitio lleva a `/admin/login` con el aviso "El enlace del correo caducó o ya se usó".

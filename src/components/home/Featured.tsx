@@ -11,7 +11,7 @@
  *   de la Fase 1.
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - La usa src/app/page.tsx, justo debajo del Hero.
+ *   - La usa src/app/(tienda)/page.tsx, justo debajo del Hero.
  *   - Es un componente de servidor ASÍNCRONO: pide los datos a Supabase
  *     con getPerfumes() (src/lib/perfumes.ts) mientras se genera la página,
  *     así el HTML ya llega con los perfumes.

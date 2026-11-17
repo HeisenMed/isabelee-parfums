@@ -15,7 +15,7 @@
  *   quitar clases a mano.
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - Lo monta src/app/layout.tsx, así aparece en todas las páginas.
+ *   - Lo monta src/app/(tienda)/layout.tsx, así aparece en todas las páginas.
  *   - Los enlaces salen de NAV_LINKS (src/lib/site.ts); el Footer usa la
  *     misma lista, así ambos menús nunca se desincronizan.
  *   - Necesita "use client" porque usa estado (menú abierto, scroll) y

@@ -10,7 +10,7 @@
  *   CLAUDE.md §10.3 prohíbe símbolos Unicode en la interfaz.
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - La usa src/app/producto/[id]/page.tsx: una vez para el promedio del
+ *   - La usa src/app/(tienda)/producto/[id]/page.tsx: una vez para el promedio del
  *     perfume y una por cada reseña.
  *   - El valor siempre se calcula a partir de las reseñas reales; este
  *     componente solo lo dibuja (CLAUDE.md §5).

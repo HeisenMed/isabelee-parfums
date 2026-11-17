@@ -56,7 +56,7 @@ export type NavLink = {
 /**
  * Enlaces del menú principal, en el mismo orden que la navbar anterior.
  * Hombre / Mujer / Unisex abren el catálogo ya filtrado por categoría: el
- * parámetro ?genero= lo interpreta src/app/catalogo/page.tsx.
+ * parámetro ?genero= lo interpreta src/app/(tienda)/catalogo/page.tsx.
  */
 export const NAV_LINKS: NavLink[] = [
   { label: "Inicio", href: "/" },

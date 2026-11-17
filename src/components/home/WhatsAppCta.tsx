@@ -10,7 +10,7 @@
  *   ahí. Esta sección recoge a quien recorrió toda la página sin decidirse.
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - La usa src/app/page.tsx como última sección antes del Footer.
+ *   - La usa src/app/(tienda)/page.tsx como última sección antes del Footer.
  *   - Su id="contacto" es el destino del enlace "Contacto" del Header y el
  *     Footer (src/lib/site.ts).
  *   - El enlace usa WHATSAPP_MESSAGE_URL (src/lib/site.ts), con el mensaje

@@ -12,7 +12,7 @@
  *   oscura de la v2.
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - La usa src/app/page.tsx, después de Categories.
+ *   - La usa src/app/(tienda)/page.tsx, después de Categories.
  *   - Necesita "use client" porque maneja el envío del formulario y un
  *     estado (si ya se envió o no).
  *   - IMPORTANTE: todavía NO guarda el correo en ningún sitio. No hay

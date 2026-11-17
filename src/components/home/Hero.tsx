@@ -14,7 +14,7 @@
  *   destellos ambientales (initAmbientSparkles).
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - Lo usa src/app/page.tsx como primera sección.
+ *   - Lo usa src/app/(tienda)/page.tsx como primera sección.
  *   - El Header (fijo y transparente arriba) queda superpuesto encima.
  *   - Las animaciones CSS de las partículas, el indicador de scroll y el
  *     resplandor del texto están en src/app/globals.css

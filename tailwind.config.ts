@@ -24,6 +24,8 @@
  *     literal de la fuente queda como respaldo por si la variable faltara.
  *   - La paleta es la de CLAUDE.md §10.1. No añadas colores aquí sin
  *     documentarlos allí.
+ *   - El grupo `admin` es la paleta clara del panel de administración
+ *     (Fase 3). Está documentado en doc/DISEÑO.md §6.
  */
 import type { Config } from "tailwindcss";
 
@@ -53,6 +55,35 @@ const config: Config = {
         },
         // Verde oficial de WhatsApp: SOLO para su botón/ícono.
         whatsapp: "#25D366",
+        // ── Panel de administración (/admin) ───────────────────────────
+        // Tema CLARO y sobrio, pensado para leer y rellenar formularios
+        // con comodidad. Estos colores se usan SOLO bajo src/app/admin/ y
+        // src/components/admin/; la tienda sigue con la paleta oscura.
+        // Las cifras "N:1" son el contraste WCAG (Web Content
+        // Accessibility Guidelines, las pautas de accesibilidad web). El
+        // nivel AA pide 4,5:1 para texto y 3:1 para bordes de controles y
+        // anillos de foco.
+        admin: {
+          bg: "#faf8f3", // Fondo de página: blanco roto cálido
+          surface: "#ffffff", // Tarjetas, formularios y campos
+          border: "#e7e1d3", // Líneas divisorias y bordes decorativos
+          // Borde de los campos de formulario. Más oscuro que `border`
+          // porque el contorno de un campo debe distinguirse del fondo:
+          // 3,74:1 sobre blanco (AA para controles).
+          "border-strong": "#8c8469",
+          text: "#1f1f1f", // Texto principal: 15,5:1 sobre el fondo
+          muted: "#6b6b6b", // Texto secundario: 5,33:1 sobre blanco
+          // Dorado de marca (el mismo valor que `gold`): fondo del botón
+          // primario y detalles decorativos. Con texto `admin-text` encima
+          // da 7,21:1. NO sirve para texto sobre blanco (solo 2,29:1).
+          accent: "#C9A84C",
+          // Dorado oscuro para TEXTO, enlaces y anillos de foco sobre
+          // claro: 5,79:1 sobre blanco y 5,45:1 sobre `bg` (AA).
+          "gold-text": "#7d6215",
+          // Rojo: EXCLUSIVO para mensajes de error. 6,54:1 sobre blanco.
+          error: "#b3261e",
+          "error-bg": "#fdf3f2", // Fondo del recuadro de error (6,00:1)
+        },
       },
       fontFamily: {
         // Títulos y texto de marca.

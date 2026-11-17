@@ -13,9 +13,9 @@
  * CÓMO SE CONECTA CON EL RESTO
  *   - Recibe un `Perfume` (src/types/perfume.ts) ya cargado; no consulta la
  *     base de datos por sí misma.
- *   - La usan src/app/catalogo/page.tsx (rejilla) y
+ *   - La usan src/app/(tienda)/catalogo/page.tsx (rejilla) y
  *     src/components/home/Featured.tsx (fila horizontal).
- *   - Enlaza a /producto/[id] (src/app/producto/[id]/page.tsx).
+ *   - Enlaza a /producto/[id] (src/app/(tienda)/producto/[id]/page.tsx).
  *   - Componente de servidor: no tiene estado; el hover es solo CSS.
  *
  * REGLAS QUE RESPETA

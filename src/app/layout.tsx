@@ -2,16 +2,19 @@
  * src/app/layout.tsx — Layout raíz de Isabelé Fragancias (v2, Next.js).
  *
  * QUÉ ES
- *   El "marco" HTML que envuelve a TODAS las páginas de la app. En el App
- *   Router de Next.js este archivo es obligatorio: define las etiquetas
- *   <html> y <body>, y cada página (por ejemplo src/app/page.tsx) se
- *   inyecta donde aparece {children}.
+ *   El "marco" HTML mínimo que envuelve a TODAS las rutas de la app, tanto
+ *   la tienda como el panel de administración. En el App Router de Next.js
+ *   este archivo es obligatorio: define las etiquetas <html> y <body>.
  *
  * POR QUÉ EXISTE
- *   En el sitio estático anterior, cada HTML (index.html, producto.html)
- *   repetía su propio <head>, la navbar, el footer, el botón de WhatsApp y
- *   el modal. Aquí todo eso se declara una sola vez y lo heredan todas las
- *   rutas, presentes y futuras.
+ *   Desde la Fase 3 el proyecto tiene dos "sitios" que comparten dominio
+ *   pero no apariencia: la tienda (oscura, con header, footer y WhatsApp) y
+ *   el panel de administración (claro y sobrio). Por eso este layout ya NO
+ *   monta el Header ni el Footer: solo deja lo que de verdad es común a
+ *   ambos —el documento HTML, las tipografías, el CSS global y los
+ *   metadatos del sitio— y cada zona añade su propio marco:
+ *       src/app/(tienda)/layout.tsx   → marco de la tienda
+ *       src/app/admin/layout.tsx      → marco del panel
  *
  * CÓMO SE CONECTA CON EL RESTO
  *   - Importa ./globals.css, que carga Tailwind y las animaciones CSS.
@@ -19,24 +22,17 @@
  *     en la compilación y las sirve desde el propio dominio (sin pedir
  *     nada a Google al visitar el sitio). Cada fuente expone una variable
  *     CSS (--font-cormorant, --font-jost) que tailwind.config.ts usa para
- *     las clases `font-serif` y `font-sans`.
- *   - Monta los componentes presentes en todas las páginas:
- *       <Header />          src/components/layout/Header.tsx
- *       <Footer />          src/components/layout/Footer.tsx
- *       <WhatsAppButton />  src/components/ui/WhatsAppButton.tsx
- *       <WelcomeModal />    src/components/ui/WelcomeModal.tsx
+ *     las clases `font-serif` y `font-sans`. Las usan la tienda y el panel.
  *   - Exporta `metadata`, que Next convierte en <title>, <meta> y
  *     etiquetas Open Graph (la vista previa al compartir el enlace en
- *     WhatsApp o redes). Una página puede sobrescribirlo con el suyo.
- *   - Es un componente de servidor; los componentes interactivos que
- *     monta llevan su propio "use client".
+ *     WhatsApp o redes). Cada página puede sobrescribirlo; el panel
+ *     cambia además la plantilla del título en src/app/admin/layout.tsx.
+ *   - src/app/not-found.tsx (la página 404) se dibuja directamente dentro
+ *     de este layout, por eso trae su propio header y footer.
+ *   - Es un componente de servidor.
  */
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
-import Footer from "@/components/layout/Footer";
-import Header from "@/components/layout/Header";
-import WelcomeModal from "@/components/ui/WelcomeModal";
-import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import { SITE_NAME, SITE_TAGLINE } from "@/lib/site";
 import "./globals.css";
 
@@ -93,13 +89,10 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${cormorant.variable} ${jost.variable}`}
     >
-      <body className="bg-dark-deep font-sans text-ink antialiased">
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <WhatsAppButton />
-        <WelcomeModal />
-      </body>
+      {/* El <body> solo fija la tipografía base. Los colores (fondo y texto)
+          los pone el marco de cada zona: oscuro en la tienda, claro en el
+          panel. */}
+      <body className="font-sans antialiased">{children}</body>
     </html>
   );
 }

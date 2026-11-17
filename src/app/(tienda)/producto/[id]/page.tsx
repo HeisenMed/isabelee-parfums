@@ -1,5 +1,5 @@
 /**
- * src/app/producto/[id]/page.tsx — Ficha de producto (ruta "/producto/123").
+ * src/app/(tienda)/producto/[id]/page.tsx — Ficha de producto (ruta "/producto/123").
  *
  * QUÉ ES
  *   La página de detalle de un perfume: galería, datos, precio, botón de

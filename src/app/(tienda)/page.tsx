@@ -1,5 +1,5 @@
 /**
- * src/app/page.tsx — Página de inicio (ruta "/").
+ * src/app/(tienda)/page.tsx — Página de inicio (ruta "/").
  *
  * QUÉ ES
  *   El componente que Next.js renderiza cuando alguien visita la raíz del
@@ -12,7 +12,7 @@
  *   aquí.
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - Se renderiza dentro de src/app/layout.tsx (entra como {children}),
+ *   - Se renderiza dentro de src/app/(tienda)/layout.tsx (entra como {children}),
  *     entre el Header y el Footer.
  *   - Orden y anclas de las secciones:
  *       Hero         presentación a pantalla completa

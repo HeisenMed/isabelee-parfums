@@ -10,9 +10,9 @@
  *   la navegación. Esta sección las presenta de forma visual en la portada.
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - La usa src/app/page.tsx, después de Featured.
+ *   - La usa src/app/(tienda)/page.tsx, después de Featured.
  *   - Cada tarjeta enlaza a /catalogo?genero=Hombre (etc.); ese parámetro
- *     lo interpreta src/app/catalogo/page.tsx.
+ *     lo interpreta src/app/(tienda)/catalogo/page.tsx.
  *   - Es un componente de servidor ASÍNCRONO: pide a
  *     getImagenesPorGenero() (src/lib/perfumes.ts) una foto real de un
  *     perfume de cada categoría para usarla como imagen representativa.
