@@ -64,3 +64,17 @@ export function coincideBusqueda(
   const texto = normalizarTexto(`${perfume.nombre} ${perfume.marca}`);
   return palabras.every((palabra) => texto.includes(palabra));
 }
+
+/**
+ * ¿Es válida una palabra para el filtro de familia del catálogo
+ * (?familia=…)? Solo letras (con tildes), espacios y los signos ( ) / -,
+ * que son los que aparecen en las familias reales ("Ámbar / Oriental
+ * Especiada", "Oriental Vainilla (Gourmand)"). Esa lista cerrada impide que
+ * un %, _ o * actúe como comodín en la consulta "contiene" (ilike).
+ * La usan la página del catálogo (para el parámetro de la URL) y el panel
+ * de la portada (para la palabra de cada tarjeta): si el panel aceptara una
+ * palabra que el catálogo rechaza, la tarjeta llevaría al catálogo entero.
+ */
+export function esPalabraFamiliaValida(texto: string): boolean {
+  return texto.length > 0 && texto.length <= 60 && /^[\p{L}\s()/-]+$/u.test(texto);
+}

@@ -18,7 +18,8 @@ Migraciones, **en el orden en que se ejecutan**:
 1. `migrations/20261116000000_initial_schema.sql` — migración n.º 1 (**aplicada** el 16 de noviembre de 2026). Crea las tablas `perfumes` y `reviews`, sus políticas RLS (Row Level Security: reglas de acceso fila por fila), un índice y dos funciones.
 2. `migrations/20261117000000_admin_access.sql` — migración n.º 2 (**aplicada**). Crea la lista de administradores (`admin_users`), la función `is_admin()`, restringe a administradores las políticas "Admins can manage…" y protege los buckets de Storage.
 3. `migrations/20261118000000_destacado_agotado.sql` — migración n.º 3 (**aplicada**). Añade a `perfumes` las columnas `destacado` y `agotado`.
-4. `migrations/20261119000000_limites_storage.sql` — migración n.º 4 (**pendiente de aplicar**). Limita el tamaño y el tipo de archivo de los buckets `product-images` (5 MB; WebP, JPEG, PNG) y `product-videos` (50 MB; MP4). Ver "Aplicar la migración n.º 4" más abajo.
+4. `migrations/20261119000000_limites_storage.sql` — migración n.º 4 (**aplicada**). Limita el tamaño y el tipo de archivo de los buckets `product-images` (5 MB; WebP, JPEG, PNG) y `product-videos` (50 MB; MP4).
+5. `migrations/20261120000000_contenido_portada.sql` — migración n.º 5 (**pendiente de aplicar**). Crea la tabla `contenido_portada` (secciones editables de la portada, sembrada con el contenido actual) y el bucket público `site-media`, con sus políticas. Ver "Aplicar la migración n.º 5" más abajo.
 
 Seed:
 
@@ -98,7 +99,26 @@ La marca de tiempo es lo que ordena los archivos: al listarlos alfabéticamente 
 - **"La tabla perfumes ya tiene N filas"** — el seed se protege para no pisar datos. Si de verdad es una base de datos de pruebas y quieres recargarla, `npm run db:seed -- --force` sobrescribe los perfumes con el mismo id y reemplaza sus reseñas. Es destructivo: nunca sobre la base de datos en uso.
 - **Los ids nuevos chocan con los existentes** — el seed no pudo llamar a `sync_id_sequences()`. Ejecuta en el SQL Editor: `SELECT sync_id_sequences();`
 
-## Aplicar la migración n.º 4 (límites de Storage)
+## Aplicar la migración n.º 5 (contenido de la portada)
+
+Mientras no se aplique, nada se rompe: la tienda muestra el contenido original de "Explora por familia olfativa" y "Así llega tu fragancia", y `/admin/portada` muestra "Falta ejecutar la migración n.º 5".
+
+1. Dashboard de Supabase → **SQL Editor** → **New Query**.
+2. Pega **todo** `migrations/20261120000000_contenido_portada.sql` y pulsa **Run**. Debe responder "Success. No rows returned".
+3. **Si falla con "permission denied for table buckets"**: crea el bucket a mano (Dashboard → **Storage** → **New bucket** → nombre `site-media`, **Public bucket** activado, límite **50 MB**, tipos `image/webp, image/jpeg, image/png, video/mp4`), comenta el `INSERT INTO storage.buckets` del paso 4 del archivo y vuelve a ejecutarlo entero (el resto es idempotente).
+4. Comprueba con las consultas de "COMPROBACIONES" al final del archivo: 2 filas (4 tarjetas, 3 puntos), 2 políticas de tabla, el bucket y 4 políticas de Storage.
+5. Anota la fecha en la línea "ESTADO" del archivo y cambia arriba "pendiente de aplicar" por "aplicada".
+6. Entra en `/admin/portada`: deben aparecer las dos secciones con el contenido actual.
+
+Repetir la migración **no pisa** lo que la dueña haya cambiado (`ON CONFLICT DO NOTHING`).
+
+### Dónde se guardan los medios de la portada
+
+`site-media/portada/familias/<marca de tiempo>-<8 caracteres>.webp|jpg|mp4` y lo mismo en `portada/entrega/`. Al guardar una sección se borran los archivos que dejó de usar y las subidas abandonadas de más de 24 horas. Los videos originales (`/videos/…`) son archivos del repositorio y nunca se borran.
+
+## Aplicar la migración n.º 4 (límites de Storage) — ya hecho
+
+> Esta migración ya está aplicada. Los pasos se conservan para reconstruir la base de datos desde cero.
 
 El panel ya comprueba tamaño y tipo antes de subir, pero en el navegador; esta migración hace que sea **Supabase** quien rechace un archivo demasiado grande o de otro tipo, aunque alguien se salte el panel. Mientras no se aplique, el panel funciona igual.
 

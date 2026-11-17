@@ -207,3 +207,55 @@ export function validarVideo(archivo: File): string | null {
   }
   return null;
 }
+
+/* ── Portada (Fase 5B): bucket site-media ───────────────────────────── */
+/*
+ * Los medios de las secciones editables de la portada (src/types/portada.ts)
+ * viven en otro bucket, "site-media" (lo crea la migración n.º 5), en una
+ * carpeta por sección y SIN subcarpetas:
+ *     site-media/portada/familias/1763400000000-a1b2c3d4.webp
+ *     site-media/portada/entrega/1763400000000-e5f6a7b8.mp4
+ * Así la limpieza de archivos que dejan de usarse (src/lib/admin-portada.ts)
+ * solo tiene que listar el primer nivel de cada carpeta.
+ */
+
+/** Bucket de medios del sitio (portada). Público para lectura. */
+export const BUCKET_SITIO = "site-media";
+
+/** Ruta para un archivo nuevo de una sección de la portada. */
+export function rutaArchivoPortada(
+  clave: "familias" | "entrega",
+  extension: "webp" | "jpg" | "mp4",
+): string {
+  // Mismo esquema que nombreArchivo(): marca de tiempo + 8 caracteres al
+  // azar (getRandomValues, que también existe fuera de HTTPS).
+  const bytes = new Uint8Array(4);
+  crypto.getRandomValues(bytes);
+  const azar = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+  return `portada/${clave}/${Date.now()}-${azar}.${extension}`;
+}
+
+/**
+ * Si `url` es un archivo de site-media de esa sección, con la forma exacta
+ * que genera rutaArchivoPortada(), devuelve su ruta dentro del bucket; si
+ * no, null.
+ */
+export function rutaPortadaDeUrl(url: string, clave: "familias" | "entrega"): string | null {
+  const partes = leerUrlStorage(url);
+  if (!partes || partes.bucket !== BUCKET_SITIO) return null;
+  const forma = new RegExp(`^portada/${clave}/\\d{10,16}-[a-z0-9]{8}\\.(webp|jpg|mp4)$`);
+  return forma.test(partes.ruta) ? partes.ruta : null;
+}
+
+/**
+ * ¿Es una ruta local de un medio que viene con el sitio (public/videos o
+ * public/assets)? Solo minúsculas, números, guiones, puntos y barras, sin
+ * "..", y con extensión de imagen o video. Estos archivos están en el
+ * repositorio: se pueden usar y desvincular, pero NUNCA se borran.
+ */
+export function esMedioLocal(url: string): boolean {
+  return (
+    /^\/(videos|assets)\/[a-z0-9/_.-]+\.(mp4|webp|jpg|jpeg|png)$/.test(url) &&
+    !url.includes("..")
+  );
+}

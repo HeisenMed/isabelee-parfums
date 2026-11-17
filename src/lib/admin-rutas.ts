@@ -37,6 +37,8 @@ export const RUTA_CREAR_CONTRASENA = "/admin/crear-contrasena";
 export const RUTA_CAMBIAR_CONTRASENA = "/admin/cambiar-contrasena";
 /** Lista de perfumes del panel. */
 export const RUTA_PERFUMES = "/admin/perfumes";
+/** Editor de la portada (Fase 5B). */
+export const RUTA_PORTADA = "/admin/portada";
 /** Formulario de perfume nuevo. */
 export const RUTA_PERFUME_NUEVO = "/admin/perfumes/nuevo";
 

@@ -4,7 +4,7 @@
  * QUÉ ES
  *   El layout de todo lo que solo puede ver una administradora: comprueba
  *   el acceso y, si es correcto, dibuja la barra superior ("Isabeleé ·
- *   Panel", los enlaces "Perfumes" y "Cambiar contraseña", el correo, "Ver
+ *   Panel", los enlaces "Perfumes", "Portada" y "Cambiar contraseña", el correo, "Ver
  *   tienda" y "Cerrar sesión") y el contenido.
  *
  * POR QUÉ EXISTE
@@ -46,6 +46,7 @@ import {
   RUTA_LOGIN,
   RUTA_PANEL,
   RUTA_PERFUMES,
+  RUTA_PORTADA,
   RUTA_SIN_ACCESO,
 } from "@/lib/admin-rutas";
 import { SITE_SHORT_NAME } from "@/lib/site";
@@ -135,12 +136,18 @@ export default async function PanelLayout({
               {SITE_SHORT_NAME} · Panel
             </Link>
             {/* Navegación del panel. min-h-11 = 44 px, cómodo para el dedo. */}
-            <nav aria-label="Secciones del panel">
+            <nav aria-label="Secciones del panel" className="flex flex-wrap gap-x-5">
               <Link
                 href={RUTA_PERFUMES}
                 className={`${enlace} inline-flex min-h-11 items-center text-sm`}
               >
                 Perfumes
+              </Link>
+              <Link
+                href={RUTA_PORTADA}
+                className={`${enlace} inline-flex min-h-11 items-center text-sm`}
+              >
+                Portada
               </Link>
             </nav>
           </div>

@@ -52,7 +52,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import CatalogFilters from "@/components/product/CatalogFilters";
 import { WhatsAppIcon } from "@/components/ui/icons";
-import { coincideBusqueda, MAX_BUSQUEDA, palabrasDeBusqueda } from "@/lib/busqueda";
+import {
+  coincideBusqueda,
+  esPalabraFamiliaValida,
+  MAX_BUSQUEDA,
+  palabrasDeBusqueda,
+} from "@/lib/busqueda";
 import ProductCard from "@/components/product/ProductCard";
 import SortSelect from "@/components/product/SortSelect";
 import {
@@ -112,7 +117,9 @@ function parsePrecio(value: RawParam): number | undefined {
  */
 function parseFamilia(value: RawParam): string {
   const text = first(value).slice(0, 60);
-  return /^[\p{L}\s()/-]+$/u.test(text) ? text : "";
+  // La regla vive en src/lib/busqueda.ts: el panel de la portada la usa
+  // también para validar la palabra de cada tarjeta.
+  return esPalabraFamiliaValida(text) ? text : "";
 }
 
 /** Texto de búsqueda (?q=), recortado a MAX_BUSQUEDA caracteres. */

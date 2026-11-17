@@ -2,9 +2,9 @@
  * src/components/home/Familias.tsx — Sección "Explora por familia olfativa".
  *
  * QUÉ ES
- *   Cuatro tarjetas con forma de arco, cada una con un video ambiental, el
- *   nombre de una familia de aromas y una frase corta. Cada tarjeta lleva
- *   al catálogo filtrado por esa familia.
+ *   Cuatro tarjetas con forma de arco, cada una con un video o una imagen,
+ *   el nombre de una familia de aromas y una frase corta. Cada tarjeta
+ *   lleva al catálogo filtrado por esa familia.
  *
  * POR QUÉ EXISTE
  *   Mucha gente no sabe qué perfume busca, pero sí qué tipo de aroma le
@@ -13,13 +13,17 @@
  *   mejor que una foto.
  *
  * CÓMO SE CONECTA CON EL RESTO
- *   - La usa src/app/(tienda)/page.tsx, justo después de Featured.
- *   - Los videos se reproducen con AmbientVideo (src/components/ui/), que
- *     solo los descarga y reproduce cuando están a la vista.
+ *   - La usa src/app/(tienda)/page.tsx, justo después de Featured, y le
+ *     pasa los datos ya leídos de la tabla contenido_portada
+ *     (getContenidoPortada() en src/lib/portada.ts). Desde la Fase 5B los
+ *     títulos, textos, palabras del filtro y medios se cambian en el panel,
+ *     en /admin/portada; si la tabla falla, llegan los originales
+ *     (DEFAULTS_PORTADA).
+ *   - El medio de cada arco lo dibuja MedioArco (video con AmbientVideo, o
+ *     imagen), con el mismo encuadre en los dos casos.
  *   - Los enlaces usan el filtro ?familia= del catálogo
- *     (src/app/(tienda)/catalogo/page.tsx). Desde la Fase 5A ese filtro
- *     busca familias que CONTIENEN la palabra, así que cada tarjeta usa una
- *     palabra clave ("Frutal") en vez de una familia exacta (ver FAMILIAS).
+ *     (src/app/(tienda)/catalogo/page.tsx), que busca familias que
+ *     CONTIENEN la palabra (Fase 5A).
  *   - Entrada animada con Reveal (Framer Motion), escalonada por tarjeta.
  *   - Colores de tema: se ve bien en noche y en día.
  *
@@ -30,68 +34,12 @@
  *   carrusel): los cuatro se ven a la vez sin tener que deslizar.
  */
 import Link from "next/link";
-import AmbientVideo from "@/components/ui/AmbientVideo";
+import MedioArco from "@/components/home/MedioArco";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
+import type { FamiliasPortada } from "@/types/portada";
 
-type Familia = {
-  /** Nombre visible de la tarjeta. */
-  nombre: string;
-  /** Frase corta bajo el nombre. */
-  frase: string;
-  /**
-   * Palabra clave del filtro ?familia=: el catálogo muestra los perfumes
-   * cuya familia_olfativa CONTIENE este texto. Ojo: distingue tildes
-   * ("Cítric" sí, "Citric" no).
-   */
-  familia: string;
-  /** Nombre del video en public/videos/ (sin extensión). */
-  video: string;
-};
-
-/**
- * Las cuatro tarjetas y su palabra clave. Perfumes activos que devuelve
- * cada una (consultado el 17 de noviembre de 2026):
- *
- *   Fresca y verde       → "Acuátic"   9  (Aromática Acuática, Floral Acuática,
- *                                         Cítrico Acuático, Acuática Amaderada…)
- *   Amaderada y oriental → "Amaderad"  40  (Amaderada Especiada, Oriental Amaderada…)
- *   Frutal               → "Frutal"    26  (Floral Frutal, Chipre Frutal…)
- *   Cítrica              → "Cítric"     1  (Cítrico Acuático: el catálogo solo
- *                                         tiene una familia cítrica)
- *
- * Para "Fresca" se descartó "Aromátic" (23): incluye familias amaderadas
- * como "Amaderada Aromática", que no son frescas. PENDIENTE de confirmar
- * con la dueña, sobre todo la tarjeta Cítrica.
- */
-const FAMILIAS: Familia[] = [
-  {
-    nombre: "Fresca y verde",
-    frase: "Hojas, agua y aire limpio.",
-    familia: "Acuátic",
-    video: "aroma-tropical-en-selva",
-  },
-  {
-    nombre: "Amaderada y oriental",
-    frase: "Maderas, humo y especias que envuelven.",
-    familia: "Amaderad",
-    video: "frasco-dorado-con-humo",
-  },
-  {
-    nombre: "Frutal",
-    frase: "Dulce, jugosa y luminosa.",
-    familia: "Frutal",
-    video: "frasco-forma-de-mujer-fondo-cafe",
-  },
-  {
-    nombre: "Cítrica",
-    frase: "Chispeante, como recién exprimida.",
-    familia: "Cítric",
-    video: "maquina-exprimiendo-frutas-para-aroma",
-  },
-];
-
-export default function Familias() {
+export default function Familias({ datos }: { datos: FamiliasPortada }) {
   return (
     <section
       id="familias"
@@ -105,28 +53,29 @@ export default function Familias() {
         />
 
         <ul className="mt-14 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 lg:grid-cols-4 lg:gap-x-8">
-          {FAMILIAS.map((item, indice) => (
-            <li key={item.familia} className="flex justify-center">
+          {datos.tarjetas.map((item, indice) => (
+            // key con el índice: la posición de cada tarjeta es fija (4) y
+            // dos tarjetas podrían tener la misma palabra.
+            <li key={indice} className="flex justify-center">
               <Reveal delay={0.1 * indice} className="w-full max-w-[280px]">
                 <Link
-                  href={`/catalogo?familia=${encodeURIComponent(item.familia)}`}
+                  href={`/catalogo?familia=${encodeURIComponent(item.palabra)}`}
                   className="group block"
                 >
                   {/* Arco: rounded-t-full redondea la parte de arriba por
                       completo. aspect-[3/4]: más ancho que el video (9:16),
                       así object-cover recorta arriba y abajo. */}
                   <div className="relative aspect-[3/4] overflow-hidden rounded-t-full border border-gold/25 bg-dark-secondary transition-colors duration-300 group-hover:border-gold/70">
-                    <AmbientVideo
-                      src={`/videos/${item.video}.mp4`}
-                      poster={`/videos/posters/${item.video}.webp`}
+                    <MedioArco
+                      medio={item.medio}
                       className="transition-transform duration-700 group-hover:scale-[1.12] motion-reduce:transition-none motion-reduce:group-hover:scale-[1.08]"
                     />
                   </div>
                   <h3 className="mt-4 text-center font-serif text-xl font-medium leading-tight text-ink sm:text-2xl">
-                    {item.nombre}
+                    {item.titulo}
                   </h3>
                   <p className="mt-1 text-center text-sm font-light leading-snug text-ink-muted">
-                    {item.frase}
+                    {item.texto}
                   </p>
                   <p className="mt-2 text-center text-xs font-medium uppercase tracking-[0.18em] text-gold-ink underline-offset-4 group-hover:underline">
                     Ver fragancias

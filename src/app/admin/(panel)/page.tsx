@@ -28,13 +28,15 @@
  *     y enlaza a la lista con el filtro "Sin foto" ya elegido
  *     (/admin/perfumes?filtro=sin-foto): las fotos se gestionan dentro de
  *     cada perfume. "Respaldo del catálogo" sigue como "Próximamente".
+ *   - La tarjeta "Portada" (Fase 5B) lleva al editor de la página de
+ *     inicio, /admin/portada.
  */
 import type { Metadata } from "next";
 import Link from "next/link";
 import { comprobarAccesoAdmin } from "@/lib/admin-auth";
 import { tieneFoto } from "@/lib/admin-formato";
 import { listarPerfumesAdmin } from "@/lib/admin-perfumes";
-import { RUTA_PERFUMES } from "@/lib/admin-rutas";
+import { RUTA_PERFUMES, RUTA_PORTADA } from "@/lib/admin-rutas";
 
 export const metadata: Metadata = {
   title: "Inicio",
@@ -91,7 +93,7 @@ export default async function PanelPage() {
         . Desde aquí podrás administrar la tienda.
       </p>
 
-      <ul className="mt-8 grid gap-5 sm:grid-cols-3">
+      <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <li>
           {/* Toda la tarjeta es el enlace: un objetivo grande y claro. */}
           <Link
@@ -155,6 +157,22 @@ export default async function PanelPage() {
             )}
             <p className="mt-4 text-sm font-medium text-admin-gold-text underline underline-offset-4">
               {sinFoto === 0 ? "Ver perfumes" : "Ver perfumes sin foto"}
+            </p>
+          </Link>
+        </li>
+        <li>
+          <Link
+            href={RUTA_PORTADA}
+            className="block h-full rounded-lg border border-admin-border-strong bg-admin-surface p-6 transition-colors duration-200 hover:border-admin-gold-text"
+          >
+            <h2 className="font-serif text-2xl font-semibold text-admin-text">
+              Portada
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-admin-muted">
+              Cambia los videos, imágenes y textos de la página de inicio.
+            </p>
+            <p className="mt-4 text-sm font-medium text-admin-gold-text underline underline-offset-4">
+              Editar la portada
             </p>
           </Link>
         </li>
