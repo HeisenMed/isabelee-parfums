@@ -23,9 +23,13 @@
  *     eventos del navegador.
  *   - El menú móvil se anima con Framer Motion (AnimatePresence permite
  *     animar también la SALIDA, cuando el componente se desmonta).
- *   - PENDIENTE Fase 2: la búsqueda y el carrito son marcadores. El
- *     contador del carrito (CART_COUNT) se conectará al estado real del
- *     carrito, y la lupa abrirá el buscador.
+ *   - BUSCADOR (Fase 5A): la lupa —o la tecla "/" en el computador— abre
+ *     src/components/search/SearchOverlay.tsx, un panel bajo esta barra.
+ *   - CARRITO (Fase 5A): el contador sale de useCarrito()
+ *     (src/components/cart/CartProvider.tsx) y el ícono abre el cajón del
+ *     carrito. El contador solo se dibuja cuando el carrito ya se leyó del
+ *     navegador (`listo`), para que el HTML del servidor (sin carrito) y
+ *     el del navegador coincidan, y se oculta si está vacío.
  *
  * COMPORTAMIENTO
  *   - Arriba del todo es transparente, para que el hero se vea completo.
@@ -48,12 +52,11 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useCarrito } from "@/components/cart/CartProvider";
+import SearchOverlay from "@/components/search/SearchOverlay";
 import { BagIcon, CloseIcon, SearchIcon } from "@/components/ui/icons";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { NAV_LINKS, SITE_NAME, SITE_SHORT_NAME } from "@/lib/site";
-
-/** Marcador: cantidad de productos en el carrito. Se conecta en la Fase 2. */
-const CART_COUNT = 0;
 
 /** Píxeles de scroll a partir de los cuales el header deja de ser transparente. */
 const SCROLL_THRESHOLD = 24;
@@ -65,6 +68,8 @@ const iconButton =
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [buscando, setBuscando] = useState(false);
+  const { unidades, listo, abrir: abrirCarrito } = useCarrito();
   const reduceMotion = useReducedMotion();
   const pathname = usePathname();
   // Barra transparente sobre el Hero (siempre de noche): ver COMPORTAMIENTO.
@@ -76,6 +81,24 @@ export default function Header() {
     onScroll(); // estado correcto si la página carga ya desplazada
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Atajo de teclado "/" para abrir el buscador (como en muchos sitios).
+  // Se ignora mientras se escribe en un campo, para no robar la barra.
+  useEffect(() => {
+    const alPulsar = (evento: KeyboardEvent) => {
+      if (evento.key !== "/" || evento.ctrlKey || evento.metaKey || evento.altKey) return;
+      const destino = evento.target as HTMLElement | null;
+      const escribiendo =
+        destino?.isContentEditable ||
+        ["INPUT", "TEXTAREA", "SELECT"].includes(destino?.tagName ?? "");
+      if (escribiendo) return;
+      evento.preventDefault();
+      setMenuOpen(false);
+      setBuscando(true);
+    };
+    window.addEventListener("keydown", alPulsar);
+    return () => window.removeEventListener("keydown", alPulsar);
   }, []);
 
   // Con el menú móvil abierto: bloquea el scroll del fondo y permite
@@ -137,7 +160,14 @@ export default function Header() {
 
           {/* Acciones: búsqueda, tema, carrito y hamburguesa */}
           <div className="flex items-center gap-0 sm:gap-1">
-            <button type="button" className={iconButton} aria-label="Buscar">
+            <button
+              type="button"
+              className={iconButton}
+              aria-label="Buscar"
+              aria-expanded={buscando}
+              aria-haspopup="dialog"
+              onClick={() => setBuscando((abierto) => !abierto)}
+            >
               <SearchIcon className="h-5 w-5" />
             </button>
 
@@ -146,15 +176,27 @@ export default function Header() {
             <button
               type="button"
               className={iconButton}
-              aria-label={`Carrito, ${CART_COUNT} productos`}
+              aria-label={
+                listo && unidades > 0
+                  ? `Carrito, ${unidades} ${unidades === 1 ? "producto" : "productos"}`
+                  : "Carrito"
+              }
+              aria-haspopup="dialog"
+              onClick={() => {
+                setBuscando(false);
+                abrirCarrito();
+              }}
             >
               <BagIcon className="h-5 w-5" />
-              <span
-                aria-hidden="true"
-                className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-1 text-[10px] font-semibold leading-none text-on-gold"
-              >
-                {CART_COUNT}
-              </span>
+              {listo && unidades > 0 && (
+                <span
+                  aria-hidden="true"
+                  className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-1 text-[10px] font-semibold leading-none text-on-gold"
+                >
+                  {/* Más de 99 no cabe en el círculo. */}
+                  {unidades > 99 ? "99+" : unidades}
+                </span>
+              )}
             </button>
 
             <button
@@ -175,6 +217,8 @@ export default function Header() {
           </div>
         </div>
       </header>
+
+      <SearchOverlay abierto={buscando} onCerrar={() => setBuscando(false)} />
 
       {/* Menú móvil. Va FUERA del <header> a propósito: el backdrop-filter
           del header crearía un contexto que recortaría a este panel fijo. */}

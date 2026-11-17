@@ -14,7 +14,9 @@
  * CÓMO SE CONECTA CON EL RESTO
  *   - Header.tsx y Footer.tsx leen NAV_LINKS para pintar el menú.
  *   - Las tarjetas y la ficha de producto usan PLACEHOLDER_IMAGE,
- *     formatPrecio() y whatsappUrl().
+ *     formatPrecio(), porcentajeDescuento() y whatsappUrl().
+ *   - El carrito (src/lib/carrito.ts) usa formatPrecio() y whatsappUrl()
+ *     para armar el pedido.
  *   - WhatsAppButton.tsx, WelcomeModal.tsx, WhatsAppCta.tsx y Footer.tsx
  *     usan las URLs de WhatsApp.
  *   - layout.tsx usa SITE_NAME y SITE_TAGLINE para los metadatos.
@@ -102,4 +104,23 @@ export function formatPrecio(precio: number): string {
     currency: "COP",
     maximumFractionDigits: 0,
   }).format(precio);
+}
+
+/**
+ * Porcentaje de descuento redondeado, o null si no hay descuento real.
+ * Solo cuenta cuando los dos precios existen y el anterior es MAYOR que el
+ * actual (la misma regla que decide si se tacha el precio anterior).
+ * Ejemplo: precio 170000, anterior 200000 → 15.
+ * Lo usan ProductCard y la ficha de producto para la etiqueta "-15 %".
+ */
+export function porcentajeDescuento(
+  precio: number | null,
+  precioOriginal: number | null,
+): number | null {
+  if (precio === null || precioOriginal === null || precioOriginal <= precio) {
+    return null;
+  }
+  const porcentaje = Math.round((1 - precio / precioOriginal) * 100);
+  // Un descuento de menos del 0,5 % redondearía a "-0 %": no se muestra.
+  return porcentaje > 0 ? porcentaje : null;
 }

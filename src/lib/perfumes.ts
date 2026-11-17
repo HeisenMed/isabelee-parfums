@@ -17,8 +17,11 @@
  *     páginas de la tienda pueden guardarse en caché.
  *   - Las tablas las crean las migraciones de supabase/migrations/.
  *   - Lo usan: src/app/(tienda)/catalogo/page.tsx,
- *     src/app/(tienda)/producto/[id]/page.tsx y las secciones Featured y
- *     Categories de la portada.
+ *     src/app/(tienda)/producto/[id]/page.tsx, las secciones Featured y
+ *     Categories de la portada y GET /api/buscar (buscador y carrito).
+ *   - El filtro `familia` busca "contiene" (ilike), no la familia exacta
+ *     (Fase 5A). El texto de búsqueda ?q= NO pasa por aquí: se filtra en
+ *     la página, en TypeScript.
  *   - Respeta RLS (Row Level Security: las reglas de Postgres que deciden,
  *     fila por fila, qué puede ver cada quien): solo ve perfumes activos.
  *   - Si una consulta falla (sin conexión, tablas aún no creadas), registra
@@ -56,7 +59,10 @@ export interface PerfumeFilters {
   generos?: Genero[];
   /** Marca exacta. */
   marca?: string;
-  /** Familia olfativa exacta. */
+  /**
+   * Palabra o fragmento de la familia olfativa: "Cítric" encuentra
+   * "Cítrico Acuático", "Cítrico Aromático"... (ver consultaPerfumes).
+   */
   familia?: string;
   /** Precio mínimo en COP. */
   precioMin?: number;
@@ -113,7 +119,14 @@ function consultaPerfumes(filters: PerfumeFilters, conColumnasNuevas: boolean) {
 
   if (generos && generos.length > 0) query = query.in("genero", generos);
   if (marca) query = query.eq("marca", marca);
-  if (familia) query = query.eq("familia_olfativa", familia);
+  // Familia: "contiene", sin distinguir mayúsculas (ilike = like que no
+  // distingue mayúsculas; % = cualquier texto). Así una tarjeta de la
+  // portada con "Frutal" incluye "Floral Frutal", "Chipre Frutal", etc.
+  // Sí distingue tildes: "Citric" no encuentra "Cítrico".
+  // Quien llama debe pasar un valor ya validado (solo letras, espacios y
+  // signos sencillos: ver parseFamilia en la página del catálogo), para
+  // que ningún %, _ o * del visitante actúe como comodín.
+  if (familia) query = query.ilike("familia_olfativa", `%${familia}%`);
   if (badge) query = query.eq("badge", badge);
   if (conColumnasNuevas && filters.destacado) query = query.eq("destacado", true);
 

@@ -25,6 +25,8 @@
  *       <WhatsAppButton />  src/components/ui/WhatsAppButton.tsx
  *       <WelcomeModal />    src/components/ui/WelcomeModal.tsx
  *       <ShareButton />     src/components/ui/ShareButton.tsx (compartir + QR)
+ *       <CartProvider>      src/components/cart/CartProvider.tsx (carrito,
+ *                           envuelve todo; dibuja también su cajón)
  *   - IMPORTANTE (caché): ni este archivo ni las páginas de la tienda deben
  *     importar src/lib/supabase-server.ts. Ese cliente lee cookies, y leer
  *     cookies obliga a Next a generar la página en cada visita; se perdería
@@ -35,6 +37,7 @@
  *   - Es un componente de servidor; los componentes interactivos que monta
  *     llevan su propio "use client".
  */
+import CartProvider from "@/components/cart/CartProvider";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import ShareButton from "@/components/ui/ShareButton";
@@ -51,6 +54,9 @@ export default function TiendaLayout({
     // colores salen de las variables de tema: oscuro en noche, marfil en
     // día. min-h-screen: el fondo cubre la ventana aunque la página sea
     // corta.
+    // CartProvider (Fase 5A): comparte el carrito con el Header, las
+    // tarjetas y la ficha, y dibuja el cajón del carrito y su aviso.
+    <CartProvider>
     <div className="min-h-screen bg-dark-deep text-ink">
       <Header />
       <main>{children}</main>
@@ -59,5 +65,6 @@ export default function TiendaLayout({
       <ShareButton />
       <WelcomeModal />
     </div>
+    </CartProvider>
   );
 }

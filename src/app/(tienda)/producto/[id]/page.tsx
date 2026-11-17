@@ -33,10 +33,18 @@
  *   - §7: texto de cuerpo a 15-16px y separación clara entre la
  *     descripción olfativa y los recuadros Salida / Corazón / Fondo.
  *   - §11.3: el mensaje de WhatsApp va en español y codificado para URL.
+ *
+ * CARRITO Y DESCUENTO (Fase 5A)
+ *   - Bajo el botón de consulta, AgregarAlCarrito
+ *     (src/components/cart/AgregarAlCarrito.tsx): cantidad y "Agregar al
+ *     carrito". No aparece si el perfume está agotado.
+ *   - Junto al precio, la etiqueta "-X %" cuando hay precio anterior mayor
+ *     (porcentajeDescuento() de src/lib/site.ts).
  */
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AgregarAlCarrito from "@/components/cart/AgregarAlCarrito";
 import ProductGallery from "@/components/product/ProductGallery";
 import { WhatsAppIcon } from "@/components/ui/icons";
 import Stars from "@/components/ui/Stars";
@@ -44,6 +52,7 @@ import { getPerfumeById, getReviewsByPerfumeId } from "@/lib/perfumes";
 import {
   formatPrecio,
   PLACEHOLDER_IMAGE,
+  porcentajeDescuento,
   SITE_SHORT_NAME,
   whatsappUrl,
 } from "@/lib/site";
@@ -149,6 +158,8 @@ export default async function ProductoPage({ params }: ProductoPageProps) {
       `${perfume.volumen ? ` (${perfume.volumen})` : ""} está agotado. ¿Cuándo vuelve a estar disponible?`,
   );
 
+  const descuento = porcentajeDescuento(perfume.precio, perfume.precio_original);
+
   const notas = perfume.notas ?? { salida: [], corazon: [], fondo: [] };
   const hayNotas = NIVELES.some(({ key }) => (notas[key] ?? []).length > 0);
 
@@ -236,6 +247,12 @@ export default async function ProductoPage({ params }: ProductoPageProps) {
                     {formatPrecio(perfume.precio_original)}
                   </span>
                 )}
+                {descuento !== null && (
+                  <span className="self-center rounded border border-gold/50 bg-gold/10 px-2 py-1 text-xs font-semibold text-gold-ink">
+                    <span aria-hidden="true">-{descuento} %</span>
+                    <span className="sr-only">Descuento del {descuento} %</span>
+                  </span>
+                )}
               </p>
             ) : (
               <p className="font-serif text-3xl italic text-gold-light">
@@ -265,6 +282,21 @@ export default async function ProductoPage({ params }: ProductoPageProps) {
                 <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
                 Consultar por este perfume
               </a>
+            )}
+
+            {/* Carrito (Fase 5A): solo si NO está agotado. Un perfume sin
+                precio también se puede agregar ("precio a consultar"). */}
+            {!agotado && (
+              <AgregarAlCarrito
+                producto={{
+                  id: perfume.id,
+                  nombre: perfume.nombre,
+                  marca: perfume.marca,
+                  volumen: perfume.volumen,
+                  imagen: perfume.imagen,
+                  precio: perfume.precio === null ? null : Number(perfume.precio),
+                }}
+              />
             )}
           </div>
 

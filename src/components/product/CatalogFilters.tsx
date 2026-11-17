@@ -25,6 +25,13 @@
  *     El parámetro `orden` es de SortSelect.tsx y aquí se conserva intacto.
  *   - Necesita "use client": lee la URL, tiene estado (panel abierto) y
  *     responde a eventos. El panel móvil se anima con Framer Motion.
+ *
+ * FAMILIA OLFATIVA (Fase 5A)
+ *   El filtro busca familias que CONTIENEN el valor elegido. Elegir
+ *   "Floral" muestra también "Floral Frutal", "Floral Amaderada", etc.
+ *   Si la URL trae una palabra que no es una familia exacta (por ejemplo
+ *   "Cítric", desde la portada), el desplegable la muestra como
+ *   "Contiene «Cítric»".
  */
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -204,6 +211,12 @@ export default function CatalogFilters({
           className={control}
         >
           <option value="">Todas las familias</option>
+          {/* La URL puede traer una PALABRA ("Cítric", desde las tarjetas de
+              la portada) en lugar de una familia exacta. Se muestra como
+              opción propia para que el desplegable refleje el filtro activo. */}
+          {familiaActiva && !familias.includes(familiaActiva) && (
+            <option value={familiaActiva}>Contiene «{familiaActiva}»</option>
+          )}
           {familias.map((familia) => (
             <option key={familia} value={familia}>
               {familia}

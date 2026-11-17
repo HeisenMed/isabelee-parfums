@@ -30,10 +30,25 @@
  *     atenuada. La tarjeta sigue enlazando a la ficha, donde se puede
  *     consultar por WhatsApp. Se compara con `=== true` porque el campo no
  *     existe mientras la migración no esté aplicada.
+ *   - Descuento (Fase 5A): si hay precio anterior mayor que el actual,
+ *     junto al precio va una etiqueta dorada "-15 %" (porcentajeDescuento()
+ *     de src/lib/site.ts), con el texto "Descuento del 15 %" para lectores
+ *     de pantalla.
+ *
+ * BOTÓN "AGREGAR AL CARRITO" (Fase 5A)
+ *   El botón compacto (src/components/cart/BotonAgregarTarjeta.tsx) va en
+ *   la esquina inferior derecha de la foto, pero FUERA del enlace: HTML no
+ *   permite un botón dentro de un enlace, y así pulsarlo nunca abre la
+ *   ficha. Por eso la raíz de la tarjeta es un <div> relativo con dos
+ *   hijos: el enlace (toda la tarjeta, como antes) y una capa superpuesta
+ *   del tamaño exacto de la foto (aspect-square) con el botón. La capa no
+ *   captura clics (pointer-events-none); solo el botón los recibe. Los
+ *   perfumes agotados no llevan botón: se consultan por WhatsApp.
  */
 import Image from "next/image";
 import Link from "next/link";
-import { formatPrecio, PLACEHOLDER_IMAGE } from "@/lib/site";
+import BotonAgregarTarjeta from "@/components/cart/BotonAgregarTarjeta";
+import { formatPrecio, PLACEHOLDER_IMAGE, porcentajeDescuento } from "@/lib/site";
 import type { Perfume } from "@/types/perfume";
 
 type ProductCardProps = {
@@ -64,11 +79,13 @@ export default function ProductCard({
   const hayDescuento =
     precio !== null && precio_original !== null && precio_original > precio;
   const agotado = perfume.agotado === true;
+  const descuento = porcentajeDescuento(precio, precio_original);
 
   return (
+    <div className="group relative h-full">
     <Link
       href={`/producto/${id}`}
-      className="group flex h-full flex-col overflow-hidden rounded-lg border border-gold/10 bg-dark-secondary transition-colors duration-300 hover:border-gold/50"
+      className="flex h-full flex-col overflow-hidden rounded-lg border border-gold/10 bg-dark-secondary transition-colors duration-300 hover:border-gold/50"
     >
       {/* Foto */}
       <div className="relative aspect-square bg-white">
@@ -120,6 +137,12 @@ export default function ProductCard({
                   {formatPrecio(precio_original)}
                 </span>
               )}
+              {descuento !== null && (
+                <span className="rounded border border-gold/50 bg-gold/10 px-1.5 py-0.5 text-[11px] font-semibold text-gold-ink">
+                  <span aria-hidden="true">-{descuento} %</span>
+                  <span className="sr-only">Descuento del {descuento} %</span>
+                </span>
+              )}
             </p>
           ) : (
             <p className="text-sm font-light italic text-gold-light">
@@ -129,5 +152,25 @@ export default function ProductCard({
         </div>
       </div>
     </Link>
+
+    {/* Capa del tamaño de la foto, solo para colocar el botón del carrito
+        (ver BOTÓN "AGREGAR AL CARRITO" en la cabecera). */}
+    {!agotado && (
+      <div className="pointer-events-none absolute inset-x-0 top-0 aspect-square">
+        <div className="pointer-events-auto absolute bottom-3 right-3">
+          <BotonAgregarTarjeta
+            producto={{
+              id,
+              nombre,
+              marca,
+              volumen,
+              imagen: perfume.imagen,
+              precio: precio === null ? null : Number(precio),
+            }}
+          />
+        </div>
+      </div>
+    )}
+    </div>
   );
 }

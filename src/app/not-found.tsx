@@ -24,6 +24,7 @@
  */
 import type { Metadata } from "next";
 import Link from "next/link";
+import CartProvider from "@/components/cart/CartProvider";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 
@@ -33,6 +34,9 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
+    // CartProvider: el Header usa el carrito (contador e ícono), así que
+    // también hace falta aquí, fuera del layout de la tienda.
+    <CartProvider>
     <div className="min-h-screen bg-dark-deep text-ink">
       <Header />
       <main className="mx-auto flex min-h-[70vh] max-w-7xl flex-col items-center justify-center px-5 pb-24 pt-36 text-center sm:px-8">
@@ -55,5 +59,6 @@ export default function NotFound() {
       </main>
       <Footer />
     </div>
+    </CartProvider>
   );
 }

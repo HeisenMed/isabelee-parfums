@@ -17,9 +17,9 @@
  *   - Los videos se reproducen con AmbientVideo (src/components/ui/), que
  *     solo los descarga y reproduce cuando están a la vista.
  *   - Los enlaces usan el filtro ?familia= del catálogo
- *     (src/app/(tienda)/catalogo/page.tsx). Ese filtro busca la familia
- *     EXACTA, así que cada tarjeta apunta a un valor que existe tal cual en
- *     la columna familia_olfativa (ver FAMILIAS, abajo).
+ *     (src/app/(tienda)/catalogo/page.tsx). Desde la Fase 5A ese filtro
+ *     busca familias que CONTIENEN la palabra, así que cada tarjeta usa una
+ *     palabra clave ("Frutal") en vez de una familia exacta (ver FAMILIAS).
  *   - Entrada animada con Reveal (Framer Motion), escalonada por tarjeta.
  *   - Colores de tema: se ve bien en noche y en día.
  *
@@ -40,8 +40,9 @@ type Familia = {
   /** Frase corta bajo el nombre. */
   frase: string;
   /**
-   * Valor EXACTO de familia_olfativa al que lleva la tarjeta. Debe existir
-   * en la base de datos; si no, el catálogo saldría vacío.
+   * Palabra clave del filtro ?familia=: el catálogo muestra los perfumes
+   * cuya familia_olfativa CONTIENE este texto. Ojo: distingue tildes
+   * ("Cítric" sí, "Citric" no).
    */
   familia: string;
   /** Nombre del video en public/videos/ (sin extensión). */
@@ -49,41 +50,43 @@ type Familia = {
 };
 
 /**
- * Las cuatro tarjetas. La familia de cada una se eligió entre los valores
- * reales de familia_olfativa (consultados el 17 de noviembre de 2026):
+ * Las cuatro tarjetas y su palabra clave. Perfumes activos que devuelve
+ * cada una (consultado el 17 de noviembre de 2026):
  *
- *   Fresca y verde       → "Aromática Acuática"  (5 perfumes)
- *   Amaderada y oriental → "Oriental Amaderada"  (6 perfumes)
- *   Frutal               → "Floral Frutal"       (14 perfumes)
- *   Cítrica              → "Cítrico Acuático"    (1 perfume)
+ *   Fresca y verde       → "Acuátic"   9  (Aromática Acuática, Floral Acuática,
+ *                                         Cítrico Acuático, Acuática Amaderada…)
+ *   Amaderada y oriental → "Amaderad"  40  (Amaderada Especiada, Oriental Amaderada…)
+ *   Frutal               → "Frutal"    26  (Floral Frutal, Chipre Frutal…)
+ *   Cítrica              → "Cítric"     1  (Cítrico Acuático: el catálogo solo
+ *                                         tiene una familia cítrica)
  *
- * No existe una familia "cítrica" ni "fresca" como tal: se tomó la más
- * cercana. PENDIENTE de confirmar con la dueña; para cambiar una tarjeta
- * basta con cambiar aquí el valor de `familia`.
+ * Para "Fresca" se descartó "Aromátic" (23): incluye familias amaderadas
+ * como "Amaderada Aromática", que no son frescas. PENDIENTE de confirmar
+ * con la dueña, sobre todo la tarjeta Cítrica.
  */
 const FAMILIAS: Familia[] = [
   {
     nombre: "Fresca y verde",
     frase: "Hojas, agua y aire limpio.",
-    familia: "Aromática Acuática",
+    familia: "Acuátic",
     video: "aroma-tropical-en-selva",
   },
   {
     nombre: "Amaderada y oriental",
     frase: "Maderas, humo y especias que envuelven.",
-    familia: "Oriental Amaderada",
+    familia: "Amaderad",
     video: "frasco-dorado-con-humo",
   },
   {
     nombre: "Frutal",
     frase: "Dulce, jugosa y luminosa.",
-    familia: "Floral Frutal",
+    familia: "Frutal",
     video: "frasco-forma-de-mujer-fondo-cafe",
   },
   {
     nombre: "Cítrica",
     frase: "Chispeante, como recién exprimida.",
-    familia: "Cítrico Acuático",
+    familia: "Cítric",
     video: "maquina-exprimiendo-frutas-para-aroma",
   },
 ];

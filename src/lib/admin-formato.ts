@@ -21,19 +21,11 @@
 import { PLACEHOLDER_IMAGE } from "@/lib/site";
 
 /**
- * Deja un texto listo para comparar: en minúsculas y sin tildes ni
- * diéresis. Así "Lancôme", "lancome" y "LANCÔME" se consideran iguales.
- * normalize("NFD") separa cada letra de su tilde ("é" → "e" + "´") y la
- * expresión regular borra esas tildes sueltas (el rango Unicode
- * U+0300–U+036F, los "signos diacríticos combinables").
+ * Texto sin tildes ni mayúsculas, para comparar. Vive en src/lib/busqueda.ts
+ * (lo comparten la tienda y el panel) y se reexporta aquí para no cambiar
+ * los imports del panel.
  */
-export function normalizarTexto(texto: string): string {
-  return texto
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase()
-    .trim();
-}
+export { normalizarTexto } from "@/lib/busqueda";
 
 /** Deja solo los dígitos de lo que se haya escrito ("$ 189.000" → "189000"). */
 export function soloDigitos(texto: string, maximo = 9): string {

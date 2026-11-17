@@ -22,6 +22,8 @@
  *   - SunIcon / MoonIcon: ThemeToggle (Header). ShareIcon, CopyIcon y
  *     DownloadIcon: ShareButton. SealIcon, GiftIcon y TruckIcon: sección
  *     "Así llega tu fragancia" de la portada (Fase 4).
+ *   - BagPlusIcon, PlusIcon, MinusIcon y TrashIcon: carrito (Fase 5A,
+ *     src/components/cart/). SearchIcon también lo usa el buscador.
  *   - El tamaño y el color NO se fijan aquí: los decide quien lo usa con
  *     clases de Tailwind (por ejemplo "h-5 w-5 text-gold-ink").
  */
@@ -245,6 +247,46 @@ export function TruckIcon(props: IconProps) {
       <path d="M2 6h11v10H2zM13 9h4l4 4v3h-8z" />
       <circle cx="6.5" cy="17.5" r="1.8" />
       <circle cx="17" cy="17.5" r="1.8" />
+    </svg>
+  );
+}
+
+/* ── Fase 5A: carrito ──────────────────────────────────────────────── */
+
+/** Bolsa con un "+": "Agregar al carrito" (tarjeta de producto). */
+export function BagPlusIcon(props: IconProps) {
+  return (
+    <svg {...stroke} {...props}>
+      <path d="M5 8h14l-1 12H6L5 8z" />
+      <path d="M9 8V6a3 3 0 016 0v2" />
+      <path d="M12 11.5v5M9.5 14h5" />
+    </svg>
+  );
+}
+
+/** Signo más (aumentar cantidad). */
+export function PlusIcon(props: IconProps) {
+  return (
+    <svg {...stroke} {...props}>
+      <path d="M12 5v14M5 12h14" />
+    </svg>
+  );
+}
+
+/** Signo menos (disminuir cantidad). */
+export function MinusIcon(props: IconProps) {
+  return (
+    <svg {...stroke} {...props}>
+      <path d="M5 12h14" />
+    </svg>
+  );
+}
+
+/** Papelera (quitar del carrito). */
+export function TrashIcon(props: IconProps) {
+  return (
+    <svg {...stroke} {...props}>
+      <path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3" />
     </svg>
   );
 }
